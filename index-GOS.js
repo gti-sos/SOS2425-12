@@ -1,3 +1,4 @@
+let campos = ["region", "year", "electricity", "gas", "other", "total_consumption", "consumption_per_capita", "co2_emission"];
 let datos = [
     [2022, "País Vasco", 1653989, 830160, 445559, 2929708, 3.48E+20, 38903],
     [2022, "Andalucía", 736139, 306174, 53975, 1096288, 8.14E+20, 1008],
@@ -20,13 +21,18 @@ let datos = [
     [2021, "Madrid, Comunidad de", 477683, 163788, 53155, 694626, 5.16E+20, 1008],
     [2021, "Andalucía", 543877, 174503, 84090, 802470, 7.42E+19, 18047]];
 
+
     function calcularMediaPorRegion(region, indiceCampo) {
         let subset = datos.filter(dato => dato[1] === region);
         let suma = subset.reduce((acc, dato) => acc + dato[indiceCampo], 0);
         return subset.length > 0 ? suma / subset.length : 0;
     }
+    function muestraDatos(datos) {
+        console.log(datos);
+    }
 
     let region = "Andalucía";
     let indiceCampo = 2; // Cambiar al índice del campo numérico deseado
+    //let data = muestraDatos(datos);
     let media = calcularMediaPorRegion(region, indiceCampo);
-    console.log(`La media del campo ${indiceCampo} para la región ${region} es ${media}`);
+    console.log(`La media del campo ${campos[indiceCampo]} para la región ${region} es ${media}`);
