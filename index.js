@@ -1,6 +1,5 @@
 const cool = require("cool-ascii-faces")
 const express = require("express");
-const cool = require("cool-ascii-faces");
 const app = express();
 const PORT = process.env.PORT || 16078;
 
