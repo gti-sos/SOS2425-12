@@ -1,11 +1,16 @@
 const express = require("express");
 const gosAlgorithm = require("./samples/GOS/index.js");
+const fagAlgorithm = require("./samples/FAG/index.js");
 const cool = require("cool-ascii-faces")
 
 const app = express();
 const PORT = process.env.PORT || 16078;
 
 app.use("/", express.static(__dirname));
+
+app.get("/samples/FAG", (req, res) => {
+    res.send(fagAlgorithm());
+});
 
 app.get("/samples/GOS", (req, res) => {
     try {
