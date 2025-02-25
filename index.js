@@ -1,9 +1,20 @@
-const cool = require("cool-ascii-faces")
 const express = require("express");
+const gosAlgorithm = require("./samples/GOS/index.js");
+const cool = require("cool-ascii-faces")
+
 const app = express();
 const PORT = process.env.PORT || 16078;
 
 app.use("/", express.static(__dirname));
+
+app.get("/samples/GOS", (req, res) => {
+    try {
+        const result = gosAlgorithm(); 
+        res.send(`<pre>${result}</pre>`); 
+    } catch (error) {
+        console.error("Error al ejecutar el algoritmo:", error);
+    }
+});
 
 app.get("/cool", (request, response) => {
     response.send(cool());
