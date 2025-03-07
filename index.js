@@ -23,7 +23,7 @@ app.get("/samples/GOS", (req, res) => {
 });
 
 app.get("/samples/CRR", (request, response) => {
-    res.send(crrAlgorithm());
+    response.send(crrAlgorithm());
 });
 
 app.get("/cool", (request, response) => {
