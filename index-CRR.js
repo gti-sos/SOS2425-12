@@ -23,4 +23,4 @@ let sum = 0;
 let filtrados = datos_ejemplo.filter(dato => dato[1] === "Andalucía"); 
 filtrados.forEach(dato => sum += dato[3]);
 let promedio = sum / filtrados.length;
-console.log(promedio);
+console.log(`El promedio de la energía vendida en Andalucía es de ${promedio}`);
