@@ -2,7 +2,7 @@ const express = require("express");
 const gosAlgorithm = require("./samples/GOS/index.js");
 const fagAlgorithm = require("./samples/FAG/index.js");
 const crrAlgorithm = require("./samples/CRR/index.js");
-const cool = require("cool-ascii-faces")
+const cool = require("cool-ascii-faces");
 
 const app = express();
 const PORT = process.env.PORT || 16078;
