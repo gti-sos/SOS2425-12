@@ -1,6 +1,7 @@
 const express = require("express");
 const gosAlgorithm = require("./samples/GOS/index.js");
 const fagAlgorithm = require("./samples/FAG/index.js");
+const crrAlgorithm = require("./samples/CRR/index.js");
 const cool = require("cool-ascii-faces")
 
 const app = express();
@@ -19,6 +20,10 @@ app.get("/samples/GOS", (req, res) => {
     } catch (error) {
         console.error("Error al ejecutar el algoritmo:", error);
     }
+});
+
+app.get("/samples/CRR", (request, response) => {
+    res.send(crrAlgorithm());
 });
 
 app.get("/cool", (request, response) => {
