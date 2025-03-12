@@ -4,7 +4,7 @@ const fagAlgorithm = require("./samples/FAG/index.js");
 const crrAlgorithm = require("./samples/CRR/index.js");
 const cool = require("cool-ascii-faces");
 
-const BASE_API = "api/v1"
+const BASE_API = "/api/v1"
 
 const app = express();
 const PORT = process.env.PORT || 16078;
