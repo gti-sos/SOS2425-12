@@ -68,7 +68,7 @@ app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
     }
     else{
 
-        let anual_evolutions = [
+        anual_evolutions = [
             { year: 2005, aacc: "Andalucía", technology: "Biomasa", energy_sold: 726.24343, installed_power: 127.98, load_factor: 64.7792606 },
             { year: 2005, aacc: "Andalucía", technology: "Cogeneración", energy_sold: 2975.02877, installed_power: 630.88, load_factor: 53.83197436 },
             { year: 2005, aacc: "Andalucía", technology: "Eólica", energy_sold: 910.74752, installed_power: 443.53, load_factor: 23.44071643 },
@@ -83,7 +83,9 @@ app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
             { year: 2009, aacc: "Murcia, Región de", technology: "Trat.residuos", energy_sold: 367.1823, installed_power: 69.576, load_factor: 60.2446069 },
             { year: 2009, aacc: "Navarra, Comunidad Foral de", technology: "Biomasa", energy_sold: 339.5784, installed_power: 40.51, load_factor: 95.6915762 }
         ];
-        
+        console.log(anual_evolutions);
+
+        response.send(JSON.stringify(anual_evolutions));
         response.sendStatus(201);
     }
 });
