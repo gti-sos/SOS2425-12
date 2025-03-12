@@ -85,7 +85,6 @@ app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
         ];
         console.log(anual_evolutions);
 
-        response.send(JSON.stringify(anual_evolutions));
-        response.sendStatus(201);
+        response.status(201).json(anual_evolutions);
     }
 });
