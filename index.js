@@ -64,7 +64,7 @@ app.post(BASE_API + "/anual-evolutions", (request, response) => {
 app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
     console.log("New GET to /loadInitialData");
     if (anual_evolutions.length > 0) {
-        return res.status(400).json({ message: "El array ya contiene datos" });
+        return response.status(400).json({ message: "El array ya contiene datos" });
     }
     else{
 
