@@ -46,13 +46,16 @@ app.listen(PORT, () => {
 
 //L05 
 
+//Clara
 let anual_evolutions = [];
 
+//GET
 app.get(BASE_API + "/anual-evolutions", (request, response) => {
     console.log("New GET to /anual-evolutions");
     response.send(JSON.stringify(anual_evolutions));
 });
 
+//POST
 app.post(BASE_API + "/anual-evolutions", (request, response) => {
     console.log("New POST to /anual-evolutions");
     let newData = request.body;
@@ -61,6 +64,20 @@ app.post(BASE_API + "/anual-evolutions", (request, response) => {
 
 });
 
+//PUT
+app.put(BASE_API + "/anual-evolutions", (request, response) => {
+    console.log("New PUT to /anual-evolutions");
+    response.sendStatus(405).json({error : "método PUT no permiido"});
+});
+
+//DELETE
+app.delete(BASE_API + "/anual-evolutions", (request, response) => {
+    console.log("New DELETE to /anual-evolutions");
+    anual_evolutions = [];
+    response.sendStatus(200).json(anual_evolutions);
+});
+
+//loadInitialData
 app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
     console.log("New GET to /loadInitialData");
     if (anual_evolutions.length > 0) {
