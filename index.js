@@ -60,7 +60,7 @@ app.post(BASE_API + "/anual-evolutions", (request, response) => {
     console.log("New POST to /anual-evolutions");
     let newData = request.body;
     if (anual_evolutions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
-        return response.sendStatus(409).json({ message: "Ya existe" });
+        return response.sendStatus(409).json({ error: "Ya existe" });
     }
     else{
     anual_evolutions.push(newData);
