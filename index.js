@@ -59,15 +59,19 @@ app.get(BASE_API + "/anual-evolutions", (request, response) => {
 app.post(BASE_API + "/anual-evolutions", (request, response) => {
     console.log("New POST to /anual-evolutions");
     let newData = request.body;
+    if (anual_evolutions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
+        return response.sendStatus(409).json({ message: "Ya existe" });
+    }
+    else{
     anual_evolutions.push(newData);
     response.sendStatus(201);
-
+    }
 });
 
 //PUT
 app.put(BASE_API + "/anual-evolutions", (request, response) => {
     console.log("New PUT to /anual-evolutions");
-    response.sendStatus(405).json({error : "método PUT no permiido"});
+    response.sendStatus(405).json({error : "método PUT no permitido"});
 });
 
 //DELETE
@@ -105,3 +109,7 @@ app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
         response.status(201).json(anual_evolutions);
     }
 });
+
+
+
+
