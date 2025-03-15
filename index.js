@@ -44,52 +44,53 @@ app.listen(PORT, () => {
 });
 
 
-//L05 
 
-//Clara
-let anual_evolutions = [];
+//L05 -----------------------------------------------------------------------------------------------------------------------------------
+
+//Clara -----------------------------------------------------------------------------------------------------------------------------------
+let annual_evolutions = [];
 
 //GET
-app.get(BASE_API + "/anual-evolutions", (request, response) => {
-    console.log("New GET to /anual-evolutions");
-    response.send(JSON.stringify(anual_evolutions));
+app.get(BASE_API + "/annual-evolutions", (request, response) => {
+    console.log("New GET to /annual-evolutions");
+    response.send(JSON.stringify(annual_evolutions));
 });
 
 //POST
-app.post(BASE_API + "/anual-evolutions", (request, response) => {
-    console.log("New POST to /anual-evolutions");
+app.post(BASE_API + "/annual-evolutions", (request, response) => {
+    console.log("New POST to /annual-evolutions");
     let newData = request.body;
-    if (anual_evolutions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
+    if (annual_evolutions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
         return response.sendStatus(409).json({ error: "Ya existe" });
     }
     else{
-    anual_evolutions.push(newData);
+    annual_evolutions.push(newData);
     response.sendStatus(201);
     }
 });
 
 //PUT
-app.put(BASE_API + "/anual-evolutions", (request, response) => {
-    console.log("New PUT to /anual-evolutions");
+app.put(BASE_API + "/annual-evolutions", (request, response) => {
+    console.log("New PUT to /annual-evolutions");
     response.sendStatus(405).json({error : "método PUT no permitido"});
 });
 
 //DELETE
-app.delete(BASE_API + "/anual-evolutions", (request, response) => {
-    console.log("New DELETE to /anual-evolutions");
-    anual_evolutions = [];
-    response.sendStatus(200).json(anual_evolutions);
+app.delete(BASE_API + "/annual-evolutions", (request, response) => {
+    console.log("New DELETE to /annual-evolutions");
+    annual_evolutions = [];
+    response.sendStatus(200).json(annual_evolutions);
 });
 
 //loadInitialData
-app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
+app.get(BASE_API + "/annual-evolutions/loadInitialData", (request, response) => {
     console.log("New GET to /loadInitialData");
-    if (anual_evolutions.length > 0) {
+    if (annual_evolutions.length > 0) {
         return response.status(400).json({ message: "El array ya contiene datos" });
     }
     else{
 
-        anual_evolutions = [
+        annual_evolutions = [
             { year: 2005, aacc: "Andalucía", technology: "Biomasa", energy_sold: 726.24343, installed_power: 127.98, load_factor: 64.7792606 },
             { year: 2005, aacc: "Andalucía", technology: "Cogeneración", energy_sold: 2975.02877, installed_power: 630.88, load_factor: 53.83197436 },
             { year: 2005, aacc: "Andalucía", technology: "Eólica", energy_sold: 910.74752, installed_power: 443.53, load_factor: 23.44071643 },
@@ -104,26 +105,27 @@ app.get(BASE_API + "/anual-evolutions/loadInitialData", (request, response) => {
             { year: 2009, aacc: "Murcia, Región de", technology: "Trat.residuos", energy_sold: 367.1823, installed_power: 69.576, load_factor: 60.2446069 },
             { year: 2009, aacc: "Navarra, Comunidad Foral de", technology: "Biomasa", energy_sold: 339.5784, installed_power: 40.51, load_factor: 95.6915762 }
         ];
-        console.log(anual_evolutions);
+        console.log(annual_evolutions);
 
-        response.status(201).json(anual_evolutions);
+        response.status(201).json(annual_evolutions);
     }
 });
 
 
 
-// Fer
+
+// Fer -----------------------------------------------------------------------------------------------------------------------------------
 let annual_retributions = [];
 
 //GET
-app.get(BASE_API + "/anual-retributions", (req, res) => {
-    console.log("New GET to /anual-retributions");
+app.get(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New GET to /annual-retributions");
     res.send(JSON.stringify(annual_retributions));
 });
 
 //POST
-app.post(BASE_API + "/anual-retributions", (req, res) => {
-    console.log("New POST to /anual-retributions");
+app.post(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New POST to /annual-retributions");
     let newData = req.body;
     if (annual_retributions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
         return res.sendStatus(409).json({ error: "Ya existe" });
@@ -135,20 +137,20 @@ app.post(BASE_API + "/anual-retributions", (req, res) => {
 });
 
 //PUT
-app.put(BASE_API + "/anual-retributions", (req, res) => {
-    console.log("New PUT to /anual-retributions");
+app.put(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New PUT to /annual-retributions");
     res.sendStatus(405).json({error : "método PUT no permitido"});
 });
 
 //DELETE
-app.delete(BASE_API + "/anual-retributions", (req, res) => {
-    console.log("New DELETE to /anual-retributions");
+app.delete(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New DELETE to /annual-retributions");
     annual_retributions = [];
     res.sendStatus(200).json(annual_retributions);
 });
 
 //loadInitialData
-app.get(BASE_API + "/anual-evolutions/loadInitialData", (req, res) => {
+app.get(BASE_API + "/annual-evolutions/loadInitialData", (req, res) => {
     console.log("New GET to /loadInitialData");
     if (annual_retributions.length > 0) {
         return res.status(400).json({ message: "El array ya contiene datos" });
