@@ -56,17 +56,19 @@ app.get(BASE_API + "/annual-evolutions", (request, response) => {
     response.send(JSON.stringify(annual_evolutions));
 });
 
+
 app.get(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
     const aacc = request.params.aacc;
     console.log(`New GET to /annual-evolutions/${aacc}`);
 
-    if (annual_evolutions.find(x => x.aacc === aacc)){
-        return response.status(200).json(annual_evolutions.find(x => x.aacc === aacc));
+    const search = annual_evolutions.filter(x => x.aacc === aacc);
+    if (search){
+        return response.status(200).json(search);
     }
-    else{
+    else{   
         return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
     }
-})
+});
 
 //POST
 app.post(BASE_API + "/annual-evolutions", (request, response) => {
@@ -81,10 +83,39 @@ app.post(BASE_API + "/annual-evolutions", (request, response) => {
     }
 });
 
+
+app.post(BASE_API + "/annual-evolutions/:aacc", (request, response) => {
+    const aacc = request.params.aacc;
+    console.log(`New POST to /annual-evolutions/${aacc}`);
+    response.status(405).json({error : "Método POST no permitido"});
+});
+
+
 //PUT
 app.put(BASE_API + "/annual-evolutions", (request, response) => {
     console.log("New PUT to /annual-evolutions");
     response.status(405).json({error : "Método PUT no permitido"});
+});
+
+
+app.put(BASE_API + "/annual-evolutions", (request, response) => {
+    const aacc = request.params.aacc;
+    console.log(`New PUT to /annual-evolutions/${aacc}`);
+
+    const search = annual_evolutions.filter(x => x.aacc === aacc);
+    if (search){
+        let data = request.body;
+        if (){
+            response.status(400).json({message : "Faltan datos requeridos"});
+
+        }
+
+        response.status(200).json({message : "Datos actualizados"});
+    }
+    else{   
+        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
+
 });
 
 //DELETE
