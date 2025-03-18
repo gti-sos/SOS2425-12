@@ -62,7 +62,7 @@ app.get(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
     console.log(`New GET to /annual-evolutions/${aacc}`);
 
     const search = annual_evolutions.filter(x => x.aacc === aacc);
-    if (search){
+    if (search.length > 0){
         return response.status(200).json(search);
     }
     else{   
@@ -98,31 +98,46 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 });
 
 
-app.put(BASE_API + "/annual-evolutions", (request, response) => {
-    const aacc = request.params.aacc;
-    console.log(`New PUT to /annual-evolutions/${aacc}`);
+// app.put(BASE_API + "/annual-evolutions", (request, response) => {
+//     const aacc = request.params.aacc;
+//     console.log(`New PUT to /annual-evolutions/${aacc}`);
 
-    const search = annual_evolutions.filter(x => x.aacc === aacc);
-    if (search){
-        let data = request.body;
-        if (){
-            response.status(400).json({message : "Faltan datos requeridos"});
+//     const search = annual_evolutions.filter(x => x.aacc === aacc);
+//     if (search.length > 0){
+//         let data = request.body;
+//         if (){
+//             response.status(400).json({message : "Faltan datos requeridos"});
 
-        }
+//         }
 
-        response.status(200).json({message : "Datos actualizados"});
-    }
-    else{   
-        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
-    }
+//         response.status(200).json({message : "Datos actualizados"});
+//     }
+//     else{   
+//         return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+//     }
 
-});
+// });
 
 //DELETE
 app.delete(BASE_API + "/annual-evolutions", (request, response) => {
     console.log("New DELETE to /annual-evolutions");
     annual_evolutions = [];
     response.sendStatus(200).json(annual_evolutions);
+});
+
+
+app.delete(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
+    const aacc = request.params.aacc;
+    console.log(`New GET to /annual-evolutions/${aacc}`);
+
+    const search = annual_evolutions.filter(x => x.aacc === aacc);
+    if (search.length > 0){
+        annual_evolutions.delete(search);
+        return response.status(200).json(annual_evolutions);
+    }
+    else{   
+        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
 });
 
 //loadInitialData
