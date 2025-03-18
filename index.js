@@ -78,8 +78,13 @@ app.post(BASE_API + "/annual-evolutions", (request, response) => {
         return response.status(409).json({ error: "Ya existe ese dato" });
     }
     else{
-        annual_evolutions.push(newData);
-        response.sendStatus(201);
+        if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
+            return response.status(400).json({ error: "Faltan datos requeridos" });
+        }
+        else{
+            annual_evolutions.push(newData);
+            response.sendStatus(201);
+        };
     }
 });
 
@@ -105,8 +110,8 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 //     const search = annual_evolutions.filter(x => x.aacc === aacc);
 //     if (search.length > 0){
 //         let data = request.body;
-//         if (){
-//             response.status(400).json({message : "Faltan datos requeridos"});
+    // if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
+    //             response.status(400).json({message : "Faltan datos requeridos"});
 
 //         }
 
@@ -122,7 +127,7 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 app.delete(BASE_API + "/annual-evolutions", (request, response) => {
     console.log("New DELETE to /annual-evolutions");
     annual_evolutions = [];
-    response.sendStatus(200).json(annual_evolutions);
+    response.status(200).json(annual_evolutions);
 });
 
 
