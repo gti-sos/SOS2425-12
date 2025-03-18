@@ -110,12 +110,10 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 //     const search = annual_evolutions.filter(x => x.aacc === aacc);
 //     if (search.length > 0){
 //         let data = request.body;
-    // if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
-    //             response.status(400).json({message : "Faltan datos requeridos"});
-
+//         if (!data.year || !data.aacc || !data.technology || !data.energy_sold || !data.installed_power || !data.load_factor) {
+//             response.status(400).json({message : "Faltan datos requeridos"});
 //         }
-
-//         response.status(200).json({message : "Datos actualizados"});
+//         elseresponse.status(200).json({message : "Datos actualizados"});
 //     }
 //     else{   
 //         return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
