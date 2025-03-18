@@ -130,9 +130,9 @@ app.delete(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
     const aacc = request.params.aacc;
     console.log(`New GET to /annual-evolutions/${aacc}`);
 
-    const search = annual_evolutions.filter(x => x.aacc === aacc);
-    if (search.length > 0){
-        annual_evolutions.delete(search);
+    const exists = annual_evolutions.some(x => x.aacc === aacc);
+    if (exists){
+        annual_evolutions = annual_evolutions.filter(x => x.aacc !== aacc);
         return response.status(200).json(annual_evolutions);
     }
     else{   
