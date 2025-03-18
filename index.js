@@ -56,23 +56,35 @@ app.get(BASE_API + "/annual-evolutions", (request, response) => {
     response.send(JSON.stringify(annual_evolutions));
 });
 
+app.get(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
+    const aacc = request.params.aacc;
+    console.log(`New GET to /annual-evolutions/${aacc}`);
+
+    if (annual_evolutions.find(x => x.aacc === aacc)){
+        return response.status(200).json(annual_evolutions.find(x => x.aacc === aacc));
+    }
+    else{
+        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
+})
+
 //POST
 app.post(BASE_API + "/annual-evolutions", (request, response) => {
     console.log("New POST to /annual-evolutions");
     let newData = request.body;
     if (annual_evolutions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
-        return response.sendStatus(409).json({ error: "Ya existe" });
+        return response.status(409).json({ error: "Ya existe ese dato" });
     }
     else{
-    annual_evolutions.push(newData);
-    response.sendStatus(201);
+        annual_evolutions.push(newData);
+        response.sendStatus(201);
     }
 });
 
 //PUT
 app.put(BASE_API + "/annual-evolutions", (request, response) => {
     console.log("New PUT to /annual-evolutions");
-    response.sendStatus(405).json({error : "método PUT no permitido"});
+    response.status(405).json({error : "Método PUT no permitido"});
 });
 
 //DELETE
@@ -110,6 +122,8 @@ app.get(BASE_API + "/annual-evolutions/loadInitialData", (request, response) => 
         response.status(201).json(annual_evolutions);
     }
 });
+
+
 
 
 
