@@ -132,26 +132,26 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 });
 
 
-// app.put(BASE_API + "/annual-evolutions", (request, response) => {
-//     const aacc = request.params.aacc;
-//     console.log(`New PUT to /annual-evolutions/${aacc}`);
+app.put(BASE_API + "/annual-evolutions/:aacc", (request, response) => {
+    let aacc = request.params.aacc;
+    console.log(`New PUT to /annual-evolutions/${aacc}`);
 
-//     const search = annual_evolutions.filter(x => x.aacc === aacc);
-//     if (search.length > 0){
-//         let data = request.body;
-//         if (!data.year || !data.aacc || !data.technology || !data.energy_sold || !data.installed_power || !data.load_factor) {
-//             response.status(400).json({message : "Faltan datos requeridos"});
-//         }
-//         else {
-            
-//             response.status(200).json({message : "Datos actualizados"});
-//         }
-//     }
-//     else{   
-//         return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
-//     }
+    const search = annual_evolutions.filter(x => x.aacc === aacc);
+    if (search.length > 0){
+        let data = request.body;
+        annual_evolutions.findIndex(x => x.aacc == aacc);
+        annual_evolutions[index] = {
+            ...annual_evolutions[index], // mantiene los datos actuales
+            ...data                      // sobrescribe solo los campos enviados
+        };
+        response.status(200).json({message : "Datos actualizados"});
+        
+    }
+    else{   
+        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
 
-// });
+});
 
 //DELETE
 app.delete(BASE_API + "/annual-evolutions", (request, response) => {
