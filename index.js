@@ -142,7 +142,10 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 //         if (!data.year || !data.aacc || !data.technology || !data.energy_sold || !data.installed_power || !data.load_factor) {
 //             response.status(400).json({message : "Faltan datos requeridos"});
 //         }
-//         elseresponse.status(200).json({message : "Datos actualizados"});
+//         else {
+            
+//             response.status(200).json({message : "Datos actualizados"});
+//         }
 //     }
 //     else{   
 //         return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
