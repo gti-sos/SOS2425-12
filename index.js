@@ -213,7 +213,7 @@ app.put(BASE_API + "/annual-retributions", (req, res) => {
 app.delete(BASE_API + "/annual-retributions", (req, res) => {
     console.log("New DELETE to /annual-retributions");
     annual_retributions = [];
-    res.sendStatus(200).json(annual_retributions);
+    res.sendStatus(200).json({ message: "Datos eliminados correctamente" } + annual_retributions);
 });
 
 //loadInitialData
