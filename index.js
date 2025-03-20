@@ -136,10 +136,9 @@ app.put(BASE_API + "/annual-evolutions/:aacc", (request, response) => {
     let aacc = request.params.aacc;
     console.log(`New PUT to /annual-evolutions/${aacc}`);
 
-    const search = annual_evolutions.filter(x => x.aacc === aacc);
-    if (search.length > 0){
+    const index = annual_evolutions.findIndex(x => x.aacc == aacc);
+    if (index >= 0){
         let data = request.body;
-        annual_evolutions.findIndex(x => x.aacc == aacc);
         annual_evolutions[index] = {
             ...annual_evolutions[index], // mantiene los datos actuales
             ...data                      // sobrescribe solo los campos enviados
