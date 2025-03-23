@@ -245,28 +245,28 @@ app.post(BASE_API + "/annual-retributions", (req, res) => {
 });
 
 
-app.post(BASE_API + "/annual-evolutions/:aacc", (req, res) => {
+app.post(BASE_API + "/annual-retributions/:aacc", (req, res) => {
     const aacc = req.params.aacc;
-    console.log(`New POST to /annual-evolutions/${aacc}`);
+    console.log(`New POST to /annual-retributions/${aacc}`);
     res.status(405).json({error : "Método POST no permitido"});
 });
 
 //PUT
-app.put(BASE_API + "/annual-evolutions", (req, res) => {
-    console.log("New PUT to /annual-evolutions");
+app.put(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New PUT to /annual-retributions");
     res.status(405).json({error : "Método PUT no permitido"});
 });
 
 
-app.put(BASE_API + "/annual-evolutions/:aacc", (req, res) => {
+app.put(BASE_API + "/annual-retributions/:aacc", (req, res) => {
     let aacc = req.params.aacc;
-    console.log(`New PUT to /annual-evolutions/${aacc}`);
+    console.log(`New PUT to /annual-retributions/${aacc}`);
 
-    const index = annual_evolutions.findIndex(x => x.aacc == aacc);
+    const index = annual_retributions.findIndex(x => x.aacc == aacc);
     if (index >= 0){
         let data = req.body;
-        annual_evolutions[index] = {
-            ...annual_evolutions[index], // mantiene los datos actuales
+        annual_retributions[index] = {
+            ...annual_retributions[index], // mantiene los datos actuales
             ...data                      // sobrescribe solo los campos enviados
         };
         res.status(200).json({message : "Datos actualizados"});
@@ -279,21 +279,21 @@ app.put(BASE_API + "/annual-evolutions/:aacc", (req, res) => {
 });
 
 //DELETE
-app.delete(BASE_API + "/annual-evolutions", (req, res) => {
-    console.log("New DELETE to /annual-evolutions");
-    annual_evolutions = [];
-    res.status(200).json(annual_evolutions);
+app.delete(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New DELETE to /annual-retributions");
+    annual_retributions = [];
+    res.status(200).json(annual_retributions);
 });
 
 
-app.delete(BASE_API + "/annual-evolutions" + "/:aacc", (req, res) => {
+app.delete(BASE_API + "/annual-retributions" + "/:aacc", (req, res) => {
     const aacc = req.params.aacc;
-    console.log(`New GET to /annual-evolutions/${aacc}`);
+    console.log(`New GET to /annual-retributions/${aacc}`);
 
-    const exists = annual_evolutions.some(x => x.aacc === aacc);
+    const exists = annual_retributions.some(x => x.aacc === aacc);
     if (exists){
-        annual_evolutions = annual_evolutions.filter(x => x.aacc !== aacc);
-        return res.status(200).json(annual_evolutions);
+        annual_retributions = annual_retributions.filter(x => x.aacc !== aacc);
+        return res.status(200).json(annual_retributions);
     }
     else{   
         return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
