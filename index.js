@@ -365,6 +365,10 @@ app.get(BASE_API + "/annual-consumptions" + "/:aacc", (req, res) => {
 app.post(BASE_API + "/annual-consumptions", (req, res) => {
     console.log("New POST to /annual-consumptions");
     let newData = req.body;
+
+    if (!newData.aacc || !newData.year || !newData.electricity || !newData.gas || !newData.other || !newData.total_consumption || !newData.co2_emission) {
+        return res.status(400).json({ error: "Faltan campos requeridos en el cuerpo de la solicitud" });
+    }
     if (annual_consumptions.some(data => data.year === newData.year && data.aacc === newData.aacc)){
         return res.status(409).json({ error: "Ya existe" });
     }
@@ -387,14 +391,20 @@ app.put(BASE_API + "/annual-consumptions", (req, res) => {
 
 app.put(BASE_API + "/annual-consumptions/:aacc", (req, res) => {
     let aacc = req.params.aacc;
+    let updatedData = req.body;
+
+    if (updatedData.aacc !== aacc) {
+        return res.status(400).json({ error: "El 'aacc' del cuerpo no coincide con el de la URL" });
+    }
+
     console.log(`New PUT to /annual-consumptions/${aacc}`);
 
     const index = annual_consumptions.findIndex(data => data.aacc === aacc && data.year === req.body.year);
     if (index >= 0) {
         let updatedData = req.body; 
         annual_consumptions[index] = {
-            ...annual_consumptions[index], // mantiene los datos actuales
-            ...updatedData                  // sobrescribe solo los campos enviados
+            ...annual_consumptions[index], 
+            ...updatedData                  
         };
         res.status(200).json({message: "Datos actualizados"});
     }
