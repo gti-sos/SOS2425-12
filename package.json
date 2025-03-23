@@ -4,7 +4,8 @@
   "description": "- **Team**\n  - Gonzalo Osuna Salas (https://github.com/gxnzalx55)\n  - Fernando Aguirre Garcia (https://github.com/Fer-28)\n  - Clara Reina Romero (https://github.com/clarareina)\n- **Project description**: Our project aims to analyse the relationship between energy consumption, energy generation using different technologies and the associated economic retributions in order to understand patterns of energy efficiency and sustainability in Spain.\n- **Repository**: [gti-sos/SOS2425-12](https://github.com/gti-sos/SOS2425-12)\n- **URL**: #todo\n- **APIs**:\n    - #todo\n    - #todo\n    - #todo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/gti-sos/SOS2425-12#readme",
   "dependencies": {
-    "cool-ascii-faces": "^1.3.4"
+    "cool-ascii-faces": "^1.3.4",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
   }
 }

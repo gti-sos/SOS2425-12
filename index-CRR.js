@@ -20,7 +20,8 @@ let datos_ejemplo = [["year","aacc","technology","energy_sold","installed_power"
 // subconjunto de filas que comparten un determinado valor en el campo de información geográfica.
 
 let sum = 0;
+let prueba = 1;
 let filtrados = datos_ejemplo.filter(dato => dato[1] === "Andalucía"); 
 filtrados.forEach(dato => sum += dato[3]);
 let promedio = sum / filtrados.length;
-console.log(promedio);
+console.log(`El promedio de la energía vendida en Andalucía es de ${promedio}`);
