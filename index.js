@@ -135,21 +135,24 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 app.put(BASE_API + "/annual-evolutions/:aacc", (request, response) => {
     let aacc = request.params.aacc;
     console.log(`New PUT to /annual-evolutions/${aacc}`);
-
-    const index = annual_evolutions.findIndex(x => x.aacc == aacc);
-    if (index >= 0){
-        let data = request.body;
-        annual_evolutions[index] = {
-            ...annual_evolutions[index], // mantiene los datos actuales
-            ...data                      // sobrescribe solo los campos enviados
-        };
-        response.status(200).json({message : "Datos actualizados"});
-        
+    if (aacc == request.body.aacc){
+        const index = annual_evolutions.findIndex(x => x.aacc == aacc);
+        if (index >= 0){
+            let data = request.body;
+            annual_evolutions[index] = {
+                ...annual_evolutions[index], // mantiene los datos actuales
+                ...data                      // sobrescribe solo los campos enviados
+            };
+            response.status(200).json({message : "Datos actualizados"});
+            
+        }
+        else{   
+            return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+        }
     }
-    else{   
-        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    else{
+        return response.status(400).json({error: "No se puede modificar el id"});
     }
-
 });
 
 //DELETE
@@ -396,20 +399,21 @@ app.put(BASE_API + "/annual-consumptions/:aacc", (req, res) => {
     if (updatedData.aacc !== aacc) {
         return res.status(400).json({ error: "El 'aacc' del cuerpo no coincide con el de la URL" });
     }
-
-    console.log(`New PUT to /annual-consumptions/${aacc}`);
-
-    const index = annual_consumptions.findIndex(data => data.aacc === aacc && data.year === req.body.year);
-    if (index >= 0) {
-        let updatedData = req.body; 
-        annual_consumptions[index] = {
-            ...annual_consumptions[index], 
-            ...updatedData                  
-        };
-        res.status(200).json({message: "Datos actualizados"});
-    }
     else {
-        return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
+        console.log(`New PUT to /annual-consumptions/${aacc}`);
+
+        const index = annual_consumptions.findIndex(data => data.aacc === aacc && data.year === req.body.year);
+        if (index >= 0) {
+            let updatedData = req.body; 
+            annual_consumptions[index] = {
+                ...annual_consumptions[index], 
+                ...updatedData                  
+            };
+            res.status(200).json({message: "Datos actualizados"});
+        }
+        else {
+            return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
+        }
     }
 });
 
