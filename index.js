@@ -266,8 +266,8 @@ app.put(BASE_API + "/annual-retributions/:aacc", (req, res) => {
     if (index >= 0){
         let data = req.body;
         annual_retributions[index] = {
-            ...annual_retributions[index], // mantiene los datos actuales
-            ...data                      // sobrescribe solo los campos enviados
+            ...annual_retributions[index],
+            ...data
         };
         res.status(200).json({message : "Datos actualizados"});
         
