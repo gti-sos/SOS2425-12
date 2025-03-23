@@ -176,45 +176,8 @@ app.delete(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
 
 
 
-
-
-
-
-
 // Fer -----------------------------------------------------------------------------------------------------------------------------------
 let annual_retributions = [];
-
-//GET
-app.get(BASE_API + "/annual-retributions", (req, res) => {
-    console.log("New GET to /annual-retributions");
-    res.send(JSON.stringify(annual_retributions));
-});
-
-//POST
-app.post(BASE_API + "/annual-retributions", (req, res) => {
-    console.log("New POST to /annual-retributions");
-    let newData = req.body;
-    if (annual_retributions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
-        return res.sendStatus(409).json({ error: "Ya existe" });
-    }
-    else{
-    annual_retributions.push(newData);
-    res.sendStatus(201);
-    }
-});
-
-//PUT
-app.put(BASE_API + "/annual-retributions", (req, res) => {
-    console.log("New PUT to /annual-retributions");
-    res.sendStatus(405).json({error : "método PUT no permitido"});
-});
-
-//DELETE
-app.delete(BASE_API + "/annual-retributions", (req, res) => {
-    console.log("New DELETE to /annual-retributions");
-    annual_retributions = [];
-    res.sendStatus(200).json({ message: "Datos eliminados correctamente" } + annual_retributions);
-});
 
 //loadInitialData
 app.get(BASE_API + "/annual-evolutions/loadInitialData", (req, res) => {
@@ -242,6 +205,102 @@ app.get(BASE_API + "/annual-evolutions/loadInitialData", (req, res) => {
         res.status(201).json(annual_retributions);
     }
 });
+
+//GET
+app.get(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New GET to /annual-retributions");
+    res.send(JSON.stringify(annual_retributions));
+});
+
+app.get(BASE_API + "/annual-retributions" + "/:aacc", (req, res) => {
+    const aacc = req.params.aacc;
+    console.log(`New GET to /annual-retributions/${aacc}`);
+
+    const search = annual_retributions.filter(x => x.aacc === aacc);
+    if (search.length > 0){
+        return res.status(200).json(search);
+    }
+    else{   
+        return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
+});
+
+//POST
+
+app.post(BASE_API + "/annual-retributions", (req, res) => {
+    console.log("New POST to /annual-retributions");
+    let newData = req.body;
+    if (annual_retributions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
+        return res.status(409).json({ error: "Ya existe ese dato" });
+    }
+    else{
+        if (!newData.year || !newData.aacc || !newData.technology || !newData.subsidized_energy || !newData.total_compensation || !newData.investment_compensation || !newData.operation_compensation || !newData.specific_compensation) {
+            return res.status(400).json({ error: "Faltan datos requeridos" });
+        }
+        else{
+            annual_retributions.push(newData);
+            res.sendStatus(201);
+        }
+    }
+});
+
+
+app.post(BASE_API + "/annual-evolutions/:aacc", (req, res) => {
+    const aacc = req.params.aacc;
+    console.log(`New POST to /annual-evolutions/${aacc}`);
+    res.status(405).json({error : "Método POST no permitido"});
+});
+
+//PUT
+app.put(BASE_API + "/annual-evolutions", (req, res) => {
+    console.log("New PUT to /annual-evolutions");
+    res.status(405).json({error : "Método PUT no permitido"});
+});
+
+
+app.put(BASE_API + "/annual-evolutions/:aacc", (req, res) => {
+    let aacc = req.params.aacc;
+    console.log(`New PUT to /annual-evolutions/${aacc}`);
+
+    const index = annual_evolutions.findIndex(x => x.aacc == aacc);
+    if (index >= 0){
+        let data = req.body;
+        annual_evolutions[index] = {
+            ...annual_evolutions[index], // mantiene los datos actuales
+            ...data                      // sobrescribe solo los campos enviados
+        };
+        res.status(200).json({message : "Datos actualizados"});
+        
+    }
+    else{   
+        return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
+
+});
+
+//DELETE
+app.delete(BASE_API + "/annual-evolutions", (req, res) => {
+    console.log("New DELETE to /annual-evolutions");
+    annual_evolutions = [];
+    res.status(200).json(annual_evolutions);
+});
+
+
+app.delete(BASE_API + "/annual-evolutions" + "/:aacc", (req, res) => {
+    const aacc = req.params.aacc;
+    console.log(`New GET to /annual-evolutions/${aacc}`);
+
+    const exists = annual_evolutions.some(x => x.aacc === aacc);
+    if (exists){
+        annual_evolutions = annual_evolutions.filter(x => x.aacc !== aacc);
+        return res.status(200).json(annual_evolutions);
+    }
+    else{   
+        return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
+});
+
+
 
 // Gonzalo -----------------------------------------------------------------------------------------------------------------------------------
 let annual_consumptions = [];
