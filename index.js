@@ -54,7 +54,7 @@ let annual_evolutions = [];
 app.get(BASE_API + "/annual-evolutions/loadInitialData", (request, response) => {
     console.log("New GET to /loadInitialData");
     if (annual_evolutions.length > 0) {
-        return response.status(400).json({ message: "El array ya contiene datos" });
+        return response.status(400).json({ message: "El array ya contiene datos " });
     }
     else{
 
