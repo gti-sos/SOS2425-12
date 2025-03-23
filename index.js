@@ -180,7 +180,7 @@ app.delete(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
 let annual_retributions = [];
 
 //loadInitialData
-app.get(BASE_API + "/annual-evolutions/loadInitialData", (req, res) => {
+app.get(BASE_API + "/annual-retributions/loadInitialData", (req, res) => {
     console.log("New GET to /loadInitialData");
     if (annual_retributions.length > 0) {
         return res.status(400).json({ message: "El array ya contiene datos" });
