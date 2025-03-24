@@ -228,6 +228,20 @@ app.get(BASE_API + "/annual-retributions" + "/:aacc", (req, res) => {
     }
 });
 
+app.get(BASE_API + "/annual-retributions" + "/:aacc" + "/:year", (req, res) => {
+    const aacc = req.params.aacc;
+    const year = req.params.year;
+    console.log(`New GET to /annual-retributions/${aacc}`);
+
+    const search = annual_retributions.filter(x => (x.aacc === aacc) & (x.year == year));
+    if (search.length > 0){
+        return res.status(200).json(search);
+    }
+    else{   
+        return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
+    }
+});
+
 //POST
 
 app.post(BASE_API + "/annual-retributions", (req, res) => {
