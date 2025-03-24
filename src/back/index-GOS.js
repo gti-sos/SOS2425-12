@@ -1,4 +1,6 @@
+import dataStore from "nedb";
 const BASE_API = "/api/v1"
+let db = new dataStore();
 
 function loadBackend(app){
     let annual_consumptions = [];
