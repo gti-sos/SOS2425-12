@@ -135,7 +135,7 @@ app.put(BASE_API + "/annual-evolutions", (request, response) => {
 app.put(BASE_API + "/annual-evolutions/:aacc", (request, response) => {
     let aacc = request.params.aacc;
     console.log(`New PUT to /annual-evolutions/${aacc}`);
-    if (aacc == request.body.aacc){
+    if (!req.body.aacc || aacc == request.body.aacc){
         const index = annual_evolutions.findIndex(x => x.aacc == aacc);
         if (index >= 0){
             let data = request.body;
@@ -264,7 +264,7 @@ app.put(BASE_API + "/annual-retributions", (req, res) => {
 app.put(BASE_API + "/annual-retributions/:aacc", (req, res) => {
     let aacc = req.params.aacc;
     console.log(`New PUT to /annual-retributions/${aacc}`);
-    if (aacc == req.body.aacc){
+    if (!req.body.aacc || aacc == req.body.aacc){
         const index = annual_retributions.findIndex(x => x.aacc == aacc);
         if (index >= 0){
             let data = req.body;
