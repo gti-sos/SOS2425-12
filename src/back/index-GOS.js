@@ -2,17 +2,7 @@ import dataStore from "nedb";
 const BASE_API = "/api/v1"
 let db = new dataStore();
 
-function loadBackend(app){
-    let annual_consumptions = [];
-
-    //loadInitialData
-    app.get(BASE_API + "/annual-consumptions/loadInitialData", (req, res) => {
-        console.log("New GET to /loadInitialData");
-        if (annual_consumptions.length > 0) {
-            return res.status(400).json({ message: "El array ya contiene datos" });
-        }
-        else {
-            annual_consumptions = [
+let initialData = [
                 {aacc: "País Vasco", year: 2022, electricity: 1653989, gas: 830160, other: 445559, total_consumption: 2929708, co2_emission: 38903},
                 {aacc: "Andalucía", year: 2022, electricity: 736139, gas: 306174, other: 53975, total_consumption: 1096288, co2_emission: 1008},
                 {aacc: "Balears, Illes", year: 2022, electricity: 936136, gas: 283772, other: 133730, total_consumption: 1353638, co2_emission: 18047},
@@ -34,29 +24,51 @@ function loadBackend(app){
                 {aacc: "Madrid, Comunidad de", year: 2021, electricity: 477683, gas: 163788, other: 53155, total_consumption: 694626, co2_emission: 1008},
                 {aacc: "Andalucía", year: 2021, electricity: 543877, gas: 174503, other: 84090, total_consumption: 802470, co2_emission: 18047}
             ];
-            console.log(annual_consumptions);
-            res.status(201).json(annual_consumptions);
-        }
-    });
 
+
+function loadBackendGOS(app){
+
+    app.get(BASE_API + "/annual-consumptions/loadInitialData", (req, res) => {
+        db.find({}, (err, annualConsumptions) => {
+            if (annualConsumptions.length < 1) {
+                db.insert(initialData);
+                res.status(201).json({ message: "Datos iniciales cargados correctamente" });
+            } else {
+                res.status(409).json({ error: "La base de datos ya contiene datos" });
+            }
+        });
+    });
 
     //GET
     app.get(BASE_API + "/annual-consumptions", (req, res) => {
         console.log("New GET to /annual-consumptions");
-        res.send(JSON.stringify(annual_consumptions));
+
+        db.find({}, (err, annualConsumptions) => {
+            res.send(JSON.stringify(annualConsumptions.map((c) => {
+                delete c._id;
+                return c;
+            }), null, 2));
+        });
     });
 
-    app.get(BASE_API + "/annual-consumptions" + "/:aacc", (req, res) => {
+    app.get(BASE_API + "/annual-consumptions/:aacc", (req, res) => {
         const aacc = req.params.aacc;
         console.log(`New GET to /annual-consumptions/${aacc}`);
 
-        const search = annual_consumptions.filter(data => data.aacc === aacc);
-        if (search.length > 0) {
-            return res.status(200).json(search);
-        }
-        else {
-            return res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
-        }
+        db.find({ aacc: aacc }, (err, search) => {
+            if (err) {
+                console.error("Error accessing the database:", err);
+                return res.status(500).json({ error: "Error accessing the database" });
+            }
+            if (search.length > 0) {
+                res.status(200).json(search.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
+            } else {
+                res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
+            }
+        });
     });
 
     //POST
@@ -133,4 +145,4 @@ function loadBackend(app){
         }
     });
 }
-export {loadBackend};
+export {loadBackendGOS};
