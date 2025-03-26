@@ -25,12 +25,13 @@ let initialData = [
                 {aacc: "Andalucía", year: 2021, electricity: 543877, gas: 174503, other: 84090, total_consumption: 802470, co2_emission: 18047}
             ];
 
+let annual_consumptions = [];
 
 function loadBackendGOS(app){
 
     app.get(BASE_API + "/annual-consumptions/loadInitialData", (req, res) => {
-        db.find({}, (err, annualConsumptions) => {
-            if (annualConsumptions.length < 1) {
+        db.find({}, (err, annual_consumptions) => {
+            if (annual_consumptions.length < 1) {
                 db.insert(initialData);
                 res.status(201).json({ message: "Datos iniciales cargados correctamente" });
             } else {
@@ -43,8 +44,8 @@ function loadBackendGOS(app){
     app.get(BASE_API + "/annual-consumptions", (req, res) => {
         console.log("New GET to /annual-consumptions");
 
-        db.find({}, (err, annualConsumptions) => {
-            res.send(JSON.stringify(annualConsumptions.map((c) => {
+        db.find({}, (err, annual_consumptions) => {
+            res.send(JSON.stringify(annual_consumptions.map((c) => {
                 delete c._id;
                 return c;
             }), null, 2));
@@ -83,7 +84,7 @@ function loadBackendGOS(app){
             return res.status(409).json({ error: "Ya existe" });
         }
         else {
-            annual_consumptions.push(newData);
+            db.insert(newData);
             res.sendStatus(201);
         }
     });
@@ -105,44 +106,56 @@ function loadBackendGOS(app){
 
         if (updatedData.aacc !== aacc) {
             return res.status(400).json({ error: "El 'aacc' del cuerpo no coincide con el de la URL" });
-        }
-        else {
+        } else {
             console.log(`New PUT to /annual-consumptions/${aacc}`);
 
-            const index = annual_consumptions.findIndex(data => data.aacc === aacc && data.year === req.body.year);
-            if (index >= 0) {
-                let updatedData = req.body; 
-                annual_consumptions[index] = {
-                    ...annual_consumptions[index], 
-                    ...updatedData                  
-                };
-                res.status(200).json({message: "Datos actualizados"});
-            }
-            else {
-                return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
-            }
+            db.update(
+                { aacc: aacc, year: updatedData.year },
+                { $set: updatedData },
+                {},
+                (err, numReplaced) => {
+                    if (err) {
+                        console.error("Error updating the database:", err);
+                        return res.status(500).json({ error: "Error updating the database" });
+                    }
+                    if (numReplaced > 0) {
+                        res.status(200).json({ message: "Datos actualizados correctamente" });
+                    } else {
+                        res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
+                    }
+                }
+            );
         }
     });
 
     //DELETE
     app.delete(BASE_API + "/annual-consumptions", (req, res) => {
         console.log("New DELETE to /annual-consumptions");
-        annual_consumptions = [];
-        res.sendStatus(200).json({ message: "Datos eliminados correctamente" } + annual_consumptions);
+
+        db.remove({}, { multi: true }, (err, numRemoved) => {
+            if (err) {
+                console.error("Error deleting the database:", err);
+                return res.status(500).json({ error: "Error deleting the database" });
+            }
+            res.status(200).json({ message: `Datos eliminados correctamente (${numRemoved} registros eliminados)` });
+        });
     });
 
     app.delete(BASE_API + "/annual-consumptions/:aacc", (req, res) => {
         const aacc = req.params.aacc;
         console.log(`New DELETE to /annual-consumptions/${aacc}`);
 
-        const exists = annual_consumptions.some(data => data.aacc === aacc);
-        if (exists) {
-            annual_consumptions = annual_consumptions.filter(data => data.aacc !== aacc);
-            return res.status(200).json(annual_consumptions);
-        }
-        else {
-            return res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
-        }
+        db.remove({ aacc: aacc }, { multi: true }, (err, numRemoved) => {
+            if (err) {
+                console.error("Error deleting the database:", err);
+                return res.status(500).json({ error: "Error deleting the database" });
+            }
+            if (numRemoved > 0) {
+                res.status(200).json({ message: `Datos de ${aacc} eliminados correctamente (${numRemoved} registros eliminados)` });
+            } else {
+                res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
+            }
+        });
     });
 }
 export {loadBackendGOS};
