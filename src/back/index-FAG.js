@@ -1,6 +1,6 @@
 const BASE_API = "/api/v1";
 
-annual_retributions = [
+let annual_retributions = [
     {year: 2017, technology: "Biomasa", subsidized_energy: 3984.8567, total_compensation: 536521.12, investment_compensation: 148150.2, operation_compensation: 178340.4, specific_compensation: 326490.61, aacc: "Murcia, Región de"},
     {year: 2017, technology: "Cogeneración", subsidized_energy: 25262.1421, total_compensation: 2506572.04, investment_compensation: 81583.52, operation_compensation: 1084262.51, specific_compensation: 1165846.03, aacc: "Murcia, Región de"},
     {year: 2017, technology: "Eólica", subsidized_energy: 35149.794, total_compensation: 3860554.53, investment_compensation: 1472879.98, operation_compensation: 0, specific_compensation: 1472879.98, aacc: "Asturias, Principado de"},
@@ -15,8 +15,6 @@ annual_retributions = [
 ];
 
 function loadBackendFAG(app){
-    // Fer -----------------------------------------------------------------------------------------------------------------------------------
-    let annual_retributions = [];
 
     //loadInitialData
     app.get(BASE_API + "/annual-retributions/loadInitialData", (req, res) => {
