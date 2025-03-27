@@ -1,4 +1,3 @@
-module.exports = loadBackendFAG;
 const BASE_API = "/api/v1";
 
 annual_retributions = [
@@ -142,3 +141,5 @@ function loadBackendFAG(app){
         }
     });
 }
+
+export { loadBackendFAG };
