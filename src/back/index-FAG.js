@@ -1,4 +1,5 @@
 module.exports = loadBackendFAG;
+const BASE_API = "/api/v1";
 
 annual_retributions = [
     {year: 2017, technology: "Biomasa", subsidized_energy: 3984.8567, total_compensation: 536521.12, investment_compensation: 148150.2, operation_compensation: 178340.4, specific_compensation: 326490.61, aacc: "Murcia, Región de"},
