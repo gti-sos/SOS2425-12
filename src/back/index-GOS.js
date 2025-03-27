@@ -1,5 +1,5 @@
 import dataStore from "nedb";
-const BASE_API = "/api/v1"
+const BASE_API = "/api/v1";
 let db = new dataStore();
 
 let initialData = [
@@ -25,12 +25,10 @@ let initialData = [
                 {aacc: "Andalucía", year: 2021, electricity: 543877, gas: 174503, other: 84090, total_consumption: 802470, co2_emission: 18047}
             ];
 
-let annual_consumptions = [];
-
 function loadBackendGOS(app){
 
-    app.get(BASE_API + "/annual-consumptions/loadInitialData", (req, res) => {
-        db.find({}, (err, annual_consumptions) => {
+    app.get(BASE_API + "/annual-consumptions/loadInitialData", (_req, res) => {
+        db.find({}, (_err, annual_consumptions) => {
             if (annual_consumptions.length < 1) {
                 db.insert(initialData);
                 res.status(201).json({ message: "Datos iniciales cargados correctamente" });
@@ -41,10 +39,11 @@ function loadBackendGOS(app){
     });
 
     //GET
-    app.get(BASE_API + "/annual-consumptions", (req, res) => {
+    app.get(BASE_API + "/annual-consumptions", (_req, res) => {
         console.log("New GET to /annual-consumptions");
 
-        db.find({}, (err, annual_consumptions) => {
+        db.find({}, (_err, annual_consumptions) => {
+            res.status(200);
             res.send(JSON.stringify(annual_consumptions.map((c) => {
                 delete c._id;
                 return c;
@@ -80,22 +79,24 @@ function loadBackendGOS(app){
         if (!newData.aacc || !newData.year || !newData.electricity || !newData.gas || !newData.other || !newData.total_consumption || !newData.co2_emission) {
             return res.status(400).json({ error: "Faltan campos requeridos en el cuerpo de la solicitud" });
         }
-        if (annual_consumptions.some(data => data.year === newData.year && data.aacc === newData.aacc)){
-            return res.status(409).json({ error: "Ya existe" });
+        db.find({ year: newData.year, aacc: newData.aacc }, (_err, existingData) => {
+            if (existingData.length > 0) {
+                return res.status(409).json({ error: "Ya existe" });
+            } else {
+                db.insert(newData);
+                res.sendStatus(201);
+            }
+        });
         }
-        else {
-            db.insert(newData);
-            res.sendStatus(201);
-        }
-    });
+    );
 
-    app.post(BASE_API + "/annual-consumptions/:aacc", (req, res) => {
+    app.post(BASE_API + "/annual-consumptions/:aacc", (_req, res) => {
         console.log("New POST to /annual-consumptions");
         res.sendStatus(405).json({error : "método POST no permitido"});
     });
 
     //PUT
-    app.put(BASE_API + "/annual-consumptions", (req, res) => {
+    app.put(BASE_API + "/annual-consumptions", (_req, res) => {
         console.log("New PUT to /annual-consumptions");
         res.sendStatus(405).json({error : "método PUT no permitido"});
     });
@@ -129,7 +130,7 @@ function loadBackendGOS(app){
     });
 
     //DELETE
-    app.delete(BASE_API + "/annual-consumptions", (req, res) => {
+    app.delete(BASE_API + "/annual-consumptions", (_req, res) => {
         console.log("New DELETE to /annual-consumptions");
 
         db.remove({}, { multi: true }, (err, numRemoved) => {
