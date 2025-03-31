@@ -1,7 +1,9 @@
+
 //const express = require("express");
 import express from "express";
 import { loadBackendGOS } from "./src/back/index-GOS.js";
 import { loadBackendFAG } from "./src/back/index-FAG.js";
+import { loadBackendCRR } from "./src/back/index-CRR.js";
 import path from "path";
 
 const app = express();
@@ -14,6 +16,8 @@ app.use("/",express.static("./public"));
 loadBackendGOS(app);
 
 loadBackendFAG(app);
+
+loadBackendCRR(app);
 
 app.get("/about", (request, response) => {
     response.sendFile(path.resolve("./about/index.html"));
