@@ -1,5 +1,6 @@
-const BASE_API = "/api/v1"
-
+import dataStore from "nedb";
+const BASE_API = "/api/v1";
+let db = new dataStore();
 
 let initialData = [
     { year: 2005, aacc: "Andalucía", technology: "Biomasa", energy_sold: 726.24343, installed_power: 127.98, load_factor: 64.7792606 },
@@ -26,21 +27,30 @@ function loadBackendCRR(app){
     //loadInitialData
     app.get(BASE_API + "/annual-evolutions/loadInitialData", (request, response) => {
         console.log("New GET to /loadInitialData");
-        if (annual_evolutions.length > 0) {
-            return response.status(400).json({ message: "El array ya contiene datos " });
-        }
-        else{
-            annual_evolutions = initialData;
-            console.log(annual_evolutions);
-
-            response.status(201).json(annual_evolutions);
-        }
+        db.find({}, (_err, annual_evolutions) =>{ //busca todos los documentos en la base de datos sin aplicar filtros (por eso el {} vacío).
+            if (annual_evolutions.length > 0) {
+                response.status(400).json({ message: "El array ya contiene datos " });
+            }
+            else{
+                db.insert(initialData);
+                response.status(201).json(annual_evolutions);
+            }
+        })
     });
 
     //GET
     app.get(BASE_API + "/annual-evolutions", (request, response) => {
         console.log("New GET to /annual-evolutions");
-        response.send(JSON.stringify(annual_evolutions));
+
+        db.find({}, (_err, annual_evolutions) => {
+            response.status(200);
+            response.send(JSON.stringify(annual_evolutions.map((c) => {
+                delete c._id;
+                return c;
+            }), null, 2));
+            //no se aplica una función de reemplazo (null)
+            //se usa una indentación de 2 espacios para hacer el JSON más legible.
+        });
     });
 
 
