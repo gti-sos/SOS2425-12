@@ -33,7 +33,7 @@ function loadBackendCRR(app){
             }
             else{
                 db.insert(initialData);
-                response.status(201).json(db.find({}));
+                res.status(201).json({ message: "Datos iniciales cargados correctamente" });
             }
         })
     });
