@@ -58,30 +58,43 @@ function loadBackendCRR(app){
         const aacc = request.params.aacc;
         console.log(`New GET to /annual-evolutions/${aacc}`);
 
-        const search = annual_evolutions.filter(x => x.aacc === aacc);
-        if (search.length > 0){
-            return response.status(200).json(search);
-        }
-        else{   
-            return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
-        }
+       // const search = annual_evolutions.filter(x => x.aacc === aacc);
+        db.find({aacc: aacc}, (_err, search) => {
+            if (search.length > 0){
+                response.status(200).json(search.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
+            }
+            else{   
+                response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+            }
+        })
+        
     });
 
     //POST
     app.post(BASE_API + "/annual-evolutions", (request, response) => {
         console.log("New POST to /annual-evolutions");
         let newData = request.body;
-        if (annual_evolutions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
-            return response.status(409).json({ error: "Ya existe ese dato" });
+
+        if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
+            return response.status(400).json({ error: "Faltan datos requeridos" });
         }
         else{
-            if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
-                return response.status(400).json({ error: "Faltan datos requeridos" });
-            }
-            else{
-                annual_evolutions.push(newData);
-                response.sendStatus(201);
-            }
+            // if (annual_evolutions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
+            //     return response.status(409).json({ error: "Ya existe ese dato" });
+            // }
+            db.find({year : newData.year, aacc : newData.aacc, technology : newData.technology }, (_err, existingData) => {
+                if(existingData.length > 0){
+                 return response.status(409).json({ error: "Ya existe ese dato" });
+                }
+                else{
+                    //annual_evolutions.push(newData);
+                    db.insert(newData);
+                    response.sendStatus(201);
+                }
+            }); 
         }
     });
 
