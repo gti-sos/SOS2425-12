@@ -139,8 +139,11 @@ function loadBackendCRR(app){
     //DELETE
     app.delete(BASE_API + "/annual-evolutions", (request, response) => {
         console.log("New DELETE to /annual-evolutions");
-        annual_evolutions = [];
-        response.status(200).json(annual_evolutions);
+        //annual_evolutions = [];
+        db.remove({}, {multi : true}, (_err, nRemoved) => {
+            //{ multi: true } permite borrar múltiples registros
+            response.status(200).json({ message: `Datos eliminados correctamente (${nRemoved} registros eliminados)` });
+        })
     });
 
 
@@ -148,14 +151,14 @@ function loadBackendCRR(app){
         const aacc = request.params.aacc;
         console.log(`New GET to /annual-evolutions/${aacc}`);
 
-        const exists = annual_evolutions.some(x => x.aacc === aacc);
-        if (exists){
-            annual_evolutions = annual_evolutions.filter(x => x.aacc !== aacc);
-            return response.status(200).json(annual_evolutions);
-        }
-        else{   
-            return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
-        }
+        db.remove({aacc : aacc}, {multi : true}, (_err, nRemoved) => {
+            if (nRemoved > 0){
+                response.status(200).json({ message: `Datos eliminados correctamente (${nRemoved} registros eliminados)` });
+            }
+            else{
+                response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+            }
+        });  
     });
 
 };
