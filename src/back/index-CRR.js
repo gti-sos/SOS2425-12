@@ -1,6 +1,8 @@
 import dataStore from "nedb";
 const BASE_API = "/api/v1";
-let db = new dataStore();
+//let db = new dataStore();
+let db = new dataStore({ inMemoryOnly: true, autoload: true });
+
 
 let initialData = [
     { year: 2005, aacc: "Andalucía", technology: "Biomasa", energy_sold: 726.24343, installed_power: 127.98, load_factor: 64.7792606 },
@@ -22,8 +24,6 @@ let initialData = [
 
 function loadBackendCRR(app){ 
 
-    let annual_evolutions = [];
-
     //loadInitialData
     app.get(BASE_API + "/annual-evolutions/loadInitialData", (request, response) => {
         console.log("New GET to /loadInitialData");
@@ -34,6 +34,7 @@ function loadBackendCRR(app){
             else{
                 db.insert(initialData);
                 response.status(201).json({ message: "Datos iniciales cargados correctamente" });
+                console.log("datos cargados")
             }
         })
     });
@@ -113,13 +114,15 @@ function loadBackendCRR(app){
     });
 
 
-    app.put(BASE_API + "/annual-evolutions/:aacc", (request, response) => {
+    app.put(BASE_API + "/annual-evolutions/:aacc/:year/:technology", (request, response) => {
         let aacc = request.params.aacc;
+        let year = request.params.year;
+        let tech = request.params.technology;
         let data = request.body;
         console.log(`New PUT to /annual-evolutions/${aacc}`);
-        if (!data.aacc || aacc == data.aacc){
+        if (!data.aacc || (aacc == data.aacc && year == data.year && tech == data.technology)){
             db.update(
-                { year: data.year, aacc: data.aacc, technology: data.technology }, // Clave única del registro
+                { aacc: data.aacc, year : data.year, technology: data.technology}, // Clave única del registro
                 { $set: data }, // Se actualiza el resto de campos
                 {}, // vacio solo cambia el primer elemento
                 (_err, nReplaced) => {
@@ -127,7 +130,7 @@ function loadBackendCRR(app){
                         response.status(200).json({ message: "Datos actualizados correctamente" });
                     }
                     else{
-                        response.status(404).json({error: `No se encuentran datos de ${aacc}, ${data.year}, ${data.technology}`});
+                        response.status(404).json({error: `No se encuentran datos de ${aacc}`});
                     }
                 }
             );
