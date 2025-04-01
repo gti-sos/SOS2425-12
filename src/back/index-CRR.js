@@ -119,11 +119,8 @@ function loadBackendCRR(app){
         console.log(`New PUT to /annual-evolutions/${aacc}`);
         if (!data.aacc || aacc == data.aacc){
             db.update(
-                {aacc : aacc, year : data.year},
-                {$set : data},
-                //ej: {$set: {nombre: "Ana"}} cambia solo el campo nombre
-                //$set: data actualiza los campos del documento que coincida con 
-                // aacc y year, asignando los nuevos valores que trae data
+                { year: data.year, aacc: data.aacc, technology: data.technology }, // Clave única del registro
+                { $set: data }, // Se actualiza el resto de campos
                 {}, // vacio solo cambia el primer elemento
                 (_err, nReplaced) => {
                     if(nReplaced > 0){
