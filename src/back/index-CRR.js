@@ -117,8 +117,7 @@ function loadBackendCRR(app){
         let aacc = request.params.aacc;
         let data = request.body;
         console.log(`New PUT to /annual-evolutions/${aacc}`);
-        if (!req.body.aacc || aacc == request.body.aacc){
-            const index = annual_evolutions.findIndex(x => x.aacc == aacc);
+        if (!data.aacc || aacc == data.aacc){
             db.update(
                 {aacc : aacc, year : data.year},
                 {$set : data},
@@ -131,7 +130,7 @@ function loadBackendCRR(app){
                         response.status(200).json({ message: "Datos actualizados correctamente" });
                     }
                     else{
-                        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+                        response.status(404).json({error: `No se encuentran datos de ${aacc}`});
                     }
                 }
             );
