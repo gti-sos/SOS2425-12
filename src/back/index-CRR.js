@@ -127,7 +127,7 @@ function loadBackendCRR(app){
                         response.status(200).json({ message: "Datos actualizados correctamente" });
                     }
                     else{
-                        response.status(404).json({error: `No se encuentran datos de ${aacc}, ${year}, ${technology}`});
+                        response.status(404).json({error: `No se encuentran datos de ${aacc}, ${data.year}, ${data.technology}`});
                     }
                 }
             );
