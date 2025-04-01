@@ -122,7 +122,10 @@ function loadBackendCRR(app){
             db.update(
                 {aacc : aacc, year : data.year},
                 {$set : data},
-                {},
+                //ej: {$set: {nombre: "Ana"}} cambia solo el campo nombre
+                //$set: data actualiza los campos del documento que coincida con 
+                // aacc y year, asignando los nuevos valores que trae data
+                {}, // vacio solo cambia el primer elemento
                 (_err, nReplaced) => {
                     if(nReplaced > 0){
                         response.status(200).json({ message: "Datos actualizados correctamente" });
