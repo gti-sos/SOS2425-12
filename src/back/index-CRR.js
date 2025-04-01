@@ -115,21 +115,23 @@ function loadBackendCRR(app){
 
     app.put(BASE_API + "/annual-evolutions/:aacc", (request, response) => {
         let aacc = request.params.aacc;
+        let data = request.body;
         console.log(`New PUT to /annual-evolutions/${aacc}`);
         if (!req.body.aacc || aacc == request.body.aacc){
             const index = annual_evolutions.findIndex(x => x.aacc == aacc);
-            if (index >= 0){
-                let data = request.body;
-                annual_evolutions[index] = {
-                    ...annual_evolutions[index], // mantiene los datos actuales
-                    ...data                      // sobrescribe solo los campos enviados
-                };
-                response.status(200).json({message : "Datos actualizados"});
-                
-            }
-            else{   
-                return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
-            }
+            db.update(
+                {aacc : aacc, year : data.year},
+                {$set : data},
+                {},
+                (_err, nReplaced) => {
+                    if(nReplaced > 0){
+                        response.status(200).json({ message: "Datos actualizados correctamente" });
+                    }
+                    else{
+                        return response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+                    }
+                }
+            );
         }
         else{
             return response.status(400).json({error: "No se puede modificar el id"});
