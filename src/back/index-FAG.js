@@ -1,6 +1,9 @@
+import { json } from "express";
+import datastore from "nedb";
 const BASE_API = "/api/v1";
+let db = new datastore();
 
-let annual_retributions = [
+let initial_annual_retributions = [
     {year: 2017, technology: "Biomasa", subsidized_energy: 3984.8567, total_compensation: 536521.12, investment_compensation: 148150.2, operation_compensation: 178340.4, specific_compensation: 326490.61, aacc: "Murcia, Región de"},
     {year: 2017, technology: "Cogeneración", subsidized_energy: 25262.1421, total_compensation: 2506572.04, investment_compensation: 81583.52, operation_compensation: 1084262.51, specific_compensation: 1165846.03, aacc: "Murcia, Región de"},
     {year: 2017, technology: "Eólica", subsidized_energy: 35149.794, total_compensation: 3860554.53, investment_compensation: 1472879.98, operation_compensation: 0, specific_compensation: 1472879.98, aacc: "Asturias, Principado de"},
@@ -14,52 +17,74 @@ let annual_retributions = [
     {year: 2018, technology: "Cogeneración", subsidized_energy: 25935.3492, total_compensation: 2713723.05, investment_compensation: 81485.92, operation_compensation: 1127022.62, specific_compensation: 1208508.54, aacc: "Asturias, Principado de"}
 ];
 
+db.find({},(err,data)=>{
+    if (data.length < 1){
+        db.insert(initial_annual_retributions);
+    }
+});
+
 function loadBackendFAG(app){
 
     //loadInitialData
     app.get(BASE_API + "/annual-retributions/loadInitialData", (req, res) => {
         console.log("New GET to /loadInitialData");
-        if (annual_retributions.length > 0) {
-            return res.status(400).json({ message: "El array ya contiene datos" });
-        }
-        else{
-            console.log(annual_retributions);
-
-            res.status(201).json(annual_retributions);
-        }
+        db.find({},(err,data)=>{
+            if (data.length > 0){
+                return res.status(400).json({ message: "El array ya contiene datos" });
+            } else {
+                db.insert(initial_annual_retributions);
+                res.sendStatus(201);
+            }
+        });
     });
 
     //GET
     app.get(BASE_API + "/annual-retributions", (req, res) => {
         console.log("New GET to /annual-retributions");
-        res.send(JSON.stringify(annual_retributions));
+
+        db.find({}, (err, annual_retributions) => {
+            res.send(JSON.stringify(annual_retributions.map((x) => {
+                delete x._id;
+                return x;
+            }), null, 2));
+        });
     });
 
-    app.get(BASE_API + "/annual-retributions" + "/:aacc", (req, res) => {
-        const aacc = req.params.aacc;
-        console.log(`New GET to /annual-retributions/${aacc}`);
+    app.get(BASE_API + "/annual-retributions" + "/:technology", (req, res) => {
+        const technology = req.params.technology;
+        console.log(`New GET to /annual-retributions/${technology}`);
 
-        const search = annual_retributions.filter(x => x.aacc === aacc);
-        if (search.length > 0){
-            return res.status(200).json(search);
-        }
-        else{   
-            return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
-        }
+        db.find({}, (err, annual_retributions) => {
+            const search = annual_retributions.filter(x => x.technology === technology);
+            if (search.length > 0) {
+                res.send(JSON.stringify(search.map((x) => {
+                    delete x._id;
+                    return x;
+                }), null, 2))
+                res.status(200);
+            } else {
+                return res.status(404).json({ error: `No se encuentran datos de ${technology}` });
+            }
+        });
     });
 
-    app.get(BASE_API + "/annual-retributions" + "/:aacc" + "/:year", (req, res) => {
-        const aacc = req.params.aacc;
-        const year = req.params.year;
-        console.log(`New GET to /annual-retributions/${aacc}`);
+    app.get(BASE_API + "/annual-retributions" + "/:technology" + "/:year", (req, res) => {
+        const technology = req.params.technology;
+        const year = parseInt(req.params.year);
+        console.log(`New GET to /annual-retributions/${technology}/${year}`);
 
-        const search = annual_retributions.filter(x => (x.aacc === aacc) & (x.year == year));
-        if (search.length > 0){
-            return res.status(200).json(search);
-        }
-        else{   
-            return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
-        }
+        db.find({}, (err, annual_retributions) => {
+            const search = annual_retributions.filter(x => x.technology === technology && x.year === year);
+            if (search.length > 0) {
+                res.send(JSON.stringify(search.map((x) => {
+                    delete x._id;
+                    return x;
+                }), null, 2));
+                res.status(200);
+            } else {
+                return res.status(404).json({ error: `No se encuentran datos de ${technology} en el año ${year}`})
+            }
+        });
     });
 
     //POST
@@ -67,24 +92,35 @@ function loadBackendFAG(app){
     app.post(BASE_API + "/annual-retributions", (req, res) => {
         console.log("New POST to /annual-retributions");
         let newData = req.body;
-        if (annual_retributions.some(x =>  x.year === newData.year && x.aacc === newData.aacc && x.technology === newData.technology)){
-            return res.status(409).json({ error: "Ya existe ese dato" });
-        }
-        else{
-            if (!newData.year || !newData.aacc || !newData.technology || !newData.subsidized_energy || !newData.total_compensation || !newData.investment_compensation || !newData.operation_compensation || !newData.specific_compensation) {
-                return res.status(400).json({ error: "Faltan datos requeridos" });
+        db.find({}, (err, annual_retributions) => {
+            if (annual_retributions.some(x =>  x.year === newData.year && x.technology === newData.technology)){
+                return res.status(409).json({ error: "Ya existe ese dato" });
             }
             else{
-                annual_retributions.push(newData);
-                res.sendStatus(201);
+                if (!newData.year || !newData.aacc || !newData.technology || !newData.subsidized_energy
+                    || !newData.total_compensation || !newData.investment_compensation
+                    || !newData.operation_compensation || !newData.specific_compensation) {
+                    return res.status(400).json({ error: "Faltan datos requeridos" });
+                }
+                else{
+                    db.insert(newData);
+                    res.sendStatus(201);
+                }
             }
-        }
+        })
     });
 
 
-    app.post(BASE_API + "/annual-retributions/:aacc", (req, res) => {
-        const aacc = req.params.aacc;
-        console.log(`New POST to /annual-retributions/${aacc}`);
+    app.post(BASE_API + "/annual-retributions" + "/:technology" + "/:year", (req, res) => {
+        const technology = req.params.technology;
+        const year = parseInt(req.params.year);
+        console.log(`New POST to /annual-retributions/${technology}/${year}`);
+        res.status(405).json({error : "Método POST no permitido"});
+    });
+
+    app.post(BASE_API + "/annual-retributions" + "/:technology", (req, res) => {
+        const technology = req.params.technology;
+        console.log(`New POST to /annual-retributions/${technology}`);
         res.status(405).json({error : "Método POST no permitido"});
     });
 
@@ -94,49 +130,81 @@ function loadBackendFAG(app){
         res.status(405).json({error : "Método PUT no permitido"});
     });
 
+    app.put(BASE_API + "/annual-retributions" + "/:technology", (req, res) => {
+        console.log("New PUT to /annual-retributions");
+        res.status(405).json({error : "Método PUT no permitido"});
+    });
 
-    app.put(BASE_API + "/annual-retributions/:aacc", (req, res) => {
-        let aacc = req.params.aacc;
-        console.log(`New PUT to /annual-retributions/${aacc}`);
-        if (!req.body.aacc || aacc == req.body.aacc){
-            const index = annual_retributions.findIndex(x => x.aacc == aacc);
-            if (index >= 0){
-                let data = req.body;
-                annual_retributions[index] = {
-                    ...annual_retributions[index],
-                    ...data
-                };
-                res.status(200).json({message : "Datos actualizados"});
-                
+    app.put(BASE_API + "/annual-retributions" + "/:technology" + "/:year", (req, res) => {
+        const technology = req.params.technology;
+        const year = parseInt(req.params.year);
+        const data = req.body;
+
+        console.log(`New PUT to /annual-retributions/${technology}/${year}`);
+
+        db.find({ technology: technology, year: year }, (err, object) => {
+            if (object.year != data.year || object.technology != data.technology) {
+                return res.status(400).json({ error: `No se puede actualizar el id de un dato` });
+            } else {
+                db.update(
+                    { technology: technology, year: year },
+                    { $set: data },
+                    {},
+                    (_err, numAffected) => {
+                        if (numAffected > 0) {
+                            return res.status(200).json({ message: "Datos actualizados correctamente" });
+                        } else {
+                            return res.status(404).json({ error: `No se encuentran datos de la tecnología ${technology} en el año ${year}` });
+                        }
+                    }
+                );
             }
-            else{   
-                return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
-            }
-        } else {
-            return res.status(400).json({error: "No se puede modificar el id"});
-        }
+        });
     });
 
     //DELETE
     app.delete(BASE_API + "/annual-retributions", (req, res) => {
         console.log("New DELETE to /annual-retributions");
-        annual_retributions = [];
-        res.status(200).json(annual_retributions);
+        db.remove({}, { multi: true }, (err, numRemoved) => {
+            if (numRemoved > 0) {
+                db.find({}, (err, emptyData) => {return res.status(200).json(emptyData)});
+            } else {
+                return res.status(404).json({ error: "No se encuentran datos" });
+            }
+        }
+        );
+    });
+
+    app.delete(BASE_API + "/annual-retributions" + "/:technology", (req, res) => {
+        const technology = req.params.technology;
+        console.log(`New DELETE to /annual-retributions/${technology}`);
+
+        db.remove({ technology: technology }, { multi: true }, (err, numRemoved) => {
+            if (numRemoved > 0) {
+                return res.status(200);
+            } else {
+                return res.status(404).json({ error: `No se encuentran datos de ${technology}` });
+            }
+        }
+        );
+
     });
 
 
-    app.delete(BASE_API + "/annual-retributions" + "/:aacc", (req, res) => {
-        const aacc = req.params.aacc;
-        console.log(`New GET to /annual-retributions/${aacc}`);
+    app.delete(BASE_API + "/annual-retributions" + "/:technology" + "/:year", (req, res) => {
+        const technology = req.params.technology;
+        const year = parseInt(req.params.year);
+        console.log(`New DELETE to /annual-retributions/${technology}/${year}`);
 
-        const exists = annual_retributions.some(x => x.aacc === aacc);
-        if (exists){
-            annual_retributions = annual_retributions.filter(x => x.aacc !== aacc);
-            return res.status(200).json(annual_retributions);
+        db.remove({ technology: technology, year: year }, { multi: true }, (err, numRemoved) => {
+            if (numRemoved > 0) {
+                return res.status(200);
+            } else {
+                return res.status(404).json({ error: `No se encuentran datos de la tecnología ${technology} en el año ${year}` });
+            }
         }
-        else{   
-            return res.status(404).json({error: `No se encuentran datos de ${aacc}`});
-        }
+        );
+
     });
 }
 
