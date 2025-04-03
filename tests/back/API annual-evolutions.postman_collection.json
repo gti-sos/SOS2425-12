@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "78a9a811-3dc4-405e-b5e8-3b55e1929786",
 		"name": "API annual-evolutions",
+		"description": "This API handles annual evolutions (remote/local)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42121463"
 	},
