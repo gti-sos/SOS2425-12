@@ -59,7 +59,7 @@ function loadBackendCRR(app){
         const limit = parseInt(request.query.limit) || 0;
         const offset = parseInt(request.query.offset) || 0;
 
-        db.find(query).skip(offset).limit(limit).exec((_err, results) => {
+        db.find(query).skip(offset).limit(limit).exec((_err, annual_evolutions) => {
             response.status(200);
             response.send(JSON.stringify(annual_evolutions.map((c) => {
                 delete c._id;
