@@ -43,7 +43,23 @@ function loadBackendCRR(app){
     app.get(BASE_API + "/annual-evolutions", (request, response) => {
         console.log("New GET to /annual-evolutions");
 
-        db.find({}, (_err, annual_evolutions) => {
+        let query = {}; // Filtros para buscar datos en la base de datos
+        let parametrosURL = request.query;  // Por ejemplo: ?aacc=Ceuta&year=2008
+        
+        // Añadimos cada campo parseado a query si está presente en la URL
+        if (parametrosURL.year) query.year = parseInt(parametrosURL.year);
+        if (parametrosURL.aacc) query.aacc = parametrosURL.aacc;
+        if (parametrosURL.technology) query.technology = parametrosURL.technology;
+        if (parametrosURL.energy_sold) query.energy_sold = parseFloat(parametrosURL.energy_sold);
+        if (parametrosURL.installed_power) query.installed_power = parseFloat(parametrosURL.installed_power);
+        if (parametrosURL.load_factor) query.load_factor = parseFloat(parametrosURL.load_factor);
+        
+
+        //Paginación
+        const limit = request.query.limit || 0;
+        const offset = request.query.offset || 0;
+
+        db.find(query).skip(offset).limit(limit).exec((_err, results) => {
             response.status(200);
             response.send(JSON.stringify(annual_evolutions.map((c) => {
                 delete c._id;
@@ -52,6 +68,7 @@ function loadBackendCRR(app){
             //no se aplica una función de reemplazo (null)
             //se usa una indentación de 2 espacios para hacer el JSON más legible.
         });
+
     });
 
 
