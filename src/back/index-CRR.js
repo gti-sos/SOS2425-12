@@ -182,6 +182,14 @@ function loadBackendCRR(app){
         });  
     });
 
+
+
+
+    app.get(BASE_API + "/docs", (request, response) => {
+        response.redirect("https://documenter.getpostman.com/view/42121463/2sB2cShixE");
+    })
+
+
 };
 
 export {loadBackendCRR};
