@@ -56,8 +56,8 @@ function loadBackendCRR(app){
         
 
         //Paginación
-        const limit = request.query.limit || 0;
-        const offset = request.query.offset || 0;
+        const limit = parseInt(request.query.limit) || 0;
+        const offset = parseInt(request.query.offset) || 0;
 
         db.find(query).skip(offset).limit(limit).exec((_err, results) => {
             response.status(200);
