@@ -29,7 +29,7 @@ function loadBackendCRR(app){
     app.get(BASE_API + "/annual-evolutions/docs", (request, response) => {
         response.redirect("https://documenter.getpostman.com/view/42121463/2sB2cShixE");
     });
-    
+
 
     //loadInitialData
     app.get(BASE_API + "/annual-evolutions/loadInitialData", (request, response) => {
@@ -44,7 +44,7 @@ function loadBackendCRR(app){
                 //console.log("datos cargados")
             }
         })
-    });
+    }); 
 
     //GET
     app.get(BASE_API + "/annual-evolutions", (request, response) => {
