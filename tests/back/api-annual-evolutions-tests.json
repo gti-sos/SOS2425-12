@@ -8,6 +8,58 @@
 	},
 	"item": [
 		{
+			"name": "DELETE /annual-evolutions/ Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"DELETE correcto (200)\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.message).to.include(\"Datos eliminados correctamente\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Prueba\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET /annual-evolutions",
 			"event": [
 				{
@@ -36,12 +88,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -82,12 +131,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/loadInitialdata",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/loadInitialdata",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -128,12 +174,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/loadInitialdata",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/loadInitialdata",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -174,12 +217,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Ceuta",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -221,12 +261,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Londres",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Londres",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -271,12 +308,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -327,12 +361,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -383,12 +414,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -439,12 +467,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Ceuta",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -458,6 +483,27 @@
 		},
 		{
 			"name": "405 PUT /annual-evolutions/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT no permitido devuelve 405\", () => {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"Método PUT no permitido\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -474,12 +520,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -529,12 +572,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Ceuta/2008/Residuos",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -587,12 +627,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Ceuta/2020/Residuos",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -645,12 +682,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Ceuta/2008/Residuos",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -702,12 +736,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Ceuta",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -758,12 +789,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/Ceuta",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -813,12 +841,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2425-12.onrender.com/api/v1/annual-evolutions/",
-					"protocol": "https",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"sos2425-12",
-						"onrender",
-						"com"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
