@@ -94,38 +94,64 @@ function loadBackendGOS(app){
     });
 
     app.get(BASE_API + "/annual-consumptions/:aacc/:year", (req, res) => {
-    const { aacc, year } = req.params;
-    db.find({ aacc: aacc, year: Number(year) }, (err, data) => {
-        if (err) return res.status(500).json({ error: "Error al acceder a la base de datos" });
-        if (data.length > 0) {
-            res.status(200).json(data.map(d => {
-                delete d._id;
-                return d;
-            }));
-        } else {
-            res.status(404).json({ error: `No se encuentran datos de ${aacc} en ${year}` });
-        }
+        const { aacc, year } = req.params;
+    
+        db.find({ aacc: aacc, year: Number(year) }, (err, data) => {
+            if (err) {
+                console.error("Error al acceder a la base de datos:", err);
+                return res.status(500).json({ error: "Error al acceder a la base de datos" });
+            }
+    
+            if (data.length === 1) {
+                let item = data[0];
+                delete item._id;
+                res.status(200).json(item);
+            } else {
+                res.status(404).json({ error: `No se encuentran datos de ${aacc} en ${year}` });
+            }
+        });
     });
-});
+    
 
     //POST
     app.post(BASE_API + "/annual-consumptions", (req, res) => {
-        console.log("New POST to /annual-consumptions");
-        let newData = req.body;
 
-        if (!newData.aacc || !newData.year || !newData.electricity || !newData.gas || !newData.other || !newData.total_consumption || !newData.co2_emission) {
-            return res.status(400).json({ error: "Faltan campos requeridos en el cuerpo de la solicitud" });
+        if (Object.hasOwn(req.body, "_id")) {
+            return res.status(400).json({ error: "No se permite enviar la propiedad _id" });
         }
-        db.find({ year: newData.year, aacc: newData.aacc }, (_err, existingData) => {
-            if (existingData.length > 0) {
-                return res.status(409).json({ error: "Ya existe" });
-            } else {
-                db.insert(newData);
-                res.sendStatus(201);
+        else {
+            console.log("New POST to /annual-consumptions");
+            const newData = req.body;
+            const requiredFields = ["aacc", "year", "electricity", "gas", "other", "total_consumption", "co2_emission"];
+        
+            const hasAllFields = requiredFields.every(field => Object.hasOwn(newData, field));
+        
+            const hasOnlyFields = Object.keys(newData).every(key => requiredFields.includes(key));
+        
+            const validTypes = typeof newData.aacc === "string"
+                && typeof newData.year === "number"
+                && typeof newData.electricity === "number"
+                && typeof newData.gas === "number"
+                && typeof newData.other === "number"
+                && typeof newData.total_consumption === "number"
+                && typeof newData.co2_emission === "number";
+        
+            if (!hasAllFields || !hasOnlyFields || !validTypes) {
+                return res.status(400).json({ error: "La estructura del JSON recibido no es válida" });
             }
-        });
+        
+            db.find({ year: newData.year, aacc: newData.aacc }, (_err, existingData) => {
+                if (existingData.length > 0) {
+                    return res.status(409).json({ error: "Ya existe un recurso con ese año y comunidad" });
+                } else {
+                    db.insert(newData);
+                    res.status(201).json({ message: "Recurso creado correctamente" });
+                    ;
+                }
+            });
         }
-    );
+    });
+    
 
     app.post(BASE_API + "/annual-consumptions/:aacc", (_req, res) => {
         console.log("New POST to /annual-consumptions");
@@ -141,55 +167,75 @@ function loadBackendGOS(app){
     app.put(BASE_API + "/annual-consumptions/:aacc", (req, res) => {
         let aacc = req.params.aacc;
         let updatedData = req.body;
+        if (Object.hasOwn(req.body, "_id")) {
+            return res.status(400).json({ error: "No se permite enviar la propiedad _id" });
+        }
+        else {
+            if (updatedData.aacc !== aacc) {
+                return res.status(400).json({ error: "El 'aacc' del cuerpo no coincide con el de la URL" });
+            } else {
+                console.log(`New PUT to /annual-consumptions/${aacc}`);
 
-        if (updatedData.aacc !== aacc) {
-            return res.status(400).json({ error: "El 'aacc' del cuerpo no coincide con el de la URL" });
-        } else {
-            console.log(`New PUT to /annual-consumptions/${aacc}`);
-
-            db.update(
-                { aacc: aacc, year: updatedData.year },
-                { $set: updatedData },
-                {},
-                (err, numReplaced) => {
-                    if (err) {
-                        console.error("Error updating the database:", err);
-                        return res.status(500).json({ error: "Error updating the database" });
+                db.update(
+                    { aacc: aacc, year: updatedData.year },
+                    { $set: updatedData },
+                    {},
+                    (err, numReplaced) => {
+                        if (err) {
+                            console.error("Error updating the database:", err);
+                            return res.status(500).json({ error: "Error updating the database" });
+                        }
+                        if (numReplaced > 0) {
+                            res.status(200).json({ message: "Datos actualizados correctamente" });
+                        } else {
+                            res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
+                        }
                     }
-                    if (numReplaced > 0) {
-                        res.status(200).json({ message: "Datos actualizados correctamente" });
-                    } else {
-                        res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
-                    }
-                }
-            );
+                );
+            }
         }
     });
 
     app.put(BASE_API + "/annual-consumptions/:aacc/:year", (req, res) => {
-        const aacc = req.params.aacc;
-        const year = Number(req.params.year);
+        const { aacc, year } = req.params;
         const updatedData = req.body;
-    
-        // Comprobar que los identificadores del body coinciden con los de la URL
-        if (updatedData.aacc !== aacc || updatedData.year !== year) {
-            return res.status(400).json({ error: "El 'aacc' y 'year' del cuerpo no coinciden con los de la URL" });
+        const requiredFields = ["aacc", "year", "electricity", "gas", "other", "total_consumption", "co2_emission"];
+        if (Object.hasOwn(req.body, "_id")) {
+            return res.status(400).json({ error: "No se permite enviar la propiedad _id" });
         }
-    
-        console.log(`New PUT to /annual-consumptions/${aacc}/${year}`);
-    
-        db.update({ aacc: aacc, year: year }, { $set: updatedData }, {}, (err, numReplaced) => {
-            if (err) {
-                console.error("Error updating the database:", err);
-                return res.status(500).json({ error: "Error updating the database" });
+        else {
+            if (updatedData.aacc !== aacc || Number(updatedData.year) !== Number(year)) {
+                return res.status(400).json({ error: "El 'aacc' y 'year' del cuerpo no coinciden con la URL" });
             }
-            if (numReplaced > 0) {
-                res.status(200).json({ message: "Datos actualizados correctamente" });
-            } else {
-                res.status(404).json({ error: `No se encuentran datos de ${aacc} en ${year}` });
+        
+            const hasAllFields = requiredFields.every(field => Object.hasOwn(updatedData, field));
+            const hasOnlyFields = Object.keys(updatedData).every(key => requiredFields.includes(key));
+            const validTypes = typeof updatedData.aacc === "string"
+                && typeof updatedData.year === "number"
+                && typeof updatedData.electricity === "number"
+                && typeof updatedData.gas === "number"
+                && typeof updatedData.other === "number"
+                && typeof updatedData.total_consumption === "number"
+                && typeof updatedData.co2_emission === "number";
+        
+            if (!hasAllFields || !hasOnlyFields || !validTypes) {
+                return res.status(400).json({ error: "La estructura del JSON recibido no es válida" });
             }
-        });
+        
+            db.update({ aacc: aacc, year: Number(year) }, { $set: updatedData }, {}, (err, numReplaced) => {
+                if (err) {
+                    console.error("Error actualizando la base de datos:", err);
+                    return res.status(500).json({ error: "Error actualizando la base de datos" });
+                }
+                if (numReplaced > 0) {
+                    res.status(200).json({ message: "Datos actualizados correctamente" });
+                } else {
+                    res.status(404).json({ error: `No se encuentran datos de ${aacc} en ${year}` });
+                }
+            });
+        }
     });
+    
 
     //DELETE
     app.delete(BASE_API + "/annual-consumptions", (_req, res) => {
