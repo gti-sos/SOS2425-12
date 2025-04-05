@@ -27,6 +27,10 @@ let initialData = [
 
 function loadBackendGOS(app){
 
+    app.get("/annual-consumptions/docs", (req, res) => {
+        res.redirect("https://documenter.getpostman.com/view/42146733/2sB2cUB3aK");
+    });
+
     app.get(BASE_API + "/annual-consumptions/loadInitialData", (_req, res) => {
         db.find({}, (_err, annual_consumptions) => {
             if (annual_consumptions.length < 1) {
@@ -39,15 +43,33 @@ function loadBackendGOS(app){
     });
 
     //GET
-    app.get(BASE_API + "/annual-consumptions", (_req, res) => {
-        console.log("New GET to /annual-consumptions");
-
-        db.find({}, (_err, annual_consumptions) => {
-            res.status(200);
-            res.send(JSON.stringify(annual_consumptions.map((c) => {
+    app.get(BASE_API + "/annual-consumptions", (req, res) => {
+        console.log("New GET to /annual-consumptions with query", req.query);
+        let query = {};
+        if (req.query.from || req.query.to) {
+            query.year = {};
+            if (req.query.from) query.year.$gte = Number(req.query.from);
+            if (req.query.to) query.year.$lte = Number(req.query.to);
+        }
+    
+        const filterableFields = ["aacc", "electricity", "gas", "other", "total_consumption", "co2_emission"];
+        filterableFields.forEach(field => {
+            if (req.query[field]) {
+                const value = req.query[field];
+                query[field] = isNaN(value) ? value : Number(value);
+            }
+        });
+    
+        db.find(query, (err, results) => {
+            if (err) {
+                console.error("Error accessing the database:", err);
+                return res.status(500).json({ error: "Error accessing the database" });
+            }
+    
+            res.status(200).json(results.map((c) => {
                 delete c._id;
                 return c;
-            }), null, 2));
+            }));
         });
     });
 
