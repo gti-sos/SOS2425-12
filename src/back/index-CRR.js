@@ -26,7 +26,7 @@ function loadBackendCRR(app){
 
 
     //docs
-    app.get(BASE_API + "/annual-evolutions/docs", (request, response) => {
+    app.get(BASE_API + "/annual-evolutions/api/v1/docs", (request, response) => {
         response.redirect("https://documenter.getpostman.com/view/42121463/2sB2cShixE");
     });
 

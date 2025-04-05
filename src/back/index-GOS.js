@@ -27,7 +27,7 @@ let initialData = [
 
 function loadBackendGOS(app){
 
-    app.get("/annual-consumptions/docs", (req, res) => {
+    app.get("/annual-consumptions/api/v1/docs", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/42146733/2sB2cUB3aK");
     });
 
