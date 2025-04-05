@@ -93,6 +93,21 @@ function loadBackendGOS(app){
         });
     });
 
+    app.get(BASE_API + "/annual-consumptions/:aacc/:year", (req, res) => {
+    const { aacc, year } = req.params;
+    db.find({ aacc: aacc, year: Number(year) }, (err, data) => {
+        if (err) return res.status(500).json({ error: "Error al acceder a la base de datos" });
+        if (data.length > 0) {
+            res.status(200).json(data.map(d => {
+                delete d._id;
+                return d;
+            }));
+        } else {
+            res.status(404).json({ error: `No se encuentran datos de ${aacc} en ${year}` });
+        }
+    });
+});
+
     //POST
     app.post(BASE_API + "/annual-consumptions", (req, res) => {
         console.log("New POST to /annual-consumptions");
@@ -151,6 +166,31 @@ function loadBackendGOS(app){
         }
     });
 
+    app.put(BASE_API + "/annual-consumptions/:aacc/:year", (req, res) => {
+        const aacc = req.params.aacc;
+        const year = Number(req.params.year);
+        const updatedData = req.body;
+    
+        // Comprobar que los identificadores del body coinciden con los de la URL
+        if (updatedData.aacc !== aacc || updatedData.year !== year) {
+            return res.status(400).json({ error: "El 'aacc' y 'year' del cuerpo no coinciden con los de la URL" });
+        }
+    
+        console.log(`New PUT to /annual-consumptions/${aacc}/${year}`);
+    
+        db.update({ aacc: aacc, year: year }, { $set: updatedData }, {}, (err, numReplaced) => {
+            if (err) {
+                console.error("Error updating the database:", err);
+                return res.status(500).json({ error: "Error updating the database" });
+            }
+            if (numReplaced > 0) {
+                res.status(200).json({ message: "Datos actualizados correctamente" });
+            } else {
+                res.status(404).json({ error: `No se encuentran datos de ${aacc} en ${year}` });
+            }
+        });
+    });
+
     //DELETE
     app.delete(BASE_API + "/annual-consumptions", (_req, res) => {
         console.log("New DELETE to /annual-consumptions");
@@ -177,6 +217,24 @@ function loadBackendGOS(app){
                 res.status(200).json({ message: `Datos de ${aacc} eliminados correctamente (${numRemoved} registros eliminados)` });
             } else {
                 res.status(404).json({ error: `No se encuentran datos de ${aacc}` });
+            }
+        });
+    });
+
+    app.delete(BASE_API + "/annual-consumptions/:aacc/:year", (req, res) => {
+        const aacc = req.params.aacc;
+        const year = Number(req.params.year);
+        console.log(`New DELETE to /annual-consumptions/${aacc}/${year}`);
+    
+        db.remove({ aacc: aacc, year: year }, {}, (err, numRemoved) => {
+            if (err) {
+                console.error("Error deleting the database:", err);
+                return res.status(500).json({ error: "Error deleting the database" });
+            }
+            if (numRemoved > 0) {
+                res.status(200).json({ message: `Datos de ${aacc} en ${year} eliminados correctamente` });
+            } else {
+                res.status(404).json({ error: `No se encuentran datos de ${aacc} en ${year}` });
             }
         });
     });
