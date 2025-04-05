@@ -45,9 +45,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -88,9 +88,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -131,9 +131,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/loadInitialdata",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -174,9 +174,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/loadInitialdata",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -217,9 +217,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -261,9 +261,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Londres",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Londres",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -308,9 +308,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -361,9 +361,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -414,9 +414,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -467,9 +467,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -520,9 +520,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -572,9 +572,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -627,9 +627,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -682,9 +682,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -736,9 +736,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -789,9 +789,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -841,9 +841,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
