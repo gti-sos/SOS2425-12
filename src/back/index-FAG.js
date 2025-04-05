@@ -79,7 +79,7 @@ function loadBackendFAG(app){
                 res.send(JSON.stringify(search.map((x) => {
                     delete x._id;
                     return x;
-                }), null, 2));
+                })[0], null, 2));
                 res.status(200);
             } else {
                 return res.status(404).json({ error: `No se encuentran datos de ${technology} en el año ${year}`})
@@ -143,7 +143,7 @@ function loadBackendFAG(app){
         console.log(`New PUT to /annual-retributions/${technology}/${year}`);
 
         db.find({ technology: technology, year: year }, (err, object) => {
-            if (object.year != data.year || object.technology != data.technology) {
+            if (object[0].year != data.year || object[0].technology != data.technology) {
                 return res.status(400).json({ error: `No se puede actualizar el id de un dato` });
             } else {
                 db.update(
@@ -181,7 +181,7 @@ function loadBackendFAG(app){
 
         db.remove({ technology: technology }, { multi: true }, (err, numRemoved) => {
             if (numRemoved > 0) {
-                return res.status(200);
+                return res.sendStatus(200);
             } else {
                 return res.status(404).json({ error: `No se encuentran datos de ${technology}` });
             }
@@ -198,7 +198,7 @@ function loadBackendFAG(app){
 
         db.remove({ technology: technology, year: year }, { multi: true }, (err, numRemoved) => {
             if (numRemoved > 0) {
-                return res.status(200);
+                return res.sendStatus(200);
             } else {
                 return res.status(404).json({ error: `No se encuentran datos de la tecnología ${technology} en el año ${year}` });
             }
