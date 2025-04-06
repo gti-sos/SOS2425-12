@@ -27,7 +27,7 @@ function loadBackendFAG(app){
 
     //docs
     app.get(BASE_API + "/annual-retributions/docs", (req, res) => {
-        res.redirect("https://www.postman.com/a44444-4090/sos2425-12/collection/pill5lv/tests?action=share&creator=42233131");
+        res.redirect("https://documenter.getpostman.com/view/42233131/2sB2cUC3np");
     });
 
     //loadInitialData
