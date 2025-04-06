@@ -14,7 +14,7 @@
     "test-annual-retributions": "newman run tests/back/api-annual-retributions-tests.json --environment tests/back/local.json",
     "test-local": "npm run test-annual-evolutions && npm run test-annual-consumptions && npm run test-annual-retributions",
     "start-and-test": "start-server-and-test start http://localhost:16078 test-local",
-    "test": "npm run test",
+    "test": "npm run start-and-test",
     "start": "node index.js"
   },
   "repository": {
