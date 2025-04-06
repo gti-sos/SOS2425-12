@@ -1,0 +1,783 @@
+{
+	"info": {
+		"_postman_id": "38c7b9e2-1031-47dc-a68a-507a2a7b8c2f",
+		"name": "Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42233131"
+	},
+	"item": [
+		{
+			"name": "loadInitialData - ya existente (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/loadInitialData",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - retributions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Total compensation is a non-negative number', function () {\r",
+							"    pm.response.json().forEach(function (item) {\r",
+							"        pm.expect(item.total_compensation).to.be.a('number');\r",
+							"        pm.expect(item.total_compensation).to.be.at.least(0);\r",
+							"    });\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - retributions  - Biomasa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Total compensation is a non-negative number', function () {\r",
+							"    pm.response.json().forEach(function (item) {\r",
+							"        pm.expect(item.total_compensation).to.be.a('number');\r",
+							"        pm.expect(item.total_compensation).to.be.at.least(0);\r",
+							"    });\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Biomasa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - retributions  - Biomasa - 2018",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200', function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"})\r",
+							"\r",
+							"pm.test('Total compensation is a non-negative number', function () {\r",
+							"    pm.expect(pm.response.json().total_compensation).to.be.a('number');\r",
+							"    pm.expect(pm.response.json().total_compensation).to.be.at.least(0);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa/2018",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Biomasa",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - retributions - Mágica (404) Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Mágica",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Mágica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Existente (409)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2017,\r\n        \"technology\": \"Biomasa\",\r\n        \"subsidized_energy\": 3984.8567,\r\n        \"total_compensation\": 536521.12,\r\n        \"investment_compensation\": 148150.2,\r\n        \"operation_compensation\": 178340.4,\r\n        \"specific_compensation\": 326490.61,\r\n        \"aacc\": \"Murcia, Región de\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST sin datos (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2017,\r\n        \"subsidized_energy\": 3984.8567,\r\n        \"total_compensation\": 536521.12,\r\n        \"investment_compensation\": 148150.2,\r\n        \"operation_compensation\": 178340.4,\r\n        \"specific_compensation\": 326490.61,\r\n        \"aacc\": \"Murcia, Región de\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Prueba - retributions - Biomasa  (405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"year\": 2,\r\n    \"technology\": \"Prueba\",\r\n    \"subsidized_energy\": 10,\r\n    \"total_compensation\": 10,\r\n    \"investment_compensation\": 10,\r\n    \"operation_compensation\": 10,\r\n    \"specific_compensation\": 10,\r\n    \"aacc\": \"Prueba\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Biomasa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Prueba - retributions - Biomasa  - 2017 (405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"year\": 2,\r\n    \"technology\": \"Prueba\",\r\n    \"subsidized_energy\": 10,\r\n    \"total_compensation\": 10,\r\n    \"investment_compensation\": 10,\r\n    \"operation_compensation\": 10,\r\n    \"specific_compensation\": 10,\r\n    \"aacc\": \"Prueba\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa/2017",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Biomasa",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - Prueba - retributions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"year\": 10,\r\n    \"technology\": \"Prueba\",\r\n    \"subsidized_energy\": 10,\r\n    \"total_compensation\": 10,\r\n    \"investment_compensation\": 10,\r\n    \"operation_compensation\": 10,\r\n    \"specific_compensation\": 10,\r\n    \"aacc\": \"Prueba\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - retributions  - Prueba - 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Year is 10\", function () {\r",
+							"    pm.expect(pm.response.json().year).to.eql(10);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Prueba",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - retributions (405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"year\": 2,\r\n    \"technology\": \"Prueba POST\",\r\n    \"subsidized_energy\": 10,\r\n    \"total_compensation\": 10,\r\n    \"investment_compensation\": 10,\r\n    \"operation_compensation\": 10,\r\n    \"specific_compensation\": 10,\r\n    \"aacc\": \"Prueba POST\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Distinto ID (400)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"year\": 2,\r\n    \"technology\": \"Prueba Cambio\",\r\n    \"subsidized_energy\": 10,\r\n    \"total_compensation\": 10,\r\n    \"investment_compensation\": 10,\r\n    \"operation_compensation\": 10,\r\n    \"specific_compensation\": 10,\r\n    \"aacc\": \"Prueba Cambio\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Prueba",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Prueba - retributions - 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"year\": 10,\r\n    \"technology\": \"Prueba\",\r\n    \"subsidized_energy\": 10,\r\n    \"total_compensation\": 10,\r\n    \"investment_compensation\": 10,\r\n    \"operation_compensation\": 10,\r\n    \"specific_compensation\": 10,\r\n    \"aacc\": \"Prueba Cambio\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Prueba",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - retributions  - Prueba - 10",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Year is 10\", function () {\r",
+							"    pm.expect(pm.response.json().year).to.eql(10);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Prueba has changed\", function () {\r",
+							"    pm.expect(pm.response.json().aacc).to.eql(\"Prueba Cambio\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Prueba",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE - Prueba - retributions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"Prueba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE - retributions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is an empty array\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('array').that.is.empty;\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-retributions/loadInitialData",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-retributions",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
