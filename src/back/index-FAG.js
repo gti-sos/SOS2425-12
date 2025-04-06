@@ -30,7 +30,7 @@ function loadBackendFAG(app){
         console.log("New GET to /loadInitialData");
         db.find({},(err,data)=>{
             if (data.length > 0){
-                return res.status(400).json({ message: "El array ya contiene datos" });
+                return res.status(409).json({ message: "El array ya contiene datos" });
             } else {
                 db.insert(initial_annual_retributions);
                 res.sendStatus(201);
