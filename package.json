@@ -12,7 +12,7 @@
     "test-annual-evolutions": "newman run tests/back/api-annual-evolutions-tests.json --environment tests/back/local.json",
     "test-annual-consumptions": "newman run tests/back/api-annual-consumptions-tests.json --environment tests/back/local.json",
     "test-annual-retributions": "newman run tests/back/api-annual-retributions-tests.json --environment tests/back/local.json",
-    "test": "npm run test-annual-evolutions && npm run test-annual-consumptions && npm run test-annual-retributions",
+    "test": "npm run test-annual-consumptions && npm run test-annual-retributions && npm run test-annual-evolutions",
     "start-and-test": "start-server-and-test start http://localhost:16078 test",
     "start": "node index.js"
   },
