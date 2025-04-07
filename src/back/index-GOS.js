@@ -26,8 +26,8 @@ let initialData = [
             ];
 
 function loadBackendGOS(app){
-
-    app.get("/annual-consumptions/api/v1/docs", (req, res) => {
+    //https://sos2425-12.onrender.com/api/v1/annual-consumptions/docs
+    app.get("/api/v1/annual-consumptions/docs", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/42146733/2sB2cUB3aK");
     });
 
