@@ -47,7 +47,26 @@ function loadBackendFAG(app){
     app.get(BASE_API + "/annual-retributions", (req, res) => {
         console.log("New GET to /annual-retributions");
 
-        db.find({}, (err, annual_retributions) => {
+        const limit = parseInt(req.query.limit) || 999999;
+        const offset = parseInt(req.query.offset) || 0;
+
+        let query = {};
+        const filterableFields = ["aacc", "year", "electricity", "gas", "other", "total_consumption", "co2_emission"];        
+        
+        filterableFields.forEach(field => {
+            if (req.query[field]) {
+                const value = req.query[field];
+                query[field] = isNaN(value) ? value : Number(value);
+            }
+        });
+
+        if (req.query.from || req.query.to) {
+            query.year = {};
+            if (req.query.from) query.year.$gte = Number(req.query.from);
+            if (req.query.to) query.year.$lte = Number(req.query.to);
+        }
+        
+        db.find(query).skip(offset).limit(limit).exec((err, annual_retributions) => {
             res.send(JSON.stringify(annual_retributions.map((x) => {
                 delete x._id;
                 return x;
