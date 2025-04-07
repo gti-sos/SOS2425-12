@@ -108,7 +108,7 @@ function loadBackendCRR(app){
         console.log(`New GET to /annual-evolutions/${aacc}/${year}`);
 
        // const search = annual_evolutions.filter(x => x.aacc === aacc);
-        db.find({aacc: aacc, year : year}, (_err, search) => {
+        db.find({aacc: aacc, year : parseInt(year)}, (_err, search) => {
             if (search.length > 0){
                 response.status(200).json(search.map((c) => {
                     delete c._id;
@@ -116,7 +116,7 @@ function loadBackendCRR(app){
                 }));
             }
             else{   
-                response.status(404).json({error: `No se encuentran datos de ${aacc}/${aacc}`});
+                response.status(404).json({error: `No se encuentran datos de ${aacc}/${year}`});
             }
         })
         
