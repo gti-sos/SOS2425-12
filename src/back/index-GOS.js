@@ -45,6 +45,7 @@ function loadBackendGOS(app){
     app.get(BASE_API + "/annual-consumptions", (req, res) => {
         console.log("New GET to /annual-consumptions with query", req.query);
         let query = {};
+    
         if (req.query.from || req.query.to) {
             query.year = {};
             if (req.query.from) query.year.$gte = Number(req.query.from);
@@ -59,7 +60,14 @@ function loadBackendGOS(app){
             }
         });
     
-        db.find(query, (err, results) => {
+        const offset = parseInt(req.query.offset) || 0;
+        const limit = parseInt(req.query.limit) || 0;
+    
+        let dbQuery = db.find(query);
+        if (offset) dbQuery = dbQuery.skip(offset);
+        if (limit) dbQuery = dbQuery.limit(limit);
+    
+        dbQuery.exec((err, results) => {
             if (err) {
                 console.error("Error accessing the database:", err);
                 return res.status(500).json({ error: "Error accessing the database" });
@@ -71,6 +79,7 @@ function loadBackendGOS(app){
             }));
         });
     });
+    
 
     app.get(BASE_API + "/annual-consumptions/:aacc", (req, res) => {
         const aacc = req.params.aacc;
