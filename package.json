@@ -1,10 +1,20 @@
 {
   "name": "grupo-12-sos2425",
   "version": "1.0.0",
-  "description": "- **Team**\n  - Gonzalo Osuna Salas (https://github.com/gxnzalx55)\n  - Fernando Aguirre Garcia (https://github.com/Fer-28)\n  - Clara Reina Romero (https://github.com/clarareina)\n- **Project description**: Our project aims to analyse the relationship between energy consumption, energy generation using different technologies and the associated economic retributions in order to understand patterns of energy efficiency and sustainability in Spain.\n- **Repository**: [gti-sos/SOS2425-12](https://github.com/gti-sos/SOS2425-12)\n- **URL**: #todo\n- **APIs**:\n    - #todo\n    - #todo\n    - #todo",
+  "description": "- **Team**\n  - Gonzalo Osuna Salas (https://github.com/gxnzalx55)\n  - Fernando Aguirre Garcia (https://github.com/Fer-28)\n  - Clara Reina Romero (https://github.com/clarareina)\n- **Project description**: Our project aims to analyse the relationship between energy consumption, energy generation using different technologies and the associated economic retributions in order to understand patterns of energy efficiency and sustainability in Spain.\n- **Repository**: [gti-sos/SOS2425-12](https://github.com/gti-sos/SOS2425-12)\n- **URL**: [sos2425-12.onrender.com](https://sos2425-12.onrender.com/) \n- **APIs**:\n    - #todo\n    - #todo\n    - [annual-evolutions](https://sos2425-12.onrender.com/api/v1/annual-evolutions/docs) (developed by Clara Reina Romero)",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-annual-evolutions-global": "newman run tests/back/api-annual-evolutions-tests.json --environment tests/back/global.json",
+    "test-annual-consumptions-global": "newman run tests/back/api-annual-consumptions-tests.json --environment tests/back/global.json",
+    "test-annual-retributions-global": "newman run tests/back/api-annual-retributions-tests.json --environment tests/back/global.json",
+    "test-global": "npm run test-annual-evolutions-global && npm run test-annual-consumptions-global && npm run test-annual-retributions-global",
+    "test-annual-evolutions": "newman run tests/back/api-annual-evolutions-tests.json --environment tests/back/local.json",
+    "test-annual-consumptions": "newman run tests/back/api-annual-consumptions-tests.json --environment tests/back/local.json",
+    "test-annual-retributions": "newman run tests/back/api-annual-retributions-tests.json --environment tests/back/local.json",
+    "test-local": "npm run test-annual-evolutions && npm run test-annual-consumptions && npm run test-annual-retributions",
+    "start-and-test": "start-server-and-test start http://localhost:16078 test-local",
+    "test": "npm run start-and-test",
     "start": "node index.js"
   },
   "repository": {
@@ -20,6 +30,11 @@
   "dependencies": {
     "cool-ascii-faces": "^1.3.4",
     "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1",
+    "start-server-and-test": "^2.0.11"
   }
 }

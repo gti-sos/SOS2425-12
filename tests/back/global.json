@@ -1,0 +1,15 @@
+{
+	"id": "95d2abf0-aa78-4a49-a669-c11fab541cf0",
+	"name": "global",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "https://sos2425-12.onrender.com",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-04-05T18:57:04.570Z",
+	"_postman_exported_using": "Postman/11.39.5-250403-2338"
+}

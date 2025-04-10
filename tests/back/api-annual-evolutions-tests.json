@@ -1,0 +1,859 @@
+{
+	"info": {
+		"_postman_id": "78a9a811-3dc4-405e-b5e8-3b55e1929786",
+		"name": "API annual-evolutions",
+		"description": "This API handles annual evolutions (remote/local)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42121463"
+	},
+	"item": [
+		{
+			"name": "DELETE /annual-evolutions/ Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"DELETE correcto (200)\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.message).to.include(\"Datos eliminados correctamente\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Prueba\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /annual-evolutions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status es 200 OK\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Devuelve un array\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /annual-evolutions/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status es 201 o 400\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 400]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json.message).to.be.a(\"string\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"loadInitialdata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 GET /annual-evolutions/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status es 201 o 400\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 400]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json.message).to.be.a(\"string\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"loadInitialdata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /annual-evolutions/Ceuta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status es 200 OK\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Devuelve un array\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Ceuta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 GET /annual-evolutions/Londres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// verifica que el código de estado sea 404 (Not Found)\r",
+							"pm.test(\"Status es 404 Not Found\", () => {\r",
+							"    pm.response.to.have.status(404); // Comprueba que la respuesta tenga status 404\r",
+							"});\r",
+							"\r",
+							"// verifica que el mensaje de error recibido sea el esperado\r",
+							"pm.test(\"El mensaje de error es correcto\", () => {\r",
+							"    const json = pm.response.json(); // Convierte la respuesta a JSON para acceder a sus campos\r",
+							"    pm.expect(json.error).to.include(\"No se encuentran datos\"); // Comprueba que el campo 'error' contenga ese texto\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Londres",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Londres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /annual-evolutions/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST creado correctamente (201)\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Ceuta\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "409 POST /annual-evolutions/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST duplicado devuelve 409\", () => {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"Ya existe ese dato\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Ceuta\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 POST /annual-evolutions/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST sin datos requeridos devuelve 400\", () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"Faltan datos requeridos\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 POST /annual-evolutions/Ceuta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST no permitido devuelve 405\", () => {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"Método POST no permitido\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Ceuta\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Ceuta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 PUT /annual-evolutions/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT no permitido devuelve 405\", () => {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"Método PUT no permitido\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Ceuta\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /annual-evolutions/Ceuta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"POST creado correctamente (200)\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.message).to.include(\"Datos actualizados correctamente\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Ceuta",
+						"2008",
+						"Residuos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 PUT /annual-evolutions/Ceuta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT incorrecto devuelve 404\", () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"No se encuentran datos\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"year\": 2020,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Ceuta",
+						"2020",
+						"Residuos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 PUT /annual-evolutions/Ceuta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT incorrecto devuelve 400\", () => {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"No se puede modificar el id\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Malaga\",    //id cambiado\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Ceuta",
+						"2008",
+						"Residuos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /annual-evolutions/Ceuta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"DELETE correcto (200)\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.message).to.include(\"Datos eliminados correctamente\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Prueba\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Ceuta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 DELETE /annual-evolutions/Ceuta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"DELETE incorrecto devuelve 404\", () => {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.error).to.include(\"No se encuentran datos\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Prueba\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"Ceuta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /annual-evolutions/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"DELETE correcto (200)\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje correcto\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json).to.be.an(\"object\");\r",
+							"    pm.expect(json.message).to.include(\"Datos eliminados correctamente\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"year\": 2000,\r\n        \"aacc\": \"Prueba\",\r\n        \"technology\": \"Biomasa\",\r\n        \"energy_sold\": 726.24343,\r\n        \"installed_power\": 127.98,\r\n        \"load_factor\": 64.7792606\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
