@@ -1,5 +1,3 @@
-
-//const express = require("express");
 import express from "express";
 import { loadBackendGOS } from "./src/back/index-GOS.js";
 import { loadBackendFAG } from "./src/back/index-FAG.js";
