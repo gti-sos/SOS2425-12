@@ -39,10 +39,10 @@
         try {
             const res = await fetch(API,{method:"GET"});
   
-            const data = await res.json();
+            const loaded = await res.json();
             result = JSON.stringify(data,null,2);
 
-            evolution_data = data;
+            evolution_data = loaded;
             console.log(`Response received:\n${JSON.stringify(evolution_data,null,2)}`);
 
         } catch (error){
@@ -169,21 +169,21 @@ async function deleteAll(){
       <th>Comunidad Autónoma</th>
       <th>Año</th>
       <th>Tecnología</th>
-      <th>Energía Vendida (GWh)</th>
-      <th>Potencia Instalada (MW)</th>
-      <th>Factor de Carga (%)</th>
+      <th>Energía Vendida</th>
+      <th>Potencia Instalada</th>
+      <th>Factor de Carga</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <input bind:value={new_evolution_aacc} placeholder="Ej: Andalucía" />
+        <input bind:value={new_evolution_aacc} placeholder="Ej: Ceuta" />
       </td>
       <td>
-        <input bind:value={new_evolution_year} placeholder="Ej: 2008" />
+        <input bind:value={new_evolution_year} placeholder="Ej: 2000" />
       </td>
       <td>
-        <input bind:value={new_evolution_technology} placeholder="Ej: Solar FV" />
+        <input bind:value={new_evolution_technology} placeholder="Ej: Residuos" />
       </td>
       <td>
         <input bind:value={new_evolution_energy_sold} placeholder="Ej: 300" />

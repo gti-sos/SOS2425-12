@@ -19,17 +19,16 @@
     let new_evolution_installed_power;  
     let new_evolution_energy_sold;  
     let new_evolution_load_factor;  
-    let data = {};
 
     async function getData(){
         resultStatus = result = "";
         try {
             const res = await fetch(API,{method:"GET"});
-            const data = await res.json();
+            const loaded = await res.json();
             result = JSON.stringify(data, null, 2);
             // data = fetched[0]; // Esperamos solo un resultado
-            evolution_data = data;
-            console.log(`Datos recibidos:\n${JSON.stringify(data, null, 2)}`);
+            evolution_data = loaded;
+            console.log(`Datos recibidos:\n${JSON.stringify(evolution_data, null, 2)}`);
         } catch (error){
             console.log(`ERROR al obtener datos desde ${API}: ${error}`);
         }

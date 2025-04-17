@@ -1,7 +1,10 @@
 import dataStore from "nedb";
+
 const BASE_API = "/api/v1";
-//let db = new dataStore();
-let db = new dataStore({ inMemoryOnly: true, autoload: true });
+let db = new dataStore({
+    inMemoryOnly: false // fuerza a que NO use modo memoria
+  });
+  
 
 
 let initialData = [
@@ -22,8 +25,16 @@ let initialData = [
 
 
 
+
 function loadBackendCRR(app){ 
 
+
+    db.find({},(err,data)=>{
+        if (data.length < 1){
+            db.insert(initialData);
+            console.log(db)
+        }
+    });
 
     //docs
     app.get(BASE_API + "/annual-evolutions/docs", (request, response) => {
