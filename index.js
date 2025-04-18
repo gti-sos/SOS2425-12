@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 16078;
 
 
 app.use(express.json());
-app.use("/",express.static("./public"));
+// app.use("/",express.static("./public"));
 
 loadBackendGOS(app);
 
@@ -18,9 +18,9 @@ loadBackendFAG(app);
 
 loadBackendCRR(app);
 
-app.get("/about", (request, response) => {
-    response.sendFile(path.resolve("./about/index.html"));
-});
+// app.get("/about", (request, response) => {
+//     response.sendFile(path.resolve("./about/index.html"));
+// });
 
 app.use(handler);
 
