@@ -2,6 +2,7 @@ import express from "express";
 import { loadBackendGOS } from "./src/back/index-GOS.js";
 import { loadBackendFAG } from "./src/back/index-FAG.js";
 import { loadBackendCRR } from "./src/back/index-CRR.js";
+import { handler } from "./src/front/build/handler.js";
 import path from "path";
 
 const app = express();
@@ -20,6 +21,8 @@ loadBackendCRR(app);
 app.get("/about", (request, response) => {
     response.sendFile(path.resolve("./about/index.html"));
 });
+
+app.use(handler);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`);
