@@ -37,9 +37,9 @@
     async function getData(){
         resultStatus = result = "";
         try {
-            const res = await fetch(API,{method:"GET"});
+            const response = await fetch(API,{method:"GET"});
   
-            const loaded = await res.json();
+            const loaded = await response.json();
             result = JSON.stringify(data,null,2);
 
             evolution_data = loaded;
@@ -58,9 +58,9 @@
 async function deleteAll(){
         resultStatus = result = "";
         try {
-            const res = await fetch(API,{method:"DELETE"});
+            const response = await fetch(API,{method:"DELETE"});
   
-            const status = await res.status;
+            const status = await response.status;
             resultStatus = status;
 
             if(status == 200){
@@ -83,9 +83,9 @@ async function deleteAll(){
     async function deleteData(aacc, year, technology){
         resultStatus = result = "";
         try {
-            const res = await fetch(API+"/"+aacc+"/"+year+"/"+technology,{method:"DELETE"});
+            const response = await fetch(API+"/"+aacc+"/"+year+"/"+technology,{method:"DELETE"});
   
-            const status = await res.status;
+            const status = await response.status;
             resultStatus = status;
 
             if(status == 200){
@@ -107,7 +107,7 @@ async function deleteAll(){
     async function createData(){
         resultStatus = result = "";
         try {
-            const res = await fetch(API,{
+            const response = await fetch(API,{
                 method:"POST",
                 headers:{
                     "Content-Type" : "application/json"
@@ -123,7 +123,7 @@ async function deleteAll(){
                 })
             });
   
-            const status = await res.status;
+            const status = await response.status;
             resultStatus = status;
             if(status == 201){
                 console.log(`Data created`);

@@ -23,8 +23,8 @@
     async function getData(){
         resultStatus = result = "";
         try {
-            const res = await fetch(API,{method:"GET"});
-            const loaded = await res.json();
+            const response = await fetch(API,{method:"GET"});
+            const loaded = await response.json();
             result = JSON.stringify(data, null, 2);
             // data = fetched[0]; // Esperamos solo un resultado
             evolution_data = loaded;
@@ -37,7 +37,7 @@
     async function editData() {
         resultStatus = result = "";
         try {
-            const res = await fetch(API, {
+            const response = await fetch(API, {
                 method:"PUT",
                 headers:{
                     "Content-Type" : "application/json"
@@ -51,7 +51,7 @@
                     load_factor : new_load_factor,
                 })
             });
-            const status = await res.status; 
+            const status = await response.status; 
             resultStatus = status;
             if(status === 200){
                 console.log(`Datos actualizados`);
