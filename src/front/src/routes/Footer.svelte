@@ -1,1 +1,1 @@
-<p><a href="/about">about</a></p>
+<p><a href="/about">Información sobre el proyecto</a></p>

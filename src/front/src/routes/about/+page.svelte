@@ -2,4 +2,20 @@
     import { dev } from "$app/environment"; 
 </script>
 
-(Development={dev})
+<ul>
+    <li><strong>Team</strong><ul>
+    <li><a href="https://github.com/Fer-28">Fernando Aguirre García</a></li>
+    <li><a href="https://github.com/clarareina">Clara Reina Romero</a></li>
+    <li><a href="https://github.com/gxnzalx55">Gonzalo Osuna Salas</a></li>
+    </ul>
+    </li>
+    <li><strong>Project description</strong>: Our project aims to analyse the relationship between energy consumption, energy generation using different technologies and the associated economic retributions in order to understand patterns of energy efficiency and sustainability in Spain.</li>
+    <li><strong>Repository</strong>: <a href="https://github.com/gti-sos/SOS2425-12">gti-sos/SOS2425-12</a></li>
+    <li><strong>URL</strong>: <a href="https://sos2425-12.onrender.com">sos2425-12.onrender.com</a></li>
+    <li><strong>APIs</strong>:<ul>
+    <li><a href="http://sos2425-12.onrender.com/api/v1/annual-consumptions/docs">http://sos2425-12.onrender.com/api/v1/annual-consumptions/docs</a> (developed by Gonzalo Osuna Salas)</li>
+    <li><a href="http://sos2425-12.onrender.com/api/v1/annual-evolutions/docs">http://sos2425-12.onrender.com/api/v1/annual-evolutions/docs</a> (developed by Clara Reina Romero)</li>
+    <li><a href="http://sos2425-12.onrender.com/api/v1/annual-retributions/docs">http://sos2425-12.onrender.com/api/v1/annual-retributions/docs</a> (developed by Fernando Aguirre García)</li>
+    </ul>
+    </li>
+</ul>
