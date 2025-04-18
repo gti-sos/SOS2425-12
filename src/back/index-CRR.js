@@ -150,6 +150,10 @@ function loadBackendCRR(app){
         console.log("New POST to /annual-evolutions");
         let newData = request.body;
 
+        newData.year = Number(newData.year);
+        newData.aacc = String(newData.aacc).trim();
+        newData.technology = String(newData.technology).trim();
+
         if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
             return response.status(400).json({ error: "Faltan datos requeridos" });
         }
