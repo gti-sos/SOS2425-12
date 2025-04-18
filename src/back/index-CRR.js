@@ -123,6 +123,27 @@ function loadBackendCRR(app){
     });
 
 
+//v2
+    app.get(BASE_API + "/annual-evolutions" + "/:aacc/:year/:technology", (request, response) => {
+        const aacc = request.params.aacc;
+        const year = request.params.year;
+        const technology = request.params.technology;
+        console.log(`New GET to /annual-evolutions/${aacc}/${year}/${technology}`);
+
+        db.find({aacc: aacc, year : parseInt(year), technology:technology}, (_err, search) => {
+            if (search.length > 0){
+                response.status(200).json(search.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
+            }
+            else{   
+                response.status(404).json({error: `No se encuentran datos de ${aacc}/${year}/${technology}`});
+            }
+        })
+        
+    });
+
 
     //POST
     app.post(BASE_API + "/annual-evolutions", (request, response) => {
@@ -170,7 +191,10 @@ function loadBackendCRR(app){
         let tech = request.params.technology;
         let data = request.body;
         console.log(`New PUT to /annual-evolutions/${aacc}`);
-        if (!data.aacc || (aacc == data.aacc && year == data.year && tech == data.technology)){
+        if(!data.year || !data.aacc || !data.technology || !data.energy_sold || !data.installed_power || !data.load_factor){
+            return response.status(400).json({error: "Faltan datos requeridos"});
+        }
+        else if (!data.aacc || (aacc == data.aacc && year == data.year && tech == data.technology)){
             db.update(
                 { aacc: data.aacc, year : data.year, technology: data.technology}, // Clave única del registro
                 { $set: data }, // Se actualiza el resto de campos
@@ -211,6 +235,23 @@ function loadBackendCRR(app){
             }
             else{
                 response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+            }
+        });  
+    });
+
+//v2
+    app.delete(BASE_API + "/annual-evolutions" + "/:aacc/:year/:technology", (request, response) => {
+        const aacc = request.params.aacc;
+        const year = request.params.year;
+        const technology = request.params.technology;
+        console.log(`New GET to /annual-evolutions/${aacc}/${year}/${technology}`);
+
+        db.remove({aacc : aacc, year : parseInt(year), technology : technology}, {multi : true}, (_err, nRemoved) => {
+            if (nRemoved > 0){
+                response.status(200).json({ message: `Datos eliminados correctamente (${nRemoved} registros eliminados)` });
+            }
+            else{
+                response.status(404).json({error: `No se encuentran datos de ${aacc}/${year}/${technology}`});
             }
         });  
     });

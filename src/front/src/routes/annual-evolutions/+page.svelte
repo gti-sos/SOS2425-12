@@ -34,28 +34,20 @@
     
 
 //GET (Listar todos los recursos)
-    async function getData(){
+async function getData(){
+    resultStatus = result = "";
+    try {
+        const response = await fetch(API, { method: "GET" });
+        const fetchedData = await response.json();
+        result = JSON.stringify(fetchedData, null, 2);
 
-        resultStatus = result = "";
-        try {
-            //let url = new URL(DEVEL_HOST + API);
-            // if (filtroAacc) url.searchParams.append("aacc", filtroAacc);
-            // if (filtroYear) url.searchParams.append("year", filtroYear);
-            // if (filtroTech) url.searchParams.append("technology", filtroTech);
-            const response = await fetch(API,{method:"GET"});
-  
-            const fetchedData = await response.json();
-            result = JSON.stringify(fetchedData,null,2);
-
-            evolution_data = fetchedData;
-            console.log(`Response received:\n${JSON.stringify(evolution_data,null,2)}`);
-
-        } catch (error){
-            console.log(`ERROR:  GET from ${API}: ${error}`);
-        }
-
-
+        evolution_data = fetchedData;
+        console.log(`Datos recibidos:\n${JSON.stringify(evolution_data, null, 2)}`);
+    } catch (error){
+        console.log(`ERROR: GET desde ${API}: ${error}`);
     }
+}
+
 
     
 
@@ -70,8 +62,8 @@ async function deleteAll(){
             resultStatus = status;
 
             if(status == 200){
-                console.log(`All data has been deleted`);
-                getData();
+              console.log(`All data has been deleted`);
+              getData();
             } else {
                 console.log(`ERROR deleting all data: status received\n${status}`);
             }
@@ -89,14 +81,15 @@ async function deleteAll(){
     async function deleteData(aacc, year, technology){
         resultStatus = result = "";
         try {
-            const response = await fetch(API+"/"+aacc+"/"+year+"/"+technology,{method:"DELETE"});
-  
+          const response = await fetch(
+            `${API}/${encodeURIComponent(aacc)}/${year}/${encodeURIComponent(technology)}`,
+            { method: "DELETE" });  
             const status = await response.status;
             resultStatus = status;
 
             if(status == 200){
-                console.log(`data deleted`);
-                getData();
+              console.log(`data deleted`);
+              getData();
             } else {
                 console.log(`ERROR deleting data: status received\n${status}`);
             }
@@ -132,9 +125,15 @@ async function deleteAll(){
             const status = await response.status;
             resultStatus = status;
             if(status == 201){
-                console.log(`Data created`);
-                getData();
-            } else {
+              console.log(`Data created`);
+              getData();
+              alert(`DATO CREADO CORRECTAMENTE`);
+            }
+            else if(status == 409){
+              alert("YA EXISTE ESTE DATO");
+            }else if(status == 400){
+              alert("FALTAN DATOS REQUERIDOS");
+            }else {
                 console.log(`ERROR creating data: status received\n${status}`);
             }
 
