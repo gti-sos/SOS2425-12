@@ -35,14 +35,19 @@
 
 //GET (Listar todos los recursos)
     async function getData(){
+
         resultStatus = result = "";
         try {
+            //let url = new URL(DEVEL_HOST + API);
+            // if (filtroAacc) url.searchParams.append("aacc", filtroAacc);
+            // if (filtroYear) url.searchParams.append("year", filtroYear);
+            // if (filtroTech) url.searchParams.append("technology", filtroTech);
             const response = await fetch(API,{method:"GET"});
   
-            const loaded = await response.json();
-            result = JSON.stringify(data,null,2);
+            const fetchedData = await response.json();
+            result = JSON.stringify(fetchedData,null,2);
 
-            evolution_data = loaded;
+            evolution_data = fetchedData;
             console.log(`Response received:\n${JSON.stringify(evolution_data,null,2)}`);
 
         } catch (error){
@@ -52,6 +57,7 @@
 
     }
 
+    
 
 
 //DELETE (Borrar todos los recursos)
