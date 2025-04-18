@@ -3,7 +3,7 @@
 </script>
 
 <ul>
-    <li><strong>Team</strong><ul>
+    <li><strong>Team </strong><ul>
     <li><a href="https://github.com/Fer-28">Fernando Aguirre García</a></li>
     <li><a href="https://github.com/clarareina">Clara Reina Romero</a></li>
     <li><a href="https://github.com/gxnzalx55">Gonzalo Osuna Salas</a></li>
