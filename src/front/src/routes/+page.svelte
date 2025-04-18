@@ -1,2 +1,12 @@
-<h1>Página Svelte</h1>
-<p>by Grupo 12</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS2425-12</title>
+</head>
+<body>
+    <h1>SOS2425-12</h1>
+        <h2>Proyecto de la asignatura Sistemas Orientados a Servicios</h2>
+</body>
+</html>
