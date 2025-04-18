@@ -1,4 +1,3 @@
-import { json } from "express";
 import datastore from "nedb";
 const BASE_API = "/api/v1";
 let db = new datastore();
