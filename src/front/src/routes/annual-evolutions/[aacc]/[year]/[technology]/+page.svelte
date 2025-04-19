@@ -15,7 +15,7 @@
     let resultStatus = "";
 
     async function getData(){
-        resultStatus = result = "";
+        result = "";
         try {
             const res = await fetch(API,{method:"GET"});
             const loaded = await res.json();
@@ -28,7 +28,7 @@
     }
 
     async function editData() {
-        resultStatus = result = "";
+        result = "";
         try {
             const res = await fetch(API, {
                 method:"PUT",
@@ -46,13 +46,9 @@
             });
             const status = await res.status; 
             resultStatus = status;
-            if(status === 200){
+            if(resultStatus === 200){
                 console.log(`Datos actualizados`);
                 getData();
-                alert(`DATO ACTUALIZADO CORRECTAMENTE`);
-            }
-            else if(status === 400){
-                alert("FALTAN DATOS REQUERIDOS");
             }
             else{
                 console.log(`Error actualizando: status ${status}`);
@@ -71,6 +67,14 @@
 
 
 <h2>Evolución Anual: {evolution_data.aacc}, {evolution_data.year}, {evolution_data.technology}</h2>
+
+{#if resultStatus === 200}
+        <i class="bi bi-check-circle-fill text-success"></i> OPERACIÓN COMPLETADA CORRECTAMENTE.
+    {:else if resultStatus === 400}
+        <i class="bi bi-exclamation-triangle-fill text-warning"></i> FALTAN DATOS REQUERIDOS.
+    {:else}
+    <i class="bi bi-x-circle-fill text-danger"></i>
+{/if}
 
 <Table>
     <thead>
@@ -91,7 +95,7 @@
         <td><input bind:value={evolution_data.energy_sold} /></td>
         <td><input bind:value={evolution_data.installed_power} /></td>
         <td><input bind:value={evolution_data.load_factor} /></td>
-        <Button color="primary" on:click={editData}>Actualizar</Button>
+        <td><Button color="primary" on:click={editData}>Actualizar</Button></td>
     </tr>
   </tbody>
 </Table>

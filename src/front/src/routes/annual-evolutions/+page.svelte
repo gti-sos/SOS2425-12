@@ -26,7 +26,8 @@
 
 
       let filtroAacc = "";
-      let filtroYear = "";
+      let filtroYearFrom = "";
+      let filtroYearTo = "";
       let filtroTech = "";
 
 
@@ -56,7 +57,8 @@
       let queryParams = [];
 
       if (filtroAacc) queryParams.push(`aacc=${encodeURIComponent(filtroAacc)}`);
-      if (filtroYear) queryParams.push(`year=${encodeURIComponent(filtroYear)}`);
+      if (filtroYearFrom) queryParams.push(`year=${encodeURIComponent(filtroYearFrom)}`);
+      if (filtroYearTo) queryParams.push(`year=${encodeURIComponent(filtroYearTo)}`);
       if (filtroTech) queryParams.push(`technology=${encodeURIComponent(filtroTech)}`);
 
       let finalUrl = API;
@@ -70,7 +72,7 @@
               evolution_data = datos;
 
               if (evolution_data.length === 0) {
-                  alert("NO HAY DATOS PARA ESTOS FILTROS.");
+                  resultStatus = 404;
                   // evolution_data = [];
               }
           } else {
@@ -211,7 +213,7 @@
 
         <th style="margin-bottom: 1rem;">
           <td>
-          <select bind:value={new_evolution_aacc} class="form-select">
+          <select bind:value={filtroAacc} class="form-select">
             <option value="" disabled selected>Comunidad autónoma</option>
             <option value="Andalucía">Andalucía</option>
             <option value="Aragón">Aragón</option>
@@ -232,8 +234,8 @@
           </select>         
         </td>
         <td>
-            <select bind:value={new_evolution_year} class="form-select">
-            <option value="" disabled selected>Año</option>
+            <select bind:value={filtroYearFrom} class="form-select">
+            <option value="" disabled selected>Año (inicio)</option>
             <option value="2005">2005</option>
             <option value="2005">2006</option>
             <option value="2005">2007</option>
@@ -257,7 +259,32 @@
           </select>          
         </td>
         <td>
-          <select bind:value={new_evolution_technology} class="form-select">
+          <select bind:value={filtroYearTo} class="form-select">
+          <option value="" disabled selected>Año (fin)</option>
+          <option value="2005">2005</option>
+          <option value="2005">2006</option>
+          <option value="2005">2007</option>
+          <option value="2005">2008</option>
+          <option value="2005">2009</option>
+          <option value="2005">2010</option>
+          <option value="2005">2011</option>
+          <option value="2005">2012</option>
+          <option value="2005">2013</option>
+          <option value="2005">2014</option>
+          <option value="2005">2015</option>
+          <option value="2005">2016</option>
+          <option value="2005">2017</option>
+          <option value="2005">2018</option>
+          <option value="2005">2019</option>
+          <option value="2005">2020</option>
+          <option value="2005">2021</option>
+          <option value="2005">2022</option>
+          <option value="2005">2023</option>
+          <option value="2005">2024</option>
+        </select>          
+      </td>
+        <td>
+          <select bind:value={filtroTech} class="form-select">
             <option value="" disabled selected>Tecnología</option>
             <option value="Biomasa">Biomasa</option>
             <option value="Residuos">Residuos</option>
@@ -268,8 +295,10 @@
             <option value="Trat.residuos">Trat.residuos</option>
           </select>        
         </td>
+        <td>
           <Button color="info" on:click={searchData()}>Buscar</Button>
-          <Button color="secondary" on:click={() => { filtroAacc = filtroYear = filtroTech = ""; getData(); }}>Limpiar</Button>
+          <Button color="secondary" on:click={() => { filtroAacc = filtroYearFrom = filtroYearTo = filtroTech = resultStatus = ""; getData(); }}>Limpiar</Button>
+        </td>
       </tr>
         
     </thead>
@@ -312,7 +341,7 @@
           <Button color="primary" on:click={createData}>Crear</Button>
           <Button color="secondary" on:click={() => {
             new_evolution_energy_sold = new_evolution_load_factor = new_evolution_installed_power = new_evolution_aacc 
-            = new_evolution_year = new_evolution_technology = ""; createData; }}>Limpiar</Button>
+            = new_evolution_year = new_evolution_technology = resultStatus = ""; createData; }}>Limpiar</Button>
 
         </td>
       </tr>

@@ -191,18 +191,13 @@ function loadBackendCRR(app){
     app.put(BASE_API + "/annual-evolutions/:aacc/:year/:technology", (request, response) => {
         let aacc = request.params.aacc;
         let year = request.params.year;
-        let tech = request.params.technology;
+        let technology = request.params.technology;
         let data = request.body;
         console.log(`New PUT to /annual-evolutions/${aacc}`);
-        if( data.year === undefined ||
-            data.aacc === undefined ||
-            data.technology === undefined ||
-            data.energy_sold === undefined ||
-            data.installed_power === undefined ||
-            data.load_factor === undefined){
+        if(!data.year || !data.aacc || !data.technology || !data.energy_sold || !data.installed_power || !data.load_factor){
             return response.status(400).json({error: "Faltan datos requeridos"});
         }
-        else if (!data.aacc || (aacc == data.aacc && year == data.year && tech == data.technology)){
+        else if (!data.aacc || (aacc == data.aacc && year == data.year && technology == data.technology)){
             db.update(
                 { aacc: data.aacc, year : data.year, technology: data.technology}, // Clave única del registro
                 { $set: data }, // Se actualiza el resto de campos
