@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { loadBackendGOS } from "./src/back/index-GOS.js";
 import { loadBackendFAG } from "./src/back/index-FAG.js";
 import { loadBackendCRR } from "./src/back/index-CRR.js";
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 16078;
 
 
 app.use(express.json());
+app.use(cors());
 // app.use("/",express.static("./public"));
 
 loadBackendGOS(app);
