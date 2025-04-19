@@ -151,8 +151,7 @@ function loadBackendCRR(app){
         let newData = request.body;
 
         newData.year = Number(newData.year);
-        newData.aacc = String(newData.aacc).trim();
-        newData.technology = String(newData.technology).trim();
+
 
         if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
             return response.status(400).json({ error: "Faltan datos requeridos" });
@@ -195,7 +194,12 @@ function loadBackendCRR(app){
         let tech = request.params.technology;
         let data = request.body;
         console.log(`New PUT to /annual-evolutions/${aacc}`);
-        if(!data.year || !data.aacc || !data.technology || !data.energy_sold || !data.installed_power || !data.load_factor){
+        if( data.year === undefined ||
+            data.aacc === undefined ||
+            data.technology === undefined ||
+            data.energy_sold === undefined ||
+            data.installed_power === undefined ||
+            data.load_factor === undefined){
             return response.status(400).json({error: "Faltan datos requeridos"});
         }
         else if (!data.aacc || (aacc == data.aacc && year == data.year && tech == data.technology)){

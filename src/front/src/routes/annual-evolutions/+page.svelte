@@ -37,7 +37,8 @@
 async function getData(){
     resultStatus = result = "";
     try {
-        const response = await fetch(API, { method: "GET" });
+
+      const response = await fetch(API, { method: "GET" });
         const fetchedData = await response.json();
         result = JSON.stringify(fetchedData, null, 2);
 
@@ -49,7 +50,36 @@ async function getData(){
 }
 
 
-    
+//SEARCH
+async function searchData() {
+    resultStatus = result = "";
+    let queryParams = [];
+
+    if (filtroAacc) queryParams.push(`aacc=${encodeURIComponent(filtroAacc)}`);
+    if (filtroYear) queryParams.push(`year=${encodeURIComponent(filtroYear)}`);
+    if (filtroTech) queryParams.push(`technology=${encodeURIComponent(filtroTech)}`);
+
+    let finalUrl = API;
+    if (queryParams.length) finalUrl += "?" + queryParams.join("&");
+
+    try {
+        const response = await fetch(finalUrl, { method: "GET" });
+
+        if (response.status === 200) {
+            const datos = await response.json();
+            evolution_data = datos;
+
+            if (evolution_data.length === 0) {
+                alert("NO HAY DATOS PARA ESTOS FILTROS.");
+            }
+        } else {
+            alert(`Error al realizar la búsqueda (código ${response.status})`);
+        }
+    } catch (error) {
+        alert(`Error al conectar con el servidor: ${error}`);
+    }
+}
+ 
 
 
 //DELETE (Borrar todos los recursos)
@@ -163,7 +193,7 @@ async function deleteAll(){
   <input bind:value={filtroAacc} placeholder="Comunidad" />
   <input bind:value={filtroYear} placeholder="Año" />
   <input bind:value={filtroTech} placeholder="Tecnología" />
-  <Button color="info" on:click={getData}>Buscar</Button>
+  <Button color="info" on:click={searchData()}>Buscar</Button>
   <Button color="secondary" on:click={() => { filtroAacc = filtroYear = filtroTech = ""; getData(); }}>Limpiar</Button>
 </div>
 
