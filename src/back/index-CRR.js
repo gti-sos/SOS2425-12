@@ -51,34 +51,42 @@ function loadBackendCRR(app){
     //GET
     app.get(BASE_API + "/annual-evolutions", (request, response) => {
         console.log("New GET to /annual-evolutions");
-
-        let query = {}; // Filtros para buscar datos en la base de datos
-        let parametrosURL = request.query;  // Por ejemplo: ?aacc=Ceuta&year=2008
-        
-        // Añadimos cada campo parseado a query si está presente en la URL
-        if (parametrosURL.year) query.year = parseInt(parametrosURL.year);
+    
+        let query = {};
+        let parametrosURL = request.query;
+    
+        // Filtros directos
         if (parametrosURL.aacc) query.aacc = parametrosURL.aacc;
         if (parametrosURL.technology) query.technology = parametrosURL.technology;
         if (parametrosURL.energy_sold) query.energy_sold = parseFloat(parametrosURL.energy_sold);
         if (parametrosURL.installed_power) query.installed_power = parseFloat(parametrosURL.installed_power);
         if (parametrosURL.load_factor) query.load_factor = parseFloat(parametrosURL.load_factor);
-        
-
-        //Paginación
-        const limit = parseInt(request.query.limit) || 0;
-        const offset = parseInt(request.query.offset) || 0;
-
+    
+        // Año exacto (si se desea usar directamente "year")
+        if (parametrosURL.year) query.year = parseInt(parametrosURL.year);
+    
+        // Año desde / hasta (from / to)
+        if (parametrosURL.from || parametrosURL.to) {
+            query.year = {};
+            if (parametrosURL.from) query.year.$gte = parseInt(parametrosURL.from);
+            if (parametrosURL.to) query.year.$lte = parseInt(parametrosURL.to);
+        }
+    
+        // Paginación
+        const limit = parseInt(parametrosURL.limit) || 0;
+        const offset = parseInt(parametrosURL.offset) || 0;
+    
         db.find(query).skip(offset).limit(limit).exec((_err, annual_evolutions) => {
             response.status(200);
-            response.send(JSON.stringify(annual_evolutions.map((c) => {
-                delete c._id;
-                return c;
-            }), null, 2));
-            //no se aplica una función de reemplazo (null)
-            //se usa una indentación de 2 espacios para hacer el JSON más legible.
+            response.send(JSON.stringify(
+                annual_evolutions.map((c) => {
+                    delete c._id;
+                    return c;
+                }), null, 2
+            ));
         });
-
     });
+    
 
 
     app.get(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {

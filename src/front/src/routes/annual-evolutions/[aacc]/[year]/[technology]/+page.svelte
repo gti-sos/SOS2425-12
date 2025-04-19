@@ -72,8 +72,6 @@
         <i class="bi bi-check-circle-fill text-success"></i> OPERACIÓN COMPLETADA CORRECTAMENTE.
     {:else if resultStatus === 400}
         <i class="bi bi-exclamation-triangle-fill text-warning"></i> FALTAN DATOS REQUERIDOS.
-    {:else}
-    <i class="bi bi-x-circle-fill text-danger"></i>
 {/if}
 
 <Table>
@@ -95,9 +93,9 @@
         <td><input bind:value={evolution_data.energy_sold} /></td>
         <td><input bind:value={evolution_data.installed_power} /></td>
         <td><input bind:value={evolution_data.load_factor} /></td>
-        <td><Button color="primary" on:click={editData}>Actualizar</Button></td>
+        <td><Button color="success" on:click={editData}>Actualizar</Button></td>
     </tr>
   </tbody>
 </Table>
 
-<Button color="warning" on:click={() => goto(`/annual-evolutions/`)}>Atrás</Button>
+<Button color="secondary" on:click={() => goto(`/annual-evolutions/`)}>Atrás</Button>

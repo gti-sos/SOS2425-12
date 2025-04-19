@@ -2,6 +2,7 @@
   // @ts-nocheck
       import { dev } from "$app/environment";
       import { goto } from "$app/navigation";
+      import 'bootstrap-icons/font/bootstrap-icons.css';
   
 
       let DEVEL_HOST = "http://localhost:16078";
@@ -53,12 +54,11 @@
   //SEARCH
   async function searchData() {
       result = "";
-      // resultStatus = null;
       let queryParams = [];
 
       if (filtroAacc) queryParams.push(`aacc=${encodeURIComponent(filtroAacc)}`);
-      if (filtroYearFrom) queryParams.push(`year=${encodeURIComponent(filtroYearFrom)}`);
-      if (filtroYearTo) queryParams.push(`year=${encodeURIComponent(filtroYearTo)}`);
+      if (filtroYearFrom) queryParams.push(`from=${encodeURIComponent(filtroYearFrom)}`);
+      if (filtroYearTo) queryParams.push(`to=${encodeURIComponent(filtroYearTo)}`);
       if (filtroTech) queryParams.push(`technology=${encodeURIComponent(filtroTech)}`);
 
       let finalUrl = API;
@@ -202,8 +202,7 @@
           <i class="bi bi-x-circle-fill text-danger"></i> YA EXISTE ESTE DATO.
       {:else if resultStatus === 404}
           <i class="bi bi-x-circle-fill text-danger"></i> DATO NO ENCONTRADO.
-      {:else}
-          <i class="bi bi-x-circle-fill text-danger"></i>
+
       {/if}
 
   <Table>
@@ -237,52 +236,52 @@
             <select bind:value={filtroYearFrom} class="form-select">
             <option value="" disabled selected>Año (inicio)</option>
             <option value="2005">2005</option>
-            <option value="2005">2006</option>
-            <option value="2005">2007</option>
-            <option value="2005">2008</option>
-            <option value="2005">2009</option>
-            <option value="2005">2010</option>
-            <option value="2005">2011</option>
-            <option value="2005">2012</option>
-            <option value="2005">2013</option>
-            <option value="2005">2014</option>
-            <option value="2005">2015</option>
-            <option value="2005">2016</option>
-            <option value="2005">2017</option>
-            <option value="2005">2018</option>
-            <option value="2005">2019</option>
-            <option value="2005">2020</option>
-            <option value="2005">2021</option>
-            <option value="2005">2022</option>
-            <option value="2005">2023</option>
-            <option value="2005">2024</option>
+            <option value="2006">2006</option>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
           </select>          
         </td>
         <td>
           <select bind:value={filtroYearTo} class="form-select">
-          <option value="" disabled selected>Año (fin)</option>
-          <option value="2005">2005</option>
-          <option value="2005">2006</option>
-          <option value="2005">2007</option>
-          <option value="2005">2008</option>
-          <option value="2005">2009</option>
-          <option value="2005">2010</option>
-          <option value="2005">2011</option>
-          <option value="2005">2012</option>
-          <option value="2005">2013</option>
-          <option value="2005">2014</option>
-          <option value="2005">2015</option>
-          <option value="2005">2016</option>
-          <option value="2005">2017</option>
-          <option value="2005">2018</option>
-          <option value="2005">2019</option>
-          <option value="2005">2020</option>
-          <option value="2005">2021</option>
-          <option value="2005">2022</option>
-          <option value="2005">2023</option>
-          <option value="2005">2024</option>
-        </select>          
-      </td>
+            <option value="" disabled selected>Año (fin)</option>
+            <option value="2005">2005</option>
+            <option value="2006">2006</option>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select> 
+         </td>
         <td>
           <select bind:value={filtroTech} class="form-select">
             <option value="" disabled selected>Tecnología</option>
@@ -296,8 +295,9 @@
           </select>        
         </td>
         <td>
-          <Button color="info" on:click={searchData()}>Buscar</Button>
-          <Button color="secondary" on:click={() => { filtroAacc = filtroYearFrom = filtroYearTo = filtroTech = resultStatus = ""; getData(); }}>Limpiar</Button>
+          <Button color="primary" on:click={searchData}> <i class="bi bi-search"></i> Buscar</Button>
+          <Button color="secondary" on:click={() => { filtroAacc = filtroYearFrom = filtroYearTo = filtroTech = resultStatus = ""; getData(); }}>
+            <i class="bi bi-arrow-clockwise"></i> Limpiar</Button>
         </td>
       </tr>
         
@@ -323,25 +323,25 @@
           <input bind:value={new_evolution_aacc} placeholder="Ej: Ceuta" />
         </td>
         <td>
-          <input bind:value={new_evolution_year} placeholder="Ej: 2000" />
+          <input bind:value={new_evolution_year} placeholder="Ej: 2000" type = number/>
         </td>
         <td>
           <input bind:value={new_evolution_technology} placeholder="Ej: Residuos" />
         </td>
         <td>
-          <input bind:value={new_evolution_energy_sold} placeholder="Ej: 300" />
+          <input bind:value={new_evolution_energy_sold} placeholder="Ej: 300" type = number />
         </td>
         <td>
-          <input bind:value={new_evolution_installed_power} placeholder="Ej: 100" />
+          <input bind:value={new_evolution_installed_power} placeholder="Ej: 100" type = number />
         </td>
         <td>
-          <input bind:value={new_evolution_load_factor} placeholder="Ej: 40" />
+          <input bind:value={new_evolution_load_factor} placeholder="Ej: 40" type = number/>
         </td>
         <td>
-          <Button color="primary" on:click={createData}>Crear</Button>
+          <Button color="success" on:click={createData}>Crear</Button>
           <Button color="secondary" on:click={() => {
             new_evolution_energy_sold = new_evolution_load_factor = new_evolution_installed_power = new_evolution_aacc 
-            = new_evolution_year = new_evolution_technology = resultStatus = ""; createData; }}>Limpiar</Button>
+            = new_evolution_year = new_evolution_technology = resultStatus = ""; createData; }}><i class="bi bi-arrow-clockwise"></i> Limpiar</Button>
 
         </td>
       </tr>
@@ -355,9 +355,9 @@
           <td>{data.installed_power}</td>
           <td>{data.load_factor}</td>
           <td>
-            <Button color="danger" on:click={() => deleteData(data.aacc, data.year, data.technology)}>Borrar</Button>
+            <Button color="danger" on:click={() => deleteData(data.aacc, data.year, data.technology)}> <i class="bi bi-trash3-fill"></i> Borrar</Button>
             <Button color="warning" on:click={() => goto(`/annual-evolutions/${data.aacc}/${data.year}/${data.technology}`)}>
-              Editar
+              <i class="bi bi-pencil-fill"></i>  Editar
             </Button>
           </td>
         </tr>
@@ -365,7 +365,7 @@
 
       <tr>
         <td colspan="7">
-          <Button color="danger" on:click={deleteAll}>Borrar todo</Button>
+          <Button color="danger" on:click={deleteAll}> <i class="bi bi-trash3-fill"></i> Borrar todo</Button>
         </td>
       </tr>
     </tbody>
