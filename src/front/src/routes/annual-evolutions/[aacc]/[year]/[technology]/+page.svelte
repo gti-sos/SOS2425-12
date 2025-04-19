@@ -68,11 +68,13 @@
 
 <h2>Evolución Anual: {evolution_data.aacc}, {evolution_data.year}, {evolution_data.technology}</h2>
 
-{#if resultStatus === 200}
-        <i class="bi bi-check-circle-fill text-success"></i> OPERACIÓN COMPLETADA CORRECTAMENTE.
-    {:else if resultStatus === 400}
-        <i class="bi bi-exclamation-triangle-fill text-warning"></i> FALTAN DATOS REQUERIDOS.
-{/if}
+<div class="text-center mb-2">
+    {#if resultStatus === 200}
+            <i class="bi bi-check-circle-fill text-success"></i> OPERACIÓN COMPLETADA CORRECTAMENTE.
+        {:else if resultStatus === 400}
+            <i class="bi bi-exclamation-triangle-fill text-warning"></i> FALTAN DATOS REQUERIDOS.
+    {/if}
+</div>
 
 <Table>
     <thead>

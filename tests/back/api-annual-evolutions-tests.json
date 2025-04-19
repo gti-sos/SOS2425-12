@@ -45,9 +45,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -88,9 +88,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -103,7 +103,7 @@
 			"response": []
 		},
 		{
-			"name": "404 GET /annual-evolutions/loadInitialData",
+			"name": "GET /annual-evolutions/loadInitialData Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -131,9 +131,52 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/loadInitialdata",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"annual-evolutions",
+						"loadInitialdata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 GET /annual-evolutions/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status es 201 o 400\", () => {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 400]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Respuesta contiene mensaje\", () => {\r",
+							"    const json = pm.response.json();\r",
+							"    pm.expect(json.message).to.be.a(\"string\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
+					"host": [
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -174,9 +217,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -218,9 +261,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Londres",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Londres",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -265,9 +308,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -318,9 +361,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -371,9 +414,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -424,9 +467,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -477,9 +520,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -529,9 +572,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -584,9 +627,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -639,9 +682,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -693,9 +736,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -746,9 +789,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",
@@ -798,9 +841,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{BASE_URL}}"
+						"{{base_url}}"
 					],
 					"path": [
 						"api",

@@ -70,6 +70,7 @@
           if (res.status === 200) {
               const datos = await res.json();
               evolution_data = datos;
+              resultStatus = 200;
 
               if (evolution_data.length === 0) {
                   resultStatus = 404;
@@ -192,6 +193,7 @@
 
   <h2>Evolución Anual</h2>
  
+  <div class="text-center mb-2">
       {#if resultStatus === 201}
           <i class="bi bi-check-circle-fill text-success"></i> DATO CREADO CORRECTAMENTE.
       {:else if resultStatus === 200}
@@ -204,6 +206,7 @@
           <i class="bi bi-x-circle-fill text-danger"></i> DATO NO ENCONTRADO.
 
       {/if}
+  </div>
 
   <Table>
   
