@@ -45,9 +45,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -88,58 +88,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"annual-evolutions",
 						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET /annual-evolutions/loadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status es 201 o 400\", () => {\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([201, 400]);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Respuesta contiene mensaje\", () => {\r",
-							"    const json = pm.response.json();\r",
-							"    pm.expect(json.message).to.be.a(\"string\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-evolutions",
-						"loadInitialdata"
 					]
 				}
 			},
@@ -174,9 +131,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/loadInitialdata",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/loadInitialdata",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -217,9 +174,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -261,9 +218,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Londres",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Londres",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -308,9 +265,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -361,9 +318,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -414,9 +371,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -467,9 +424,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -520,9 +477,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -564,7 +521,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -572,9 +529,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -619,7 +576,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"year\": 2020,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"raw": " {\r\n        \"year\": 2020,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -627,9 +584,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -674,7 +631,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Malaga\",    //id cambiado\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Malaga\",    //id cambiado\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -682,9 +639,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta/2008/Residuos",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -736,9 +693,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -789,9 +746,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/Ceuta",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
@@ -841,9 +798,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/",
+					"raw": "{{BASE_URL}}/api/v1/annual-evolutions/",
 					"host": [
-						"{{base_url}}"
+						"{{BASE_URL}}"
 					],
 					"path": [
 						"api",
