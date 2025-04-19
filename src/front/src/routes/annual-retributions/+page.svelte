@@ -13,6 +13,15 @@
   let result = "";
   let resultStatus = "";
 
+  let newRetributionYear = "";
+  let newRetributionTechnology = "";
+  let newRetributionSubsidizedEnergy = "";
+  let newRetributionTotalCompensation = "";
+  let newRetributionInvestmentCompensation = "";
+  let newRetributionOperationCompensation = "";
+  let newRetributionSpecificCompensation = "";
+  let newRetributionAACC = "";
+
   async function getAnnualRetributions() {
     result = resultStatus = "";
     try {
@@ -27,6 +36,38 @@
     }
   }
 
+  async function createAnnualRetribution() {
+    result = resultStatus = "";
+    try {
+      const res = await fetch(API, {
+        method:"POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          year: newRetributionYear,
+          technology: newRetributionTechnology,
+          subsidized_energy: newRetributionSubsidizedEnergy,
+          total_compensation: newRetributionTotalCompensation,
+          investment_compensation: newRetributionInvestmentCompensation,
+          operation_compensation: newRetributionOperationCompensation,
+          specific_compensation: newRetributionSpecificCompensation,
+          aacc: newRetributionAACC
+        })
+      });
+      const status = await res.status;
+      resultStatus = status;
+      if (resultStatus === 201) {  
+        console.log(`Contact created`);
+        location.reload();
+      } else {
+        console.error(`Error creating contact; Status received: ${resultStatus}`);
+      }
+    } catch (error) {
+      console.error("Error in GET from annual_retributions:", error);
+    }
+  }
+
   onMount(async () => {
     getAnnualRetributions();
   });
@@ -34,35 +75,15 @@
 
 <style>
   div#body {
-    font-family: Arial;
-    border: #cecdcd solid 1px;
-    margin: 2%;
-    padding: 0.5%;
+    margin: 1%; 
   }
-  /* table {
-    width: 100%;
-    border-collapse: collapse;
-  } */
   th, td {
-    border: 1px solid #cecdcd;
-    padding: 8px;
-  }
-  th {
-    background-color: #aca5a5c2;
-    text-align: left;
+    border: 0.5px solid #e2e2e2;
   }
 </style>
 
 <div id="body">
   <Table>
-    <!-- year: 2018,
-    technology: "Cogeneración",
-    subsidized_energy: 25935.3492,
-    total_compensation: 2713723.05,
-    investment_compensation: 81485.92,
-    operation_compensation: 1127022.62,
-    specific_compensation: 1208508.54,
-    aacc: "Asturias, Principado de" -->
     <thead>
       <tr>
         <th>Year</th>
@@ -77,6 +98,17 @@
       </tr>
     </thead>
     <tbody>
+        <tr>
+          <td><input bind:value={newRetributionYear}> </td>
+          <td><input bind:value={newRetributionTechnology}> </td>
+          <td><input bind:value={newRetributionSubsidizedEnergy}> </td>
+          <td><input bind:value={newRetributionTotalCompensation}> </td>
+          <td><input bind:value={newRetributionInvestmentCompensation}> </td>
+          <td><input bind:value={newRetributionOperationCompensation}> </td>
+          <td><input bind:value={newRetributionSpecificCompensation}> </td>
+          <td><input bind:value={newRetributionAACC}> </td>
+          <td><Button color="primary" on:click={createAnnualRetribution}>Crear</Button></td>
+        </tr>
       {#each annual_retributions as retribution}
         <tr>
           <td>{retribution.year}</td>
@@ -94,4 +126,6 @@
         </tr>
       {/each}
   </Table>
+
 </div>
+
