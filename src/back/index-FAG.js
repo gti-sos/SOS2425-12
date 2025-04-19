@@ -215,11 +215,11 @@ function loadBackendFAG(app){
 
 
     app.delete(BASE_API + "/annual-retributions" + "/:technology" + "/:year", (req, res) => {
-        const technology = req.params.technology;
+        const technology = req.params.technology.trim();
         const year = parseInt(req.params.year);
         console.log(`New DELETE to /annual-retributions/${technology}/${year}`);
 
-        db.remove({ technology: technology, year: year }, { multi: true }, (err, numRemoved) => {
+        db.remove({ technology: technology, year: year }, (err, numRemoved) => {
             if (numRemoved > 0) {
                 return res.sendStatus(200);
             } else {

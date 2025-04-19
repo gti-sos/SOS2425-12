@@ -45,7 +45,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          year: newRetributionYear,
+          year: parseInt(newRetributionYear),
           technology: newRetributionTechnology,
           subsidized_energy: newRetributionSubsidizedEnergy,
           total_compensation: newRetributionTotalCompensation,
@@ -58,13 +58,30 @@
       const status = await res.status;
       resultStatus = status;
       if (resultStatus === 201) {  
-        console.log(`Contact created`);
-        location.reload();
+        console.log(`Retribution created`);
+        getAnnualRetributions();
       } else {
-        console.error(`Error creating contact; Status received: ${resultStatus}`);
+        console.error(`Error creating Retribution; Status received: ${resultStatus}`);
       }
     } catch (error) {
-      console.error("Error in GET from annual_retributions:", error);
+      console.error("Error in POST to annual_retributions:", error);
+    }
+  }
+
+  async function deleteAnnualRetribution(year, technology) {
+    result = resultStatus = "";
+    try {
+      const res = await fetch(API+"/"+technology+"/"+year, {method:"DELETE"});
+      const status = await res.status;
+      resultStatus = status;
+      if (resultStatus === 200) {  
+        console.log(`Retribution deleted`);
+        getAnnualRetributions();
+      } else {
+        console.error(`Error deleting Retribution; Status received: ${resultStatus}`);
+      }
+    } catch (error) {
+      console.error("Error in DELETE from annual_retributions:", error);
     }
   }
 
@@ -121,7 +138,7 @@
           <td>{retribution.aacc}</td>
           <td>
           <Button color="info">Actualizar</Button>
-          <Button color="danger">Borrar</Button>
+          <Button color="danger" on:click={() => {deleteAnnualRetribution(retribution.year, retribution.technology)}}>Borrar</Button>
           </td>
         </tr>
       {/each}
