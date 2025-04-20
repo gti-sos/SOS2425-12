@@ -109,44 +109,44 @@
   button.primary {
     background-color: #007bff;
     color: white;
-    border: 1px solid #007bff;
+    border: 1px solid #003064;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     cursor: pointer;
   }
 
   button.primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: #003064;
+    border-color: #003064;
   }
 
   button.info {
-    background-color: #17a2b8;
-    color: white;
-    border: 1px solid #17a2b8;
+    background-color: #fcd600;
+    color: black;
+    border: 1px solid #7a6800;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     cursor: pointer;
   }
 
   button.info:hover {
-    background-color: #117a8b;
-    border-color: #117a8b;
+    background-color: #7a6800;
+    border-color: #7a6800;
   }
 
 
   button.danger {
     background-color: #dc3545;
     color: white;
-    border: 1px solid #dc3545;
+    border: 1px solid #770511;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     cursor: pointer;
   }
 
   button.danger:hover {
-    background-color: #c82333;
-    border-color: #c82333;
+    background-color: #770511;
+    border-color: #770511;
   }
 </style>
 
