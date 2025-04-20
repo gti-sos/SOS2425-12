@@ -25,6 +25,12 @@ let initialData = [
                 {aacc: "Andalucía", year: 2021, electricity: 543877, gas: 174503, other: 84090, total_consumption: 802470, co2_emission: 18047}
             ];
 
+db.find({},(err,data)=>{
+    if (data.length < 1){
+        db.insert(initialData);
+    }
+});
+
 function loadBackendGOS(app){
     app.get(BASE_API + "/annual-consumptions/docs", (req, res) => {
         res.redirect("https://documenter.getpostman.com/view/42146733/2sB2cUB3aK");
@@ -43,7 +49,7 @@ function loadBackendGOS(app){
 
     //GET
     app.get(BASE_API + "/annual-consumptions", (req, res) => {
-        console.log("New GET to /annual-consumptions with query", req.query);
+        console.log("New GET to /annual-consumptions");
         let query = {};
     
         if (req.query.from || req.query.to) {

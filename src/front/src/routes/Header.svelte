@@ -2,4 +2,4 @@
 <a href="/">Home</a>
 <a href="/annual-evolutions">Annual evolutions</a>
 <a href="/annual-retributions">Annual retributions</a>
-<!-- <a href="/annual-consumptions">Annual consumptions</a> -->
+<a href="/annual-consumptions">Annual consumptions</a>
