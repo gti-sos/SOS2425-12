@@ -226,24 +226,31 @@ function loadBackendFAG(app){
 
         console.log(`New PUT to /annual-retributions/${technology}/${year}`);
 
-        db.find({ technology: technology, year: year }, (err, object) => {
-            if (object[0].year != data.year || object[0].technology != data.technology) {
-                return res.status(400).json({ error: `No se puede actualizar el id de un dato` });
-            } else {
-                db.update(
-                    { technology: technology, year: year },
-                    { $set: data },
-                    {},
-                    (_err, numAffected) => {
-                        if (numAffected > 0) {
-                            return res.status(200).json({ message: "Datos actualizados correctamente" });
-                        } else {
-                            return res.status(404).json({ error: `No se encuentran datos de la tecnología ${technology} en el año ${year}` });
+        if (!data.year || !data.aacc || !data.technology || !data.subsidized_energy
+            || !data.total_compensation || !data.investment_compensation
+            || !data.operation_compensation || !data.specific_compensation) {
+            return res.status(400).json({ error: "Faltan datos requeridos" });
+        }
+        else{
+            db.find({ technology: technology, year: year }, (err, object) => {
+                if (object[0].year != data.year || object[0].technology != data.technology) {
+                    return res.status(400).json({ error: `No se puede actualizar el id de un dato` });
+                } else {
+                    db.update(
+                        { technology: technology, year: year },
+                        { $set: data },
+                        {},
+                        (_err, numAffected) => {
+                            if (numAffected > 0) {
+                                return res.status(200).json({ message: "Datos actualizados correctamente" });
+                            } else {
+                                return res.status(404).json({ error: `No se encuentran datos de la tecnología ${technology} en el año ${year}` });
+                            }
                         }
-                    }
-                );
-            }
-        });
+                    );
+                }
+            });    
+        }
     });
 
     //DELETE

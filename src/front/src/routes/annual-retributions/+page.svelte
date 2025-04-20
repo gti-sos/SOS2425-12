@@ -2,6 +2,7 @@
 //  @ts-nocheck
   import { onMount } from "svelte";
   import { Button, Table } from "@sveltestrap/sveltestrap";
+  import { goto } from "$app/navigation";
   import { dev } from "$app/environment";
 
   let DEVEL_HOST = "http://localhost:16078";
@@ -84,7 +85,7 @@
       resultStatus = status;
       if (resultStatus === 200) {  
         console.log(`Retribution deleted`);
-        getAnnualRetributions();
+        clearSearch();
       } else {
         console.error(`Error deleting Retribution; Status received: ${resultStatus}`);
       }
@@ -135,7 +136,6 @@
   }
 
   function clearSearch() {
-    console.log("Limpiando búsqueda");
     filtroAacc = filtroTec = filtroYearFrom = filtroYearTo = "";
     getAnnualRetributions();
   }
@@ -232,7 +232,7 @@
       </td>
       <td>
         <Button color="primary" on:click={searchData}> Buscar</Button>
-        <Button color="secondary" on:click{clearSearch}> Limpiar</Button>
+        <Button color="secondary" on:click={clearSearch}> Limpiar</Button>
       </td>
     </tr>
   </thead>
@@ -279,7 +279,7 @@
           <td>{retribution.specific_compensation}</td>
           <td>{retribution.aacc}</td>
           <td>
-          <Button color="info">Actualizar</Button>
+          <Button color="info" on:click={() => goto(`/annual-retributions/${retribution.technology}/${retribution.year}`)}>Actualizar</Button>
           <Button color="danger" on:click={() => {deleteAnnualRetribution(retribution.year, retribution.technology)}}>Borrar</Button>
           </td>
         </tr>
