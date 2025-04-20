@@ -1,7 +1,8 @@
+<!-- @ts-nocheck -->
 <script>
-//  @ts-nocheck
+  //  @ts-nocheck
   import { onMount } from "svelte";
-  import { Button, Table } from "@sveltestrap/sveltestrap";
+  import { Button, Table, Styles, Icon } from "@sveltestrap/sveltestrap";
   import { goto } from "$app/navigation";
   import { dev } from "$app/environment";
 
@@ -94,6 +95,23 @@
     }
   }
 
+  async function deleteAnnualRetributions() {
+    result = resultStatus = "";
+    try {
+      const res = await fetch(API, {method:"DELETE"});
+      const status = await res.status;
+      resultStatus = status;
+      if (resultStatus === 200) {  
+        console.log(`All Retributions deleted`);
+        clearSearch();
+      } else {
+        console.error(`Error deleting all Retributions; Status received: ${resultStatus}`);
+      }
+    } catch (error) {
+      console.error("Error in DELETE from annual_retributions:", error);
+    }
+  }
+
   async function searchData() {
       result = "";
       let queryParams = [];
@@ -168,9 +186,9 @@
   {:else if resultStatus === 400}
       <i class="bi bi-exclamation-triangle-fill text-warning"></i> FALTAN DATOS REQUERIDOS.
   {:else if resultStatus === 409}
-      <i class="bi bi-x-circle-fill text-danger"></i> YA EXISTE ESTE DATO.
+      <i class="bi bi-x-circle-fill text-danger"></i> DATO YA EXISTENTE.
   {:else if resultStatus === 404}
-      <i class="bi bi-x-circle-fill text-danger"></i> DATO NO ENCONTRADO.
+      <i class="bi bi-x-circle-fill text-danger"></i> NO EXISTE UN DATO CON ESAS PROPIEDADES.
 
   {/if}
 </div>
@@ -231,8 +249,8 @@
         </select>        
       </td>
       <td>
-        <Button color="primary" on:click={searchData}> Buscar</Button>
-        <Button color="secondary" on:click={clearSearch}> Limpiar</Button>
+        <Button outline color="primary" on:click={searchData}> <Icon name="search" /> Buscar</Button>
+        <Button outline color="secondary" on:click={clearSearch}><Icon name="x-circle" /> Limpiar</Button>
       </td>
     </tr>
   </thead>
@@ -264,8 +282,8 @@
           <td><input bind:value={newRetributionSpecificCompensation}> </td>
           <td><input bind:value={newRetributionAACC}> </td>
           <td>
-            <Button color="primary" on:click={createAnnualRetribution}>Crear</Button>
-            <Button color="secondary" on:click={clearCreation}>Limpiar</Button>
+            <Button outline color="primary" on:click={createAnnualRetribution}><Icon name="plus-circle" />  Crear</Button>
+            <Button outline color="secondary" on:click={clearCreation}><Icon name="x-circle" />  Limpiar</Button>
           </td>
         </tr>
       {#each annual_retributions as retribution}
@@ -279,12 +297,14 @@
           <td>{retribution.specific_compensation}</td>
           <td>{retribution.aacc}</td>
           <td>
-          <Button color="info" on:click={() => goto(`/annual-retributions/${retribution.technology}/${retribution.year}`)}>Actualizar</Button>
-          <Button color="danger" on:click={() => {deleteAnnualRetribution(retribution.year, retribution.technology)}}>Borrar</Button>
+          <Button outline color="info" on:click={() => goto(`/annual-retributions/${retribution.technology}/${retribution.year}`)}><Icon name="pencil-square" />  Actualizar</Button>
+          <Button outline color="danger" on:click={() => {deleteAnnualRetribution(retribution.year, retribution.technology)}}><Icon name="trash" />  Borrar</Button>
           </td>
         </tr>
       {/each}
   </Table>
 
 </div>
-
+<div align="right" style="padding: 1.5%;">
+<Button color=danger on:click={deleteAnnualRetributions}> <Icon name="trash3-fill" /> Borrar todo  <Icon name="exclamation-triangle-fill" /></Button>
+</div>
