@@ -91,6 +91,59 @@
       }
   }
 
+  async function deleteAllAnnualConsumptions() {
+      result = resultStatus = "";
+      try {
+          const res = await fetch(API, {method: "DELETE"});
+          const status = await res.status;
+          resultStatus = status;
+          if (resultStatus === 200) {
+              console.log(`All consumptions deleted`);
+              getAnnualConsumptions();
+          }
+          else {
+              console.error(`Error deleting all consumptions; Status received: ${resultStatus}`);
+          }
+      } catch (error) {
+          console.error(`ERROR: DELETE to ${API}: ${error}`);
+      }
+  }
+
+  async function updateAnnualConsumption(aacc, year) {
+      result = resultStatus = "";
+      try {
+          const res = await fetch(API+"/"+aacc+"/"+year, {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                  aacc: newConsumptionAACC,
+                  year: parseInt(newConsumptionYear),
+                  electricity: parseFloat(newConsumptionElectricity),
+                  gas: parseFloat(newConsumptionGas),
+                  other: parseFloat(newConsumptionOther),
+                  total_consumption: parseFloat(newConsumptionTotalConsumption),
+                  co2_emission: parseFloat(newConsumptionCO2Emission)
+              })
+          });
+          const status = await res.status;
+          
+          resultStatus = status;
+          
+          if (resultStatus === 200) {
+              console.log(`Consumption updated`);
+              getAnnualConsumptions();
+          }
+          else {
+              console.error(`Error updating Consumption; Status received: ${resultStatus}`);
+          }
+      } catch (error) {
+          console.error(`ERROR: PUT to ${API}: ${error}`);
+      }
+    
+  }
+
   onMount(async () => {
       getAnnualConsumptions();
   })
@@ -151,6 +204,9 @@
 </style>
 
 <div id="body">
+  <button class="danger" on:click={deleteAllAnnualConsumptions} style="margin-bottom: 1rem;">
+    Borrar todo
+  </button>
   <Table>
     <thead>
       <tr>
@@ -173,7 +229,9 @@
         <td><input bind:value={newConsumptionOther}></td>
         <td><input bind:value={newConsumptionTotalConsumption}></td>
         <td><input bind:value={newConsumptionCO2Emission}></td>
-        <td><button class="primary" on:click={createAnnualConsumption}>Crear</button></td>
+        <td>
+          <button class="primary" on:click={createAnnualConsumption}>Crear</button>
+        </td>
       </tr>
       {#each annual_consumptions as consumption}
         <tr>
@@ -185,8 +243,12 @@
           <td>{consumption.total_consumption}</td>
           <td>{consumption.co2_emission}</td>
           <td style="white-space: nowrap;">
-            <button class="info">Actualizar</button>
-            <button class="danger" on:click={() => {deleteAnnualConsumption(consumption.aacc, consumption.year)}}>Borrar</button>
+            <button class="info" on:click={() => updateAnnualConsumption(consumption.aacc, consumption.year)}>
+              Actualizar
+            </button>
+            <button class="danger" on:click={() => deleteAnnualConsumption(consumption.aacc, consumption.year)}>
+              Borrar
+            </button>
           </td>
         </tr>
       {/each}
