@@ -326,19 +326,19 @@
           <input bind:value={new_evolution_aacc} placeholder="Ej: Ceuta" />
         </td>
         <td>
-          <input bind:value={new_evolution_year} placeholder="Ej: 2000" type = number/>
+          <input bind:value={new_evolution_year} placeholder="Ej: 2000" />
         </td>
         <td>
           <input bind:value={new_evolution_technology} placeholder="Ej: Residuos" />
         </td>
         <td>
-          <input bind:value={new_evolution_energy_sold} placeholder="Ej: 300" type = number />
+          <input bind:value={new_evolution_energy_sold} placeholder="Ej: 300" />
         </td>
         <td>
-          <input bind:value={new_evolution_installed_power} placeholder="Ej: 100" type = number />
+          <input bind:value={new_evolution_installed_power} placeholder="Ej: 100"  />
         </td>
         <td>
-          <input bind:value={new_evolution_load_factor} placeholder="Ej: 40" type = number/>
+          <input bind:value={new_evolution_load_factor} placeholder="Ej: 40" />
         </td>
         <td>
           <Button color="success" on:click={createData}>Crear</Button>
