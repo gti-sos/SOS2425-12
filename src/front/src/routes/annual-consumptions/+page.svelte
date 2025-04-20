@@ -151,35 +151,33 @@
   }
 
   async function searchConsumption() {
-    result = "";
-    let query = [];
+      result = "";
+      let queryParams = [];
 
-    if (filtroAacc) {
-      query.push(`aacc=${encodeURIComponent(filtroAacc)}`);
-    }
-    if (filtroYear) {
-      query.push(`year=${encodeURIComponent(filtroYear)}`);
-    }
-    if (filtroYearFrom) {
-      query.push(`from=${encodeURIComponent(filtroYearFrom)}`);
-    }
-    if (filtroYearTo) {
-      query.push(`to=${encodeURIComponent(filtroYearTo)}`);
-    }
-    let Url = API;
-    if (query.length > 0) {
-      Url += "?" + query.join("&");
-    }
-    try {
-      const res = await fetch(Url, { method: "GET" });
-      const data = await res.json();
-      result = JSON.stringify(data, null, 2);
-      annual_consumptions = data;
-      console.log(`Response received`, annual_consumptions);
-    } catch (error) {
-      console.log(`ERROR: GET from ${Url}: ${error}`);
-    }
+      if (filtroAacc) queryParams.push(`aacc=${encodeURIComponent(filtroAacc)}`);
+      if (filtroYearFrom) queryParams.push(`from=${encodeURIComponent(filtroYearFrom)}`);
+      if (filtroYearTo) queryParams.push(`to=${encodeURIComponent(filtroYearTo)}`);
 
+      let finalUrl = API;
+      if (queryParams.length) finalUrl += "?" + queryParams.join("&");
+
+      try {
+        const res = await fetch(finalUrl, { method: "GET" });
+
+        if (res.status === 200) {
+          const data = await res.json();
+          data.sort((a, b) => { return b.total_consumption - a.total_consumption });
+          annual_consumptions = data;
+          resultStatus = 200;
+          if (annual_consumptions.length === 0) {
+            resultStatus = 404;
+            }
+        } else {
+            alert(`Error al realizar la búsqueda (código ${res.status})`);
+        }
+      } catch (error) {
+          alert(`Error al conectar con el servidor: ${error}`);
+      }
   }
 
   function clearInputs() {
@@ -332,54 +330,56 @@
       </tr>
     </thead>
   </Table>
-  <Table>
-    <thead>
-      <tr>
-        <th>AACC</th>
-        <th>Year</th>
-        <th>Electricity</th>
-        <th>Gas</th>
-        <th>Other</th>
-        <th>Total Consumption</th>
-        <th>CO2 Emission</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><input bind:value={newConsumptionAACC}></td>
-        <td><input bind:value={newConsumptionYear}></td>
-        <td><input bind:value={newConsumptionElectricity}></td>
-        <td><input bind:value={newConsumptionGas}></td>
-        <td><input bind:value={newConsumptionOther}></td>
-        <td><input bind:value={newConsumptionTotalConsumption}></td>
-        <td><input bind:value={newConsumptionCO2Emission}></td>
-        <td>
-          <button class="primary" on:click={createAnnualConsumption}>Crear</button>
-          <button class="extra" on:click={clearInputs}>Limpiar</button>
-        </td>
-      </tr>
-      {#each annual_consumptions as consumption}
+  <div id="body">
+    <Table>
+      <thead>
         <tr>
-          <td>{consumption.aacc}</td>
-          <td>{consumption.year}</td>
-          <td>{consumption.electricity}</td>
-          <td>{consumption.gas}</td>
-          <td>{consumption.other}</td>
-          <td>{consumption.total_consumption}</td>
-          <td>{consumption.co2_emission}</td>
-          <td style="white-space: nowrap;">
-            <button class="info" on:click={() => goto(`/annual-consumptions/${consumption.aacc}/${consumption.year}`)}>
-              Actualizar
-            </button>
-            <button class="danger" on:click={() => deleteAnnualConsumption(consumption.aacc, consumption.year)}>
-              Borrar
-            </button>
+          <th>AACC</th>
+          <th>Year</th>
+          <th>Electricity</th>
+          <th>Gas</th>
+          <th>Other</th>
+          <th>Total Consumption</th>
+          <th>CO2 Emission</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input bind:value={newConsumptionAACC}></td>
+          <td><input bind:value={newConsumptionYear}></td>
+          <td><input bind:value={newConsumptionElectricity}></td>
+          <td><input bind:value={newConsumptionGas}></td>
+          <td><input bind:value={newConsumptionOther}></td>
+          <td><input bind:value={newConsumptionTotalConsumption}></td>
+          <td><input bind:value={newConsumptionCO2Emission}></td>
+          <td>
+            <button class="primary" on:click={createAnnualConsumption}>Crear</button>
+            <button class="extra" on:click={clearInputs}>Limpiar</button>
           </td>
         </tr>
-      {/each}
-    </tbody>
-  </Table>
+        {#each annual_consumptions as consumption}
+          <tr>
+            <td>{consumption.aacc}</td>
+            <td>{consumption.year}</td>
+            <td>{consumption.electricity}</td>
+            <td>{consumption.gas}</td>
+            <td>{consumption.other}</td>
+            <td>{consumption.total_consumption}</td>
+            <td>{consumption.co2_emission}</td>
+            <td style="white-space: nowrap;">
+              <button class="info" on:click={() => goto(`/annual-consumptions/${consumption.aacc}/${consumption.year}`)}>
+                Actualizar
+              </button>
+              <button class="danger" on:click={() => deleteAnnualConsumption(consumption.aacc, consumption.year)}>
+                Borrar
+              </button>
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </Table>
+  </div>
   <button class="danger" on:click={deleteAllAnnualConsumptions} style="margin-bottom: 1rem;">
     Borrar todo
   </button>
