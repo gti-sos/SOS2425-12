@@ -86,6 +86,16 @@
     }
   }
 
+  function clearCreation() {
+    newRetributionYear = newRetributionTechnology = "";
+    newRetributionSubsidizedEnergy = "";
+    newRetributionTotalCompensation = "";
+    newRetributionInvestmentCompensation = "";
+    newRetributionOperationCompensation = "";
+    newRetributionSpecificCompensation = "";
+    newRetributionAACC = "";
+  }
+
   onMount(async () => {
     getAnnualRetributions();
   });
@@ -100,19 +110,23 @@
   }
 </style>
 
+<head>
+  <title>Annual Retributions</title>
+</head>
+
 <div id="body">
   <Table>
     <thead>
       <tr>
-        <th>Year</th>
-        <th>Technology</th>
-        <th>Subsidized Energy</th>
-        <th>Total Compensation</th>
-        <th>Investment Compensation</th>
-        <th>Operation Compensation</th>
-        <th>Specific Compensation</th>
-        <th>AACC</th>
-        <th>Actions</th>
+        <th>Año</th>
+        <th>Tecnología</th>
+        <th>Energía Subvencionada</th>
+        <th>Compensación total</th>
+        <th>Compensación por inversión</th>
+        <th>Compensación por operación</th>
+        <th>Compensación específica</th>
+        <th>CCAA</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -125,7 +139,10 @@
           <td><input bind:value={newRetributionOperationCompensation}> </td>
           <td><input bind:value={newRetributionSpecificCompensation}> </td>
           <td><input bind:value={newRetributionAACC}> </td>
-          <td><Button color="primary" on:click={createAnnualRetribution}>Crear</Button></td>
+          <td>
+            <Button color="primary" on:click={createAnnualRetribution}>Crear</Button>
+            <Button color="secondary" on:click={clearCreation}>Limpiar</Button>
+          </td>
         </tr>
       {#each annual_retributions as retribution}
         <tr>

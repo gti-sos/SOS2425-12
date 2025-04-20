@@ -1,4 +1,6 @@
-
+<head>
+    <title>Información del proyecto</title>
+</head>
 
 <h1 id="sos2425-12">SOS2425-12</h1>
 <ul>
