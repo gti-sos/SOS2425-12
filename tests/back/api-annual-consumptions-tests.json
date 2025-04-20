@@ -1,56 +1,13 @@
 {
 	"info": {
 		"_postman_id": "740847db-2e4d-415e-911e-ed6ec8733e2e",
-		"name": "F05",
+		"name": "Api_testing",
 		"description": "This API handles annual consumptioons",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42146733",
 		"_collection_link": "https://cloudy-flare-28165.postman.co/workspace/SOS2425~a292b7c7-6b17-492b-8216-fda5d12e840b/collection/42146733-740847db-2e4d-415e-911e-ed6ec8733e2e?action=share&source=collection_link&creator=42146733"
 	},
 	"item": [
-		{
-			"name": "LoadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 201\", () => {\r",
-							"    pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Mensaje de carga correcto\", () => {\r",
-							"    const json = pm.response.json();\r",
-							"    pm.expect(json.message).to.include(\"correctamente\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-consumptions/loadInitialData",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-consumptions",
-						"loadInitialData"
-					]
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "LoadInitialData Error 409",
 			"event": [
@@ -690,7 +647,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-consumptions/Canarias",
+					"raw": "{{base_url}}/api/v1/annual-consumptions/Canarias/2023",
 					"host": [
 						"{{base_url}}"
 					],
@@ -698,7 +655,8 @@
 						"api",
 						"v1",
 						"annual-consumptions",
-						"Canarias"
+						"Canarias",
+						"2023"
 					]
 				}
 			},
