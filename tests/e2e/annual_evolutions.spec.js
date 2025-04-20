@@ -19,6 +19,7 @@ test('Create and delete data', async ({ page }) => {
   await page.goto('http://localhost:16078/annual-evolutions'); // Abre la página de evoluciones anuales.
 
   // Rellena los campos del formulario con los datos definidos.
+  // Selecciona todos los elementos con rol campos de texto, elige el campo de texto según el indice e introduce el valor 
   await page.getByRole('textbox').nth(0).fill(aacc);                       
   await page.getByRole('textbox').nth(1).fill(year.toString());           
   await page.getByRole('textbox').nth(2).fill(technology);                
