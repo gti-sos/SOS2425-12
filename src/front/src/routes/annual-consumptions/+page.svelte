@@ -3,6 +3,8 @@
   import { onMount } from "svelte";
   import { Button, Table } from "@sveltestrap/sveltestrap";
   import { dev } from "$app/environment";
+  import { goto } from "$app/navigation";
+
 
   let DEVEL_HOST = "http://localhost:16078";
   let API = "/api/v1/annual-consumptions";
@@ -22,6 +24,10 @@
   let newConsumptionOther = "";
   let newConsumptionTotalConsumption = "";
   let newConsumptionCO2Emission = "";
+
+  let filtroAacc = "";
+  let filtroYearFrom = "";
+  let filtroYearTo = "";
   
   async function getAnnualConsumptions() {
       resultStatus = result = "";
@@ -144,6 +150,56 @@
     
   }
 
+  async function searchConsumption() {
+    result = "";
+    let query = [];
+
+    if (filtroAacc) {
+      query.push(`aacc=${encodeURIComponent(filtroAacc)}`);
+    }
+    if (filtroYear) {
+      query.push(`year=${encodeURIComponent(filtroYear)}`);
+    }
+    if (filtroYearFrom) {
+      query.push(`from=${encodeURIComponent(filtroYearFrom)}`);
+    }
+    if (filtroYearTo) {
+      query.push(`to=${encodeURIComponent(filtroYearTo)}`);
+    }
+    let Url = API;
+    if (query.length > 0) {
+      Url += "?" + query.join("&");
+    }
+    try {
+      const res = await fetch(Url, { method: "GET" });
+      const data = await res.json();
+      result = JSON.stringify(data, null, 2);
+      annual_consumptions = data;
+      console.log(`Response received`, annual_consumptions);
+    } catch (error) {
+      console.log(`ERROR: GET from ${Url}: ${error}`);
+    }
+
+  }
+
+  function clearInputs() {
+      newConsumptionAACC = "";
+      newConsumptionYear = "";
+      newConsumptionElectricity = "";
+      newConsumptionGas = "";
+      newConsumptionOther = "";
+      newConsumptionTotalConsumption = "";
+      newConsumptionCO2Emission = "";
+  }
+
+  function clearFilters() {
+    filtroAacc = "";
+    filtroYearFrom = "";
+    filtroYearTo = "";
+    getAnnualConsumptions();
+  }
+
+
   onMount(async () => {
       getAnnualConsumptions();
   })
@@ -186,7 +242,18 @@
     background-color: #7a6800;
     border-color: #7a6800;
   }
-
+  button.extra {
+    background-color: #6c757d; /* Gray */
+    color: white;
+    border: 1px solid #343a40; /* Darker gray for margins */
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  button.extra:hover {
+    background-color: #343a40; /* Darker gray on hover */
+    border-color: #343a40;
+  }
 
   button.danger {
     background-color: #dc3545;
@@ -203,10 +270,68 @@
   }
 </style>
 
+<h2 style="padding: 1.5%;">Consumo Anual</h2>
 <div id="body">
-  <button class="danger" on:click={deleteAllAnnualConsumptions} style="margin-bottom: 1rem;">
-    Borrar todo
-  </button>
+  <div class="text-center mb-2">
+    {#if resultStatus === 201}
+      <i class="bi bi-check-circle-fill text-success"></i> DATO CREADO CORRECTAMENTE.
+    {:else if resultStatus === 200}
+      <i class="bi bi-check-circle-fill text-success"></i> OPERACIÓN COMPLETADA CORRECTAMENTE.
+    {:else if resultStatus === 400}
+      <i class="bi bi-exclamation-triangle-fill text-warning"></i> FALTAN DATOS REQUERIDOS.
+    {:else if resultStatus === 409}
+      <i class="bi bi-x-circle-fill text-danger"></i> DATO YA EXISTENTE.
+    {:else if resultStatus === 404}
+      <i class="bi bi-x-circle-fill text-danger"></i> NO EXISTE EL DATO.
+    {/if}
+  </div>
+  <Table>
+    <thead>
+      <tr>
+        <td>
+          <select bind:value={filtroAacc} class="form-select">
+            <option value="" disabled selected>Comunidad autónoma</option>
+            <option value="Andalucía">Andalucía</option>
+            <option value="Asturias, Principado de">Principado de Asturias</option>
+            <option value="Cataluña">Cataluña</option>
+            <option value="Galicia">Galicia</option>
+            <option value="Murcia, Región de">Región de Murcia</option>
+            <option value="País Vasco">País Vasco</option>
+          </select>
+        </td>
+        <td>
+          <select bind:value={filtroYearFrom} class="form-select">
+            <option value="" disabled selected>Año (inicio)</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
+        </td>
+        <td>
+          <select bind:value={filtroYearTo} class="form-select">
+            <option value="" disabled selected>Año (fin)</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+          </select>
+        </td>
+        <td>
+          <Button outline color="primary" on:click={searchConsumption}>Buscar</Button>
+          <Button outline color="secondary" on:click={clearFilters}>Limpiar</Button>
+        </td>
+      </tr>
+    </thead>
+  </Table>
   <Table>
     <thead>
       <tr>
@@ -217,7 +342,7 @@
         <th>Other</th>
         <th>Total Consumption</th>
         <th>CO2 Emission</th>
-        <th></th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -231,6 +356,7 @@
         <td><input bind:value={newConsumptionCO2Emission}></td>
         <td>
           <button class="primary" on:click={createAnnualConsumption}>Crear</button>
+          <button class="extra" on:click={clearInputs}>Limpiar</button>
         </td>
       </tr>
       {#each annual_consumptions as consumption}
@@ -243,7 +369,7 @@
           <td>{consumption.total_consumption}</td>
           <td>{consumption.co2_emission}</td>
           <td style="white-space: nowrap;">
-            <button class="info" on:click={() => updateAnnualConsumption(consumption.aacc, consumption.year)}>
+            <button class="info" on:click={() => goto(`/annual-consumptions/${consumption.aacc}/${consumption.year}`)}>
               Actualizar
             </button>
             <button class="danger" on:click={() => deleteAnnualConsumption(consumption.aacc, consumption.year)}>
@@ -254,4 +380,7 @@
       {/each}
     </tbody>
   </Table>
+  <button class="danger" on:click={deleteAllAnnualConsumptions} style="margin-bottom: 1rem;">
+    Borrar todo
+  </button>
 </div>
