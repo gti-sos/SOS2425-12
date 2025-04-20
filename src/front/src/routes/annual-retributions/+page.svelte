@@ -60,6 +60,7 @@
       if (resultStatus === 201) {  
         console.log(`Retribution created`);
         getAnnualRetributions();
+        newRetributionYear = newRetributionTechnology = "";
       } else {
         console.error(`Error creating Retribution; Status received: ${resultStatus}`);
       }

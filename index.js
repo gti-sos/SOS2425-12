@@ -23,7 +23,7 @@ loadBackendCRR(app);
 //     response.sendFile(path.resolve("./about/index.html"));
 // });
 
-app.use(handler)
+app.use(handler);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}!`);
