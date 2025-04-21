@@ -1,8 +1,8 @@
-<script>
+<!-- <script>
     import { dev } from "$app/environment";
-</script>
+</script> -->
 
 <p><a href="/about">Información sobre el proyecto</a></p>
-{#if dev}
+<!-- {#if dev}
     <p>DEV</p>
-{/if}
+{/if} -->

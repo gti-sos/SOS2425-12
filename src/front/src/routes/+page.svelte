@@ -1,5 +1,4 @@
 <script>
-    console.log("Page loaded");
 </script>
 <style>
     div#body{
@@ -16,24 +15,24 @@
 
     <h2>Aplicaciones del equipo</h2>
     <ul>
-        <li><a href="/annual_retributions">Retribuciones anuales</a> (Fernando Aguirre García)</li>
-        <li><a href="/annual_evolutoins">Evoluciones anuales </a> (Clara Reina Romero)</li>
-        <li><a href="/annual_consumptions">Consumos anuales</a> (Gonzalo Osuna Salas)</li>
+        <li><a href="/annual-retributions">Retribuciones anuales</a> (Fernando Aguirre García)</li>
+        <li><a href="/annual-evolutions">Evoluciones anuales </a> (Clara Reina Romero)</li>
+        <li><a href="/annual-consumptions">Consumos anuales</a> (Gonzalo Osuna Salas)</li>
     </ul>
 
 
     <h2>Datos analizados y APIs</h2>
     <ul>
-        <li><a href="/api/v1/annual_retributions">API Retribuciones anuales</a> (Fernando Aguirre García)</li>
-        <li><a href="/api/v1/annual_evolutoins">API Evoluciones anuales </a> (Clara Reina Romero)</li>
-        <li><a href="/api/v1/annual_consumptions">API Consumos anuales</a> (Gonzalo Osuna Salas)</li>
+        <li><a href="/api/v1/annual-retributions">API Retribuciones anuales</a> (Fernando Aguirre García)</li>
+        <li><a href="/api/v1/annual-evolutions">API Evoluciones anuales </a> (Clara Reina Romero)</li>
+        <li><a href="/api/v1/annual-consumptions">API Consumos anuales</a> (Gonzalo Osuna Salas)</li>
     </ul>
 
     <h2>Documentación de las APIs</h2>
     <ul>
-        <li><a href="/api/v1/annual_retributions/docs">Documentación Retribuciones anuales</a> (Fernando Aguirre García)</li>
-        <li><a href="/api/v1/annual_evolutoins/docs">Documentación Evoluciones anuales </a> (Clara Reina Romero)</li>
-        <li><a href="/api/v1/annual_consumptions/docs">Documentación Consumos anuales</a> (Gonzalo Osuna Salas)</li>
+        <li><a href="/api/v1/annual-retributions/docs">Documentación Retribuciones anuales</a> (Fernando Aguirre García)</li>
+        <li><a href="/api/v1/annual-evolutions/docs">Documentación Evoluciones anuales </a> (Clara Reina Romero)</li>
+        <li><a href="/api/v1/annual-consumptions/docs">Documentación Consumos anuales</a> (Gonzalo Osuna Salas)</li>
     </ul>
     <h2><a href="https://github.com/gti-sos/SOS2425-12">Repositorio del proyecto</a> </h2>
 
