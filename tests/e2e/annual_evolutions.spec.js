@@ -20,12 +20,20 @@ test('Create and delete data', async ({ page }) => {
 
   // Rellena los campos del formulario con los datos definidos.
   // Selecciona todos los elementos con rol campos de texto, elige el campo de texto según el indice e introduce el valor 
-  await page.getByRole('textbox').nth(0).fill(aacc);                       
-  await page.getByRole('textbox').nth(1).fill(year.toString());           
-  await page.getByRole('textbox').nth(2).fill(technology);                
-  await page.getByRole('textbox').nth(3).fill(energy_sold.toString());    
-  await page.getByRole('textbox').nth(4).fill(installed_power.toString()); 
-  await page.getByRole('textbox').nth(5).fill(load_factor.toString());    
+  
+  // await page.getByRole('textbox').nth(0).fill(aacc);                       
+  // await page.getByRole('textbox').nth(1).fill(year.toString());           
+  // await page.getByRole('textbox').nth(2).fill(technology);                
+  // await page.getByRole('textbox').nth(3).fill(energy_sold.toString());    
+  // await page.getByRole('textbox').nth(4).fill(installed_power.toString()); 
+  // await page.getByRole('textbox').nth(5).fill(load_factor.toString());    
+
+  await page.getByRole('textbox', { name: 'Ej: Ceuta' }).fill(aacc);
+  await page.getByPlaceholder('Ej: 2000').fill(year.toString());
+  await page.getByRole('textbox', { name: 'Ej: Residuos' }).fill(technology);
+  await page.getByPlaceholder('Ej: 300').fill(energy_sold.toString());
+  await page.getByPlaceholder('Ej: 100').fill(installed_power.toString());
+  await page.getByPlaceholder('Ej: 40').fill(load_factor.toString());
 
   await page.getByRole('button', { name: 'Crear' }).click(); // Hace clic en el botón "Crear".
 
