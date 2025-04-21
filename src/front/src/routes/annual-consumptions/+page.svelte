@@ -1,3 +1,7 @@
+<head>
+  <title>Consumos Anuales</title>
+</head>
+
 <script>
 // @ts-nocheck
   import { onMount } from "svelte";
@@ -69,7 +73,7 @@
           
           if (resultStatus === 201) {
               console.log(`Consumption created`);
-              getAnnualConsumptions();
+              await getAnnualConsumptions();
           }
           else {
               console.error(`Error creating Retribution; Status received: ${resultStatus}`);
@@ -283,54 +287,61 @@
       <i class="bi bi-x-circle-fill text-danger"></i> NO EXISTE EL DATO.
     {/if}
   </div>
-  <Table>
-    <thead>
-      <tr>
-        <td>
-          <select bind:value={filtroAacc} class="form-select">
-            <option value="" disabled selected>Comunidad autónoma</option>
-            <option value="Andalucía">Andalucía</option>
-            <option value="Asturias, Principado de">Principado de Asturias</option>
-            <option value="Cataluña">Cataluña</option>
-            <option value="Galicia">Galicia</option>
-            <option value="Murcia, Región de">Región de Murcia</option>
-            <option value="País Vasco">País Vasco</option>
-          </select>
-        </td>
-        <td>
-          <select bind:value={filtroYearFrom} class="form-select">
-            <option value="" disabled selected>Año (inicio)</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-          </select>
-        </td>
-        <td>
-          <select bind:value={filtroYearTo} class="form-select">
-            <option value="" disabled selected>Año (fin)</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
-            <option value="2024">2024</option>
-          </select>
-        </td>
-        <td>
-          <Button outline color="primary" on:click={searchConsumption}>Buscar</Button>
-          <Button outline color="secondary" on:click={clearFilters}>Limpiar</Button>
-        </td>
-      </tr>
-    </thead>
-  </Table>
   <div id="body">
+    <Table>
+      <thead>
+        <tr>
+          <td>
+            <select bind:value={filtroAacc} class="form-select">
+              <option value="" disabled selected>Comunidad autónoma</option>
+              <option value="Andalucía">Andalucía</option>
+              <option value="Asturias, Principado de">Principado de Asturias</option>
+              <option value="Cataluña">Cataluña</option>
+              <option value="Galicia">Galicia</option>
+              <option value="Murcia, Región de">Murcia, Región de</option>
+              <option value="País Vasco">País Vasco</option>
+              <option value="Madrid, Comunidad de">Madrid, Comunidad de</option>
+              <option value="Castilla y León">Castilla y León</option>
+              <option value="Castilla-La Mancha">Castilla-La Mancha</option>
+              <option value="Extremadura">Extremadura</option>
+              <option value="Canarias">Canarias</option>
+              <option value="Balears, Illes">Balears, Illes</option>
+              <option value="Comunitat Valenciana">Comunitat Valenciana</option>
+              <option value="Ceuta">Ceuta</option>
+              <option value="Melilla">Melilla</option>
+              <option value="Navarra, Comunidad Foral de">Navarra, Comunidad Foral de</option>
+            </select>
+          </td>
+          <td>
+            <select bind:value={filtroYearFrom} class="form-select">
+              <option value="" disabled selected>Año (inicio)</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+          </td>
+          <td>
+            <select bind:value={filtroYearTo} class="form-select">
+              <option value="" disabled selected>Año (fin)</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+          </td>
+          <td>
+            <Button outline color="primary" on:click={searchConsumption}>Buscar</Button>
+            <Button outline color="secondary" on:click={clearFilters}>Limpiar</Button>
+          </td>
+        </tr>
+      </thead>
+    </Table>
+  
     <Table>
       <thead>
         <tr>
