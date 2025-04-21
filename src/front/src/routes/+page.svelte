@@ -34,11 +34,12 @@
         <li><a href="/api/v1/annual-evolutions/docs">Documentación Evoluciones anuales </a> (Clara Reina Romero)</li>
         <li><a href="/api/v1/annual-consumptions/docs">Documentación Consumos anuales</a> (Gonzalo Osuna Salas)</li>
     </ul>
-    <h2><a href="https://github.com/gti-sos/SOS2425-12">Repositorio del proyecto</a> </h2>
+    <h2>Repositorio del proyecto</h2>
+    <ul><li><a href="https://github.com/gti-sos/SOS2425-12">https://github.com/gti-sos/SOS2425-12</a></li></ul>
 
     <h2> Integrantes del equipo </h2>
     <ul>
-        <li><a href="https://github.com/Fer-28">Fernando Aguirre García </a>– Fuente de datos: annual_retributions</li>
+        <li><a href="https://github.com/Fer-28">Fernando Aguirre García </a> – Fuente de datos: annual_retributions</li>
         <li><a href="https://github.com/clarareina">Clara Reina Romero</a> – Fuente de datos: annual_evolutoins</li>
         <li><a href="https://github.com/gxnzalx55">Gonzalo Osuna Salas</a> – Fuente de datos: annual_consumptions</li>
     </ul>
