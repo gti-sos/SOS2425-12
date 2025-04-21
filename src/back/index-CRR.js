@@ -23,7 +23,7 @@ let initialData = [
 
 
 function loadBackendCRR(app){ 
-
+    db.insert(initialData);
 
     //docs
     app.get(BASE_API + "/annual-evolutions/docs", (request, response) => {
@@ -51,34 +51,42 @@ function loadBackendCRR(app){
     //GET
     app.get(BASE_API + "/annual-evolutions", (request, response) => {
         console.log("New GET to /annual-evolutions");
-
-        let query = {}; // Filtros para buscar datos en la base de datos
-        let parametrosURL = request.query;  // Por ejemplo: ?aacc=Ceuta&year=2008
-        
-        // Añadimos cada campo parseado a query si está presente en la URL
-        if (parametrosURL.year) query.year = parseInt(parametrosURL.year);
+    
+        let query = {};
+        let parametrosURL = request.query;
+    
+        // Filtros directos
         if (parametrosURL.aacc) query.aacc = parametrosURL.aacc;
         if (parametrosURL.technology) query.technology = parametrosURL.technology;
         if (parametrosURL.energy_sold) query.energy_sold = parseFloat(parametrosURL.energy_sold);
         if (parametrosURL.installed_power) query.installed_power = parseFloat(parametrosURL.installed_power);
         if (parametrosURL.load_factor) query.load_factor = parseFloat(parametrosURL.load_factor);
-        
-
-        //Paginación
-        const limit = parseInt(request.query.limit) || 0;
-        const offset = parseInt(request.query.offset) || 0;
-
+    
+        // Año exacto (si se desea usar directamente "year")
+        if (parametrosURL.year) query.year = parseInt(parametrosURL.year);
+    
+        // Año desde / hasta (from / to)
+        if (parametrosURL.from || parametrosURL.to) {
+            query.year = {};
+            if (parametrosURL.from) query.year.$gte = parseInt(parametrosURL.from);
+            if (parametrosURL.to) query.year.$lte = parseInt(parametrosURL.to);
+        }
+    
+        // Paginación
+        const limit = parseInt(parametrosURL.limit) || 0;
+        const offset = parseInt(parametrosURL.offset) || 0;
+    
         db.find(query).skip(offset).limit(limit).exec((_err, annual_evolutions) => {
             response.status(200);
-            response.send(JSON.stringify(annual_evolutions.map((c) => {
-                delete c._id;
-                return c;
-            }), null, 2));
-            //no se aplica una función de reemplazo (null)
-            //se usa una indentación de 2 espacios para hacer el JSON más legible.
+            response.send(JSON.stringify(
+                annual_evolutions.map((c) => {
+                    delete c._id;
+                    return c;
+                }), null, 2
+            ));
         });
-
     });
+    
 
 
     app.get(BASE_API + "/annual-evolutions" + "/:aacc", (request, response) => {
@@ -123,11 +131,35 @@ function loadBackendCRR(app){
     });
 
 
+//v2
+    app.get(BASE_API + "/annual-evolutions" + "/:aacc/:year/:technology", (request, response) => {
+        const aacc = request.params.aacc;
+        const year = request.params.year;
+        const technology = request.params.technology;
+        console.log(`New GET to /annual-evolutions/${aacc}/${year}/${technology}`);
+
+        db.find({aacc: aacc, year : parseInt(year), technology:technology}, (_err, search) => {
+            if (search.length > 0){
+                response.status(200).json(search.map((c) => {
+                    delete c._id;
+                    return c;
+                }));
+            }
+            else{   
+                response.status(404).json({error: `No se encuentran datos de ${aacc}/${year}/${technology}`});
+            }
+        })
+        
+    });
+
 
     //POST
     app.post(BASE_API + "/annual-evolutions", (request, response) => {
         console.log("New POST to /annual-evolutions");
         let newData = request.body;
+
+        newData.year = Number(newData.year);
+
 
         if (!newData.year || !newData.aacc || !newData.technology || !newData.energy_sold || !newData.installed_power || !newData.load_factor) {
             return response.status(400).json({ error: "Faltan datos requeridos" });
@@ -167,10 +199,13 @@ function loadBackendCRR(app){
     app.put(BASE_API + "/annual-evolutions/:aacc/:year/:technology", (request, response) => {
         let aacc = request.params.aacc;
         let year = request.params.year;
-        let tech = request.params.technology;
+        let technology = request.params.technology;
         let data = request.body;
         console.log(`New PUT to /annual-evolutions/${aacc}`);
-        if (!data.aacc || (aacc == data.aacc && year == data.year && tech == data.technology)){
+        if(!data.year || !data.aacc || !data.technology || !data.energy_sold || !data.installed_power || !data.load_factor){
+            return response.status(400).json({error: "Faltan datos requeridos"});
+        }
+        else if (!data.aacc || (aacc == data.aacc && year == data.year && technology == data.technology)){
             db.update(
                 { aacc: data.aacc, year : data.year, technology: data.technology}, // Clave única del registro
                 { $set: data }, // Se actualiza el resto de campos
@@ -211,6 +246,23 @@ function loadBackendCRR(app){
             }
             else{
                 response.status(404).json({error: `No se encuentran datos de ${aacc}`});
+            }
+        });  
+    });
+
+//v2
+    app.delete(BASE_API + "/annual-evolutions" + "/:aacc/:year/:technology", (request, response) => {
+        const aacc = request.params.aacc;
+        const year = request.params.year;
+        const technology = request.params.technology;
+        console.log(`New GET to /annual-evolutions/${aacc}/${year}/${technology}`);
+
+        db.remove({aacc : aacc, year : parseInt(year), technology : technology}, {multi : true}, (_err, nRemoved) => {
+            if (nRemoved > 0){
+                response.status(200).json({ message: `Datos eliminados correctamente (${nRemoved} registros eliminados)` });
+            }
+            else{
+                response.status(404).json({error: `No se encuentran datos de ${aacc}/${year}/${technology}`});
             }
         });  
     });

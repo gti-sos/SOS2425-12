@@ -103,7 +103,7 @@
 			"response": []
 		},
 		{
-			"name": "GET /annual-evolutions/loadInitialData",
+			"name": "GET /annual-evolutions/loadInitialData Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -146,7 +146,7 @@
 			"response": []
 		},
 		{
-			"name": "404 GET /annual-evolutions/loadInitialData",
+			"name": "400 GET /annual-evolutions/loadInitialData",
 			"event": [
 				{
 					"listen": "test",
@@ -564,7 +564,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -619,7 +619,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"year\": 2020,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"raw": " {\r\n        \"year\": 2020,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -674,7 +674,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Malaga\",    //id cambiado\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 0,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"raw": " {\r\n        \"year\": 2008,   //id\r\n        \"aacc\": \"Malaga\",    //id cambiado\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
