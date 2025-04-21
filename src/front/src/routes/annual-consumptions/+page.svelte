@@ -32,6 +32,12 @@
   let filtroAacc = "";
   let filtroYearFrom = "";
   let filtroYearTo = "";
+  let filtroElectricity = "";
+  let filtroGas = "";
+  let filtroOther = "";
+  let filtroTotal = "";
+  let filtroCO2 = "";
+
   
   async function getAnnualConsumptions() {
       resultStatus = result = "";
@@ -161,6 +167,12 @@
       if (filtroAacc) queryParams.push(`aacc=${encodeURIComponent(filtroAacc)}`);
       if (filtroYearFrom) queryParams.push(`from=${encodeURIComponent(filtroYearFrom)}`);
       if (filtroYearTo) queryParams.push(`to=${encodeURIComponent(filtroYearTo)}`);
+      if (filtroElectricity) queryParams.push(`electricity=${encodeURIComponent(filtroElectricity)}`);
+      if (filtroGas) queryParams.push(`gas=${encodeURIComponent(filtroGas)}`);
+      if (filtroOther) queryParams.push(`other=${encodeURIComponent(filtroOther)}`);
+      if (filtroTotal) queryParams.push(`total_consumption=${encodeURIComponent(filtroTotal)}`);
+      if (filtroCO2) queryParams.push(`co2_emission=${encodeURIComponent(filtroCO2)}`);
+
 
       let finalUrl = API;
       if (queryParams.length) finalUrl += "?" + queryParams.join("&");
@@ -192,12 +204,19 @@
       newConsumptionOther = "";
       newConsumptionTotalConsumption = "";
       newConsumptionCO2Emission = "";
+      
   }
 
   function clearFilters() {
     filtroAacc = "";
     filtroYearFrom = "";
     filtroYearTo = "";
+    filtroElectricity = "";
+    filtroGas = "";
+    filtroOther = "";
+    filtroTotal = "";
+    filtroCO2 = "";
+
     getAnnualConsumptions();
   }
 
@@ -212,9 +231,12 @@
   div#body {
     margin: 2%;
   }
+
   th,
   td {
     border: 0.5px solid #a19f9f;
+    padding: 0.5rem;
+    text-align: center;
   }
 
   button.primary {
@@ -244,16 +266,18 @@
     background-color: #7a6800;
     border-color: #7a6800;
   }
+
   button.extra {
-    background-color: #6c757d; /* Gray */
+    background-color: #6c757d;
     color: white;
-    border: 1px solid #343a40; /* Darker gray for margins */
+    border: 1px solid #343a40;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     cursor: pointer;
   }
+
   button.extra:hover {
-    background-color: #343a40; /* Darker gray on hover */
+    background-color: #343a40;
     border-color: #343a40;
   }
 
@@ -287,111 +311,90 @@
       <i class="bi bi-x-circle-fill text-danger"></i> NO EXISTE EL DATO.
     {/if}
   </div>
-  <div id="body">
-    <Table>
-      <thead>
+
+  <!-- Filtros superiores -->
+  <table id="filter-table">
+    <thead>
+      <tr>
+        <td>
+          <select bind:value={filtroAacc} class="form-select">
+            <option value="" disabled selected>Comunidad autónoma</option>
+            <!-- opciones... -->
+          </select>
+        </td>
+        <td>
+          <select bind:value={filtroYearFrom} class="form-select">
+            <option value="" disabled selected>Año (inicio)</option>
+            <!-- años... -->
+          </select>
+        </td>
+        <td>
+          <select bind:value={filtroYearTo} class="form-select">
+            <option value="" disabled selected>Año (fin)</option>
+            <!-- años... -->
+          </select>
+        </td>
+        <td><input type="text" class="form-control" placeholder="Electricidad" bind:value={filtroElectricity}></td>
+        <td><input type="text" class="form-control" placeholder="Gas" bind:value={filtroGas}></td>
+        <td><input type="text" class="form-control" placeholder="Otros" bind:value={filtroOther}></td>
+        <td><input type="text" class="form-control" placeholder="Consumo total" bind:value={filtroTotal}></td>
+        <td><input type="text" class="form-control" placeholder="Emisión CO₂" bind:value={filtroCO2}></td>
+        <td>
+          <button class="primary" on:click={searchConsumption}>Buscar</button>
+          <button class="extra" on:click={clearFilters}>Limpiar</button>
+        </td>
+      </tr>
+    </thead>
+  </table>
+
+  <!-- Tabla principal de consumos -->
+  <table id="consumption-table">
+    <thead>
+      <tr>
+        <th>AACC</th>
+        <th>Year</th>
+        <th>Electricity</th>
+        <th>Gas</th>
+        <th>Other</th>
+        <th>Total Consumption</th>
+        <th>CO2 Emission</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Inputs para agregar nuevo dato -->
+      <tr>
+        <td><input bind:value={newConsumptionAACC}></td>
+        <td><input bind:value={newConsumptionYear}></td>
+        <td><input bind:value={newConsumptionElectricity}></td>
+        <td><input bind:value={newConsumptionGas}></td>
+        <td><input bind:value={newConsumptionOther}></td>
+        <td><input bind:value={newConsumptionTotalConsumption}></td>
+        <td><input bind:value={newConsumptionCO2Emission}></td>
+        <td>
+          <button class="primary" on:click={createAnnualConsumption}>Crear</button>
+          <button class="extra" on:click={clearInputs}>Limpiar</button>
+        </td>
+      </tr>
+
+      <!-- Datos existentes -->
+      {#each annual_consumptions as consumption}
         <tr>
-          <td>
-            <select bind:value={filtroAacc} class="form-select">
-              <option value="" disabled selected>Comunidad autónoma</option>
-              <option value="Andalucía">Andalucía</option>
-              <option value="Asturias, Principado de">Principado de Asturias</option>
-              <option value="Cataluña">Cataluña</option>
-              <option value="Galicia">Galicia</option>
-              <option value="Murcia, Región de">Murcia, Región de</option>
-              <option value="País Vasco">País Vasco</option>
-              <option value="Madrid, Comunidad de">Madrid, Comunidad de</option>
-              <option value="Castilla y León">Castilla y León</option>
-              <option value="Castilla-La Mancha">Castilla-La Mancha</option>
-              <option value="Extremadura">Extremadura</option>
-              <option value="Canarias">Canarias</option>
-              <option value="Balears, Illes">Balears, Illes</option>
-              <option value="Comunitat Valenciana">Comunitat Valenciana</option>
-              <option value="Ceuta">Ceuta</option>
-              <option value="Melilla">Melilla</option>
-              <option value="Navarra, Comunidad Foral de">Navarra, Comunidad Foral de</option>
-            </select>
-          </td>
-          <td>
-            <select bind:value={filtroYearFrom} class="form-select">
-              <option value="" disabled selected>Año (inicio)</option>
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </select>
-          </td>
-          <td>
-            <select bind:value={filtroYearTo} class="form-select">
-              <option value="" disabled selected>Año (fin)</option>
-              <option value="2017">2017</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </select>
-          </td>
-          <td>
-            <Button outline color="primary" on:click={searchConsumption}>Buscar</Button>
-            <Button outline color="secondary" on:click={clearFilters}>Limpiar</Button>
+          <td>{consumption.aacc}</td>
+          <td>{consumption.year}</td>
+          <td>{consumption.electricity}</td>
+          <td>{consumption.gas}</td>
+          <td>{consumption.other}</td>
+          <td>{consumption.total_consumption}</td>
+          <td>{consumption.co2_emission}</td>
+          <td style="white-space: nowrap;">
+            <button class="info" on:click={() => goto(`/annual-consumptions/${consumption.aacc}/${consumption.year}`)}>Actualizar</button>
+            <button class="danger" on:click={() => deleteAnnualConsumption(consumption.aacc, consumption.year)}>Borrar</button>
           </td>
         </tr>
-      </thead>
-    </Table>
-  
-    <Table>
-      <thead>
-        <tr>
-          <th>AACC</th>
-          <th>Year</th>
-          <th>Electricity</th>
-          <th>Gas</th>
-          <th>Other</th>
-          <th>Total Consumption</th>
-          <th>CO2 Emission</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input bind:value={newConsumptionAACC}></td>
-          <td><input bind:value={newConsumptionYear}></td>
-          <td><input bind:value={newConsumptionElectricity}></td>
-          <td><input bind:value={newConsumptionGas}></td>
-          <td><input bind:value={newConsumptionOther}></td>
-          <td><input bind:value={newConsumptionTotalConsumption}></td>
-          <td><input bind:value={newConsumptionCO2Emission}></td>
-          <td>
-            <button class="primary" on:click={createAnnualConsumption}>Crear</button>
-            <button class="extra" on:click={clearInputs}>Limpiar</button>
-          </td>
-        </tr>
-        {#each annual_consumptions as consumption}
-          <tr>
-            <td>{consumption.aacc}</td>
-            <td>{consumption.year}</td>
-            <td>{consumption.electricity}</td>
-            <td>{consumption.gas}</td>
-            <td>{consumption.other}</td>
-            <td>{consumption.total_consumption}</td>
-            <td>{consumption.co2_emission}</td>
-            <td style="white-space: nowrap;">
-              <button class="info" on:click={() => goto(`/annual-consumptions/${consumption.aacc}/${consumption.year}`)}>
-                Actualizar
-              </button>
-              <button class="danger" on:click={() => deleteAnnualConsumption(consumption.aacc, consumption.year)}>
-                Borrar
-              </button>
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </Table>
-  </div>
-  <button class="danger" on:click={deleteAllAnnualConsumptions} style="margin-bottom: 1rem;">
-    Borrar todo
-  </button>
+      {/each}
+    </tbody>
+  </table>
+
+  <button class="danger" on:click={deleteAllAnnualConsumptions} style="margin-top: 1rem;">Borrar todo</button>
 </div>
