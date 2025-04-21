@@ -313,7 +313,7 @@
   </div>
 
   <!-- Filtros superiores -->
-  <table>
+  <table id="filter-table">
     <thead>
       <tr>
         <td>
@@ -334,7 +334,6 @@
             <!-- años... -->
           </select>
         </td>
-        <td colspan="2"></td>
         <td><input type="text" class="form-control" placeholder="Electricidad" bind:value={filtroElectricity}></td>
         <td><input type="text" class="form-control" placeholder="Gas" bind:value={filtroGas}></td>
         <td><input type="text" class="form-control" placeholder="Otros" bind:value={filtroOther}></td>
@@ -349,7 +348,7 @@
   </table>
 
   <!-- Tabla principal de consumos -->
-  <table>
+  <table id="consumption-table">
     <thead>
       <tr>
         <th>AACC</th>

@@ -19,22 +19,27 @@ test('Create and delete consumption', async ({ page }) => {
 
   await page.goto('http://localhost:16078/annual-consumptions');
 
-  await page.getByRole('textbox').nth(0).fill(aacc);
-  await page.getByRole('textbox').nth(1).fill(year.toString());
-  await page.getByRole('textbox').nth(2).fill(electricity.toString());
-  await page.getByRole('textbox').nth(3).fill(gas.toString());
-  await page.getByRole('textbox').nth(4).fill(other.toString());
-  await page.getByRole('textbox').nth(5).fill(total_consumption.toString());
-  await page.getByRole('textbox').nth(6).fill(co2_emission.toString());
+  // Selecciona la fila de creación dentro de la tabla correcta
+  const creationRow = page.locator('#consumption-table tbody tr').first();
 
-  await page.getByRole('button', { name: 'Crear' }).click();
+  await creationRow.locator('input').nth(0).fill(aacc);
+  await creationRow.locator('input').nth(1).fill(year.toString());
+  await creationRow.locator('input').nth(2).fill(electricity.toString());
+  await creationRow.locator('input').nth(3).fill(gas.toString());
+  await creationRow.locator('input').nth(4).fill(other.toString());
+  await creationRow.locator('input').nth(5).fill(total_consumption.toString());
+  await creationRow.locator('input').nth(6).fill(co2_emission.toString());
 
-  const consumptionRow = page.locator('tr', { hasText: year.toString() });
+  await creationRow.getByRole('button', { name: 'Crear' }).click();
+
+  // Verifica que el dato aparece en la tabla
+  const consumptionRow = page.locator('#consumption-table tr', { hasText: year.toString() });
   await expect(consumptionRow).toContainText(aacc);
 
-
-  const deleteButton = consumptionRow.locator('button', {hasText: 'Borrar'});
+  // Elimina el dato
+  const deleteButton = consumptionRow.locator('button', { hasText: 'Borrar' });
   await deleteButton.click();
 
+  // Confirma que ha sido eliminado
   await expect(consumptionRow).toHaveCount(0);
 });
