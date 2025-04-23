@@ -4,6 +4,14 @@
 
 <script>
 // @ts-nocheck
+  const comunidadesAutonomas = [
+    "País Vasco", "Andalucía", "Balears, Illes", "Ceuta", "Murcia, Región de", "Extremadura", "Melilla",
+    "Comunitat Valenciana", "Madrid, Comunidad de", "Galicia", "Canarias", "Navarra, Comunidad Foral de",
+    "Castilla y León", "Castilla - La Mancha", "Cantabria", "Asturias, Principado de", "Cataluña"
+  ];
+
+  const años = [2017, 2018, 2019, 2020, 2021, 2022];
+
   import { onMount } from "svelte";
   import { Button, Table } from "@sveltestrap/sveltestrap";
   import { dev } from "$app/environment";
@@ -319,20 +327,26 @@
         <td>
           <select bind:value={filtroAacc} class="form-select">
             <option value="" disabled selected>Comunidad autónoma</option>
-            <!-- opciones... -->
-          </select>
+            {#each comunidadesAutonomas as ca}
+              <option value={ca}>{ca}</option>
+            {/each}
+          </select>          
         </td>
         <td>
           <select bind:value={filtroYearFrom} class="form-select">
             <option value="" disabled selected>Año (inicio)</option>
-            <!-- años... -->
-          </select>
+            {#each años as año}
+              <option value={año}>{año}</option>
+            {/each}
+          </select>          
         </td>
         <td>
           <select bind:value={filtroYearTo} class="form-select">
             <option value="" disabled selected>Año (fin)</option>
-            <!-- años... -->
-          </select>
+            {#each años as año}
+              <option value={año}>{año}</option>
+            {/each}
+          </select>          
         </td>
         <td><input type="text" class="form-control" placeholder="Electricidad" bind:value={filtroElectricity}></td>
         <td><input type="text" class="form-control" placeholder="Gas" bind:value={filtroGas}></td>
