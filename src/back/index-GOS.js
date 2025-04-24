@@ -4,14 +4,14 @@ let db = new dataStore();
 
 let initialData = [
     {'aacc': 'País Vasco', 'year': 2022, 'electricity': 1653989, 'gas': 830160, 'other': 445559, 'total_consumption': 2929708, 'co2_emission': 38903},
-    {'aacc': 'Andalucía', 'year': 2022, 'electricity': 736139, 'gas': 306174, 'other': 53975, 'total_consumption': 1096288, 'co2_emission': 1008},
+    {'aacc': 'Andalucía', 'year': 2022, 'electricity': 736139, 'gas': 306174, 'other': 53975, 'total_consumption': 1096288, 'co2_emission': 10008},
     {'aacc': 'Balears, Illes', 'year': 2022, 'electricity': 936136, 'gas': 283772, 'other': 133730, 'total_consumption': 1353638, 'co2_emission': 18047},
     {'aacc': 'Ceuta', 'year': 2022, 'electricity': 25137, 'gas': 2997, 'other': 9201, 'total_consumption': 37335, 'co2_emission': 7516},
     {'aacc': 'Murcia, Región de', 'year': 2022, 'electricity': 55808, 'gas': 4457, 'other': 23865, 'total_consumption': 84130, 'co2_emission': 12698},
     {'aacc': 'Extremadura', 'year': 2022, 'electricity': 377849, 'gas': 141680, 'other': 64635, 'total_consumption': 584164, 'co2_emission': 4851},
     {'aacc': 'Melilla', 'year': 2022, 'electricity': 873255, 'gas': 427336, 'other': 222283, 'total_consumption': 1522874, 'co2_emission': 14569},
     {'aacc': 'Comunitat Valenciana', 'year': 2022, 'electricity': 699022, 'gas': 280807, 'other': 152026, 'total_consumption': 1131855, 'co2_emission': 11592},
-    {'aacc': 'Madrid, Comunidad de', 'year': 2022, 'electricity': 3059538, 'gas': 1299161, 'other': 461454, 'total_consumption': 4820153, 'co2_emission': 350},
+    {'aacc': 'Madrid, Comunidad de', 'year': 2022, 'electricity': 3059538, 'gas': 1299161, 'other': 461454, 'total_consumption': 4820153, 'co2_emission': 82350},
     {'aacc': 'Galicia', 'year': 2022, 'electricity': 1556787, 'gas': 1854275, 'other': 195796, 'total_consumption': 3606858, 'co2_emission': 2327},
     {'aacc': 'Canarias', 'year': 2022, 'electricity': 257564, 'gas': 118755, 'other': 25752, 'total_consumption': 402071, 'co2_emission': 6396},
     {'aacc': 'Navarra, Comunidad Foral de', 'year': 2022, 'electricity': 955804, 'gas': 533971, 'other': 162055, 'total_consumption': 1651830, 'co2_emission': 9556},
@@ -19,10 +19,10 @@ let initialData = [
     {'aacc': 'Castilla - La Mancha', 'year': 2022, 'electricity': 482986, 'gas': 294992, 'other': 348385, 'total_consumption': 1126363, 'co2_emission': 11063},
     {'aacc': 'Cantabria', 'year': 2022, 'electricity': 521745, 'gas': 217558, 'other': 119286, 'total_consumption': 858589, 'co2_emission': 4661},
     {'aacc': 'Asturias, Principado de', 'year': 2022, 'electricity': 1435585, 'gas': 776666, 'other': 141953, 'total_consumption': 2354204, 'co2_emission': 14488},
-    {'aacc': 'Cataluña', 'year': 2022, 'electricity': 109882, 'gas': 43271, 'other': 15293, 'total_consumption': 168446, 'co2_emission': 1608},
+    {'aacc': 'Cataluña', 'year': 2022, 'electricity': 109882, 'gas': 43271, 'other': 15293, 'total_consumption': 168446, 'co2_emission': 7608},
     {'aacc': 'Ceuta', 'year': 2021, 'electricity': 941599, 'gas': 448222, 'other': 209546, 'total_consumption': 1599367, 'co2_emission': 38903},
-    {'aacc': 'Madrid, Comunidad de', 'year': 2021, 'electricity': 477683, 'gas': 163788, 'other': 53155, 'total_consumption': 694626, 'co2_emission': 1008},
-    {'aacc': 'Andalucía', 'year': 2021, 'electricity': 543877, 'gas': 174503, 'other': 84090, 'total_consumption': 802470, 'co2_emission': 18047},
+    {'aacc': 'Madrid, Comunidad de', 'year': 2021, 'electricity': 477683, 'gas': 163788, 'other': 53155, 'total_consumption': 694626, 'co2_emission': 10008},
+    {'aacc': 'Andalucía', 'year': 2021, 'electricity': 543877, 'gas': 174503, 'other': 84090, 'total_consumption': 802470, 'co2_emission': 16047},
     {'aacc': 'Navarra, Comunidad Foral de', 'year': 2017, 'electricity': 306017, 'gas': 1008761, 'other': 46641, 'total_consumption': 1361419, 'co2_emission': 18955},
     {'aacc': 'Navarra, Comunidad Foral de', 'year': 2018, 'electricity': 1590366, 'gas': 1474999, 'other': 394680, 'total_consumption': 3460045, 'co2_emission': 10443},
     {'aacc': 'Navarra, Comunidad Foral de', 'year': 2019, 'electricity': 1337532, 'gas': 614950, 'other': 401340, 'total_consumption': 2353822, 'co2_emission': 40693},
@@ -48,8 +48,8 @@ let initialData = [
     {'aacc': 'País Vasco', 'year': 2021, 'electricity': 1683154, 'gas': 186103, 'other': 119552, 'total_consumption': 1988809, 'co2_emission': 19440},
     {'aacc': 'Andalucía', 'year': 2017, 'electricity': 1866123, 'gas': 1044400, 'other': 190066, 'total_consumption': 3100589, 'co2_emission': 6663},
     {'aacc': 'Andalucía', 'year': 2018, 'electricity': 1770804, 'gas': 536515, 'other': 158628, 'total_consumption': 2465947, 'co2_emission': 1219},
-    {'aacc': 'Andalucía', 'year': 2019, 'electricity': 108183, 'gas': 784024, 'other': 449045, 'total_consumption': 1341252, 'co2_emission': 16990},
-    {'aacc': 'Andalucía', 'year': 2020, 'electricity': 333856, 'gas': 730767, 'other': 85529, 'total_consumption': 1150152, 'co2_emission': 43636},
+    {'aacc': 'Andalucía', 'year': 2019, 'electricity': 108183, 'gas': 784024, 'other': 449045, 'total_consumption': 1341252, 'co2_emission': 11990},
+    {'aacc': 'Andalucía', 'year': 2020, 'electricity': 333856, 'gas': 730767, 'other': 85529, 'total_consumption': 1150152, 'co2_emission': 15636},
     {'aacc': 'Canarias', 'year': 2017, 'electricity': 729074, 'gas': 713271, 'other': 464759, 'total_consumption': 1907104, 'co2_emission': 35317},
     {'aacc': 'Canarias', 'year': 2018, 'electricity': 431210, 'gas': 30940, 'other': 153650, 'total_consumption': 615800, 'co2_emission': 14512},
     {'aacc': 'Canarias', 'year': 2019, 'electricity': 179300, 'gas': 1012306, 'other': 288532, 'total_consumption': 1480138, 'co2_emission': 14626},
@@ -104,8 +104,8 @@ let initialData = [
     {'aacc': 'Cantabria', 'year': 2018, 'electricity': 1445638, 'gas': 91828, 'other': 410914, 'total_consumption': 1948380, 'co2_emission': 4539},
     {'aacc': 'Cantabria', 'year': 2019, 'electricity': 320206, 'gas': 1128107, 'other': 267032, 'total_consumption': 1715345, 'co2_emission': 8155},
     {'aacc': 'Cantabria', 'year': 2020, 'electricity': 1306195, 'gas': 439352, 'other': 174258, 'total_consumption': 1919805, 'co2_emission': 6200},
-    {'aacc': 'Cantabria', 'year': 2021, 'electricity': 987526, 'gas': 744798, 'other': 417341, 'total_consumption': 2149665, 'co2_emission': 23624}
-            ];
+    {'aacc': 'Cantabria', 'year': 2021, 'electricity': 987526, 'gas': 744798, 'other': 417341, 'total_consumption': 2149665, 'co2_emission': 23624},
+    ]
 
 db.find({},(err,data)=>{
     if (data.length < 1){
