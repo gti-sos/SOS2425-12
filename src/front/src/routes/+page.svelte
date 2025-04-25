@@ -23,14 +23,14 @@
 
     <h2>Datos analizados y APIs</h2>
     <ul>
-        <li><a href="/api/v1/annual-retributions">API Retribuciones anuales</a> (Fernando Aguirre García)</li>
+        <li><a href="/api/v2/annual-retributions">API Retribuciones anuales</a> (Fernando Aguirre García)</li>
         <li><a href="/api/v1/annual-evolutions">API Evoluciones anuales </a> (Clara Reina Romero)</li>
         <li><a href="/api/v1/annual-consumptions">API Consumos anuales</a> (Gonzalo Osuna Salas)</li>
     </ul>
 
     <h2>Documentación de las APIs</h2>
     <ul>
-        <li><a href="/api/v1/annual-retributions/docs">Documentación Retribuciones anuales</a> (Fernando Aguirre García)</li>
+        <li><a href="/api/v2/annual-retributions/docs">Documentación Retribuciones anuales</a> (Fernando Aguirre García)</li>
         <li><a href="/api/v1/annual-evolutions/docs">Documentación Evoluciones anuales </a> (Clara Reina Romero)</li>
         <li><a href="/api/v1/annual-consumptions/docs">Documentación Consumos anuales</a> (Gonzalo Osuna Salas)</li>
     </ul>

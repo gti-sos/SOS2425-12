@@ -16,7 +16,7 @@
 <li><strong>APIs</strong>:<ul>
 <li><a href="http://sos2425-12.onrender.com/api/v1/annual-consumptions/docs">http://sos2425-12.onrender.com/api/v1/annual-consumptions/docs</a> (developed by Gonzalo Osuna Salas)</li>
 <li><a href="http://sos2425-12.onrender.com/api/v1/annual-evolutions/docs">http://sos2425-12.onrender.com/api/v1/annual-evolutions/docs</a> (developed by Clara Reina Romero)</li>
-<li><a href="http://sos2425-12.onrender.com/api/v1/annual-retributions/docs">http://sos2425-12.onrender.com/api/v1/annual-retributions/docs</a> (developed by Fernando Aguirre García)</li>
+<li><a href="http://sos2425-12.onrender.com/api/v2/annual-retributions/docs">http://sos2425-12.onrender.com/api/v2/annual-retributions/docs</a> (developed by Fernando Aguirre García)</li>
 </ul>
 </li>
 </ul>

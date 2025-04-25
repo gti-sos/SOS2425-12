@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "38c7b9e2-1031-47dc-a68a-507a2a7b8c2f",
-		"name": "Tests",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_postman_id": "aabb4c85-1be9-4afb-9185-8775f1b9891a",
+		"name": "Tests v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "42233131"
 	},
 	"item": [
@@ -28,18 +28,7 @@
 				},
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/loadInitialData",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"loadInitialData"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/loadInitialData"
 			},
 			"response": []
 		},
@@ -69,17 +58,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions"
 			},
 			"response": []
 		},
@@ -109,18 +88,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Biomasa"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Biomasa"
 			},
 			"response": []
 		},
@@ -160,19 +128,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa/2018",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Biomasa",
-						"2018"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Biomasa/2018"
 			},
 			"response": []
 		},
@@ -195,18 +151,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Mágica",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Mágica"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Mágica"
 			},
 			"response": []
 		},
@@ -241,18 +186,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						""
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/"
 			},
 			"response": []
 		},
@@ -287,18 +221,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						""
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/"
 			},
 			"response": []
 		},
@@ -333,18 +256,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Biomasa"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Biomasa"
 			},
 			"response": []
 		},
@@ -379,19 +291,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Biomasa/2017",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Biomasa",
-						"2017"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Biomasa/2017"
 			},
 			"response": []
 		},
@@ -426,17 +326,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions"
 			},
 			"response": []
 		},
@@ -463,19 +353,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Prueba",
-						"10"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Prueba/10"
 			},
 			"response": []
 		},
@@ -510,18 +388,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						""
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/"
 			},
 			"response": []
 		},
@@ -556,19 +423,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Prueba",
-						"10"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Prueba/10"
 			},
 			"response": []
 		},
@@ -603,19 +458,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Prueba",
-						"10"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Prueba/10"
 			},
 			"response": []
 		},
@@ -648,19 +491,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba/10",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Prueba",
-						"10"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Prueba/10"
 			},
 			"response": []
 		},
@@ -686,96 +517,7 @@
 				},
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/Prueba",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"Prueba"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE - retributions",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response body is an empty array\", function () {\r",
-							"    pm.expect(pm.response.json()).to.be.an('array').that.is.empty;\r",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "loadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/api/v1/annual-retributions/loadInitialData",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"annual-retributions",
-						"loadInitialData"
-					]
-				}
+				"url": "{{base_url}}/api/v2/annual-retributions/Prueba"
 			},
 			"response": []
 		}
