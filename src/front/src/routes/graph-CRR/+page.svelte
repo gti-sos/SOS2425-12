@@ -17,7 +17,7 @@
     onMount(async () => {
       const res = await fetch("/api/v1/annual-evolutions");
       data = await res.json();
-      aaccs = [...new Set(data.map(d => d.aacc))].sort();
+      aaccs = [...new Set(data.map(data => data.aacc))].sort();
       drawChart();
     });
   
