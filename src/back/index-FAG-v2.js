@@ -191,9 +191,15 @@ function loadBackendFAGv2(app){
                 return res.status(409).json({ error: "Ya existe ese dato" });
             }
             else{
-                if (!newData.aacc || newData.subsidized_energy == null || 
-                newData.total_compensation == null || newData.investment_compensation == null || 
-                newData.operation_compensation == null || newData.specific_compensation == null) {
+
+                const faltanDatos =  !newData.aacc || !newData.technology || (!newData.year && newData.year != 0)
+                || (!newData.subsidized_energy && newData.subsidized_energy != 0)
+                || (!newData.total_compensation && newData.total_compensation != 0)
+                || (!newData.investment_compensation && newData.investment_compensation != 0)
+                || (!newData.operation_compensation && newData.operation_compensation != 0)
+                || (!newData.specific_compensation && newData.specific_compensation != 0);
+
+                if (faltanDatos) {
                     return res.status(400).json({ error: "Faltan datos requeridos" });
                 }
                 else{
@@ -242,9 +248,14 @@ function loadBackendFAGv2(app){
 
         console.log(`New PUT to /annual-retributions/${technology}/${year}`);
 
-        if (data.year == null || !data.aacc || !data.technology || data.subsidized_energy == null || 
-            data.total_compensation == null || data.investment_compensation == null || 
-            data.operation_compensation == null || data.specific_compensation == null) {
+        const faltanDatos = (!data.year && data.year != 0)
+        || (!data.subsidized_energy && data.subsidized_energy != 0)
+        || (!data.total_compensation && data.total_compensation != 0)
+        || (!data.investment_compensation && data.investment_compensation != 0)
+        || (!data.operation_compensation && data.operation_compensation != 0)
+        || (!data.specific_compensation && data.specific_compensation != 0);
+
+        if (faltanDatos) {
             return res.status(400).json({ error: "Faltan datos requeridos" });
         }
         else{
