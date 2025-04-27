@@ -70,6 +70,20 @@
             charts.push(chart);
         });
     }
+
+    let selectedYearToDownload = "";
+
+    // Función para descargar el gráfico seleccionado
+    function downloadChart(year) {
+        const canvas = document.getElementById(`chart-${year}`);
+        if (canvas) {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = `grafico_${selectedAacc}_${year}.png`;
+            link.click();
+        }
+    }
+
 </script>
 
 <style>
@@ -79,6 +93,11 @@
         justify-content: center;
         gap: 2rem;
         margin-top: 2rem;
+    }
+
+    .download-controls {
+        float: right;
+        margin: 1rem;
     }
 
     .chart-wrapper {
@@ -103,6 +122,19 @@
 </select>
 
 {#if selectedAacc}
+    <div class="download-controls">
+        <label for="yearSelect">Descargar gráfico de:</label>
+        <select id="yearSelect" bind:value={selectedYearToDownload}>
+            <option value="">-- Selecciona año --</option>
+            {#each [...new Set(data.filter(d => d.aacc === selectedAacc).map(d => d.year))].sort() as year}
+                <option value={year}>{year}</option>
+            {/each}
+        </select>
+        <button on:click={() => downloadChart(selectedYearToDownload)} disabled={!selectedYearToDownload}>
+            Descargar
+        </button>
+    </div>
+
     <div class="charts-container">
         {#each [...new Set(data.filter(d => d.aacc === selectedAacc).map(d => d.year))].sort() as year}
             <div class="chart-wrapper">

@@ -4,6 +4,7 @@
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </svelte:head>
 
 <style>
@@ -153,6 +154,23 @@
             ]
         });
     }
+
+    function downloadChart() {
+        if (!selectedAacc) return;
+
+        const container = document.getElementById('container');
+        if (container) {
+            html2canvas(container).then((canvas) => {
+                const link = document.createElement('a');
+                let filename = selectedAacc === "__ALL__" ? "consumo_todas_comunidades" : `consumo_${selectedAacc.replace(/\s+/g, '_').toLowerCase()}`;
+                link.href = canvas.toDataURL('image/png');
+                link.download = `${filename}.png`;
+                link.click();
+            });
+        }
+    }
+
+
 </script>
 
 <!-- Selector de comunidad -->
@@ -165,6 +183,10 @@
 {/each}
 </select>
 {#if selectedAacc}
+    <div style="text-align: right; margin: 1rem;">
+        <button on:click={downloadChart}>
+            Descargar gráfico
+        </button>
+    </div>
     <div id="container" style="width: 100%; height: 500px;"></div>
 {/if}
-
