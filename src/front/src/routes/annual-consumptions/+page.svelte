@@ -302,12 +302,27 @@
     background-color: #770511;
     border-color: #770511;
   }
+
+  button.pink {
+      background-color: #ff69b4;
+      color: white;
+      border: 1px solid #c71585;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    button.pink:hover {
+      background-color: #c71585;
+      border-color: #c71585;
+    }
 </style>
 
 <h2 style="padding: 1.5%;">Consumo Anual</h2>
 <div id="body">
-  <a href="/graphs/consumo-emisiones-anyo" rel="external">Gráfica de consumo por año</a>
-  <a href="/graphs/comparativa-comunidades" rel="external">Gráfica de consumo por comunidad</a>
+  <button class="pink" on:click={() => goto('/graphs/consumo-emisiones-anyo')}>Gráfica de consumo por año</button>
+  <button class="pink" on:click={() => goto('/graphs/comparativa-comunidades')}>Gráfica de consumo por comunidad</button>
+
   <div class="text-center mb-2">
     {#if resultStatus === 201}
       <i class="bi bi-check-circle-fill text-success"></i> DATO CREADO CORRECTAMENTE.

@@ -55,6 +55,8 @@
     }
 </style>
 
+<h1>Comparativa de Consumo Energético por Comunidad</h1>
+
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
@@ -71,9 +73,11 @@
     });
 
     function updateChart() {
-        let filtered = selectedAacc
-            ? data.filter(d => d.aacc === selectedAacc)
-            : data;
+        if (selectedAacc === "") return;
+        let filtered = selectedAacc === "__ALL__"
+        ? data
+        : data.filter(d => d.aacc === selectedAacc);
+
 
         const grouped = {};
         filtered.forEach(d => {
@@ -96,9 +100,7 @@
         Highcharts.chart('container', {
             chart: { zoomType: 'xy' },
             title: {
-                text: selectedAacc
-                    ? `Consumo y emisiones en ${selectedAacc}`
-                    : 'Consumo y emisiones energéticas por año',
+                text: 'Consumo y emisiones energéticas por año',
                 align: 'left'
             },
             xAxis: { categories },
@@ -156,9 +158,13 @@
 <!-- Selector de comunidad -->
 <label for="aacc">Selecciona comunidad:</label>
 <select id="aacc" bind:value={selectedAacc} on:change={updateChart}>
-    <option value="">Todas</option>
-    {#each aaccs as aacc}
-        <option value={aacc}>{aacc}</option>
-    {/each}
+    <option value="">-- Selecciona una comunidad --</option>
+<option value="__ALL__">Todas</option>
+{#each aaccs as aacc}
+  <option value={aacc}>{aacc}</option>
+{/each}
 </select>
-<div id="container" style="width: 100%; height: 500px;"></div>
+{#if selectedAacc}
+    <div id="container" style="width: 100%; height: 500px;"></div>
+{/if}
+
