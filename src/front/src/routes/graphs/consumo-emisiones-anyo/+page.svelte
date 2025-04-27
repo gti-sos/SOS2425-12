@@ -54,6 +54,20 @@
     .highcharts-description {
         margin: 0.3rem 10px;
     }
+
+    button.pink {
+      background-color: #ff69b4;
+      color: white;
+      border: 1px solid #c71585;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    button.pink:hover {
+      background-color: #c71585;
+      border-color: #c71585;
+    }
 </style>
 
 <h1>Comparativa de Consumo Energético por Comunidad</h1>
@@ -61,6 +75,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
 
     let data = [];
     let aaccs = [];
@@ -120,6 +135,9 @@
             },
             plotOptions: {
                 column: { stacking: 'normal' }
+            },
+            exporting: { 
+                enabled: false
             },
             series: [
                 {
@@ -190,3 +208,4 @@
     </div>
     <div id="container" style="width: 100%; height: 500px;"></div>
 {/if}
+<button class="pink" on:click={() => goto(`/annual-consumptions`)}> Atrás </button>

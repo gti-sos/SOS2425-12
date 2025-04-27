@@ -106,14 +106,15 @@
           if (resultStatus === 200) {
               console.log(`Consumption deleted`);
               getAnnualConsumptions();
+              resultStatus = 200;
           }
           else {
               console.error(`Error deleting Consumption; Status received: ${resultStatus}`);
           }
       } catch (error) {
           console.error(`ERROR: DELETE to ${API}: ${error}`);
-      }
-  }
+    }
+}
 
   async function deleteAllAnnualConsumptions() {
       result = resultStatus = "";

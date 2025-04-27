@@ -6,6 +6,7 @@
     // @ts-nocheck
     import { onMount } from "svelte";
     import { Chart } from 'chart.js/auto';
+    import { goto } from "$app/navigation";
 
     let data = [];
     let aaccs = [];
@@ -108,6 +109,20 @@
     label, select {
         margin: 1rem;
     }
+
+    button.pink {
+      background-color: #ff69b4;
+      color: white;
+      border: 1px solid #c71585;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+    }
+
+    button.pink:hover {
+      background-color: #c71585;
+      border-color: #c71585;
+    }
 </style>
 
 
@@ -143,3 +158,4 @@
         {/each}
     </div>
 {/if}
+<button class="pink" on:click={() => goto(`/annual-consumptions`)}> Atrás </button>
