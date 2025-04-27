@@ -306,7 +306,8 @@
 
 <h2 style="padding: 1.5%;">Consumo Anual</h2>
 <div id="body">
-  <a href="/graph-annual-consumptions" rel="external">Gráfica</a>
+  <a href="/graphs/consumo-emisiones-anyo" rel="external">Gráfica de consumo por año</a>
+  <a href="/graphs/comparativa-comunidades" rel="external">Gráfica de consumo por comunidad</a>
   <div class="text-center mb-2">
     {#if resultStatus === 201}
       <i class="bi bi-check-circle-fill text-success"></i> DATO CREADO CORRECTAMENTE.

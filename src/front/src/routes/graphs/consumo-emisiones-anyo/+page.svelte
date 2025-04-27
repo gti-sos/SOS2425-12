@@ -161,16 +161,4 @@
         <option value={aacc}>{aacc}</option>
     {/each}
 </select>
-
-<!-- Contenedor del gráfico -->
 <div id="container" style="width: 100%; height: 500px;"></div>
-
-
-<figure class="highcharts-figure">
-  <div id="container"></div>
-  <p class="highcharts-description">
-    Basic line chart showing trends in a dataset. This chart includes the
-    <code>series-label</code> module, which adds a label to each line for
-    enhanced readability.
-  </p>
-</figure>
