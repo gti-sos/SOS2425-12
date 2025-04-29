@@ -48,44 +48,40 @@ function loadBackendCRR(app){
         })
     }); 
 
-    //GET
-    app.get(BASE_API + "/annual-evolutions", (request, response) => {
-        console.log("New GET to /annual-evolutions");
-    
-        let query = {};
-        let parametrosURL = request.query;
-    
-        // Filtros directos
-        if (parametrosURL.aacc) query.aacc = parametrosURL.aacc;
-        if (parametrosURL.technology) query.technology = parametrosURL.technology;
-        if (parametrosURL.energy_sold) query.energy_sold = parseFloat(parametrosURL.energy_sold);
-        if (parametrosURL.installed_power) query.installed_power = parseFloat(parametrosURL.installed_power);
-        if (parametrosURL.load_factor) query.load_factor = parseFloat(parametrosURL.load_factor);
-    
-        // Año exacto (si se desea usar directamente "year")
-        if (parametrosURL.year) query.year = parseInt(parametrosURL.year);
-    
-        // Año desde / hasta (from / to)
-        if (parametrosURL.from || parametrosURL.to) {
-            query.year = {};
-            if (parametrosURL.from) query.year.$gte = parseInt(parametrosURL.from);
-            if (parametrosURL.to) query.year.$lte = parseInt(parametrosURL.to);
+    // GET
+app.get(BASE_API + "/annual-evolutions", (request, response) => {
+    console.log("New GET to /annual-evolutions");
+
+    const limit = parseInt(request.query.limit) || 0;
+    const offset = parseInt(request.query.offset) || 0;
+
+    let query = {};
+    const filterableFields = ["aacc", "technology", "energy_sold", "installed_power", "load_factor", "year"];
+
+    filterableFields.forEach(field => {
+        if (request.query[field]) {
+            const value = request.query[field];
+            query[field] = isNaN(value) ? value : Number(value);
         }
-    
-        // Paginación
-        const limit = parseInt(parametrosURL.limit) || 0;
-        const offset = parseInt(parametrosURL.offset) || 0;
-    
-        db.find(query).skip(offset).limit(limit).exec((_err, annual_evolutions) => {
-            response.status(200);
-            response.send(JSON.stringify(
-                annual_evolutions.map((c) => {
-                    delete c._id;
-                    return c;
-                }), null, 2
-            ));
-        });
     });
+
+    // Año desde / hasta (rangos)
+    if (request.query.from || request.query.to) {
+        query.year = {};
+        if (request.query.from) query.year.$gte = Number(request.query.from);
+        if (request.query.to) query.year.$lte = Number(request.query.to);
+    }
+
+    db.find(query).skip(offset).limit(limit).exec((_err, annual_evolutions) => {
+        response.status(200).send(JSON.stringify(
+            annual_evolutions.map((c) => {
+                delete c._id;
+                return c;
+            }), null, 2
+        ));
+    });
+});
+
     
 
 
