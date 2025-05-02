@@ -184,11 +184,7 @@
           } catch (error){
               console.log(`ERROR:  GET from ${API}: ${error}`);
           }
-
-
       }
-
-
 
       onMount(async () => {
           getData();
@@ -201,6 +197,12 @@
 
 
 <h2>Evolución Anual</h2>
+
+<Button color="dark" on:click={() => goto(`/graphs/evolucion-anual/`)}>
+  Gráfica Evolución Anual </Button>
+<Button color="dark" on:click={() => goto(`/graphs/factor-carga-aacc/`)}>
+  Gráficas Factor de Carga Medio
+</Button>
 
 <div class="text-center mb-2">
   {#if resultStatus === 201}

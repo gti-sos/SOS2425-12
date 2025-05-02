@@ -41,19 +41,22 @@
     filtered.forEach(d => {
       const year = d.year;
       if (!grouped[year]) {
-        grouped[year] = { energy: 0, power: 0 };
+        grouped[year] = { energy: 0, power: 0 , loadFactor: 0};
       }
       grouped[year].energy += d.energy_sold;
       grouped[year].power += d.installed_power;
+      grouped[year].loadFactor += d.load_factor;
+      // grouped[year].count += 1;
     });
 
     const categories = Object.keys(grouped).sort();
     const energy = categories.map(y => Number(grouped[y].energy.toFixed(2)));
     const power = categories.map(y => Number(grouped[y].power.toFixed(2)));
+    const load_factor = categories.map(y => Number((grouped[y].loadFactor).toFixed(2)));
 
     chartInstance = Highcharts.chart("container", {
       chart: { type: "bar" },
-      title: { text: "Potencia instalada y Energía vendida por año" },
+      title: { text: "Potencia instalada, Energía vendida y Factor de Carga por año" },
       xAxis: {
         categories,
         title: { text: "Año" }
@@ -81,6 +84,11 @@
           name: "Potencia instalada (MW)",
           data: power,
           color: "#97f2a2"
+        },
+        {
+          name: "Factor de Carga",
+          data: load_factor,
+          color: "#f09298"
         }
       ]
     });
