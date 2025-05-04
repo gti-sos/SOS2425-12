@@ -1,4 +1,4 @@
-<svelte:head>
+<!-- <svelte:head>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/series-label.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -189,10 +189,10 @@
     }
 
 
-</script>
+</script> -->
 
 <!-- Selector de comunidad -->
-<label for="aacc">Selecciona comunidad:</label>
+<!-- <label for="aacc">Selecciona comunidad:</label>
 <select id="aacc" bind:value={selectedAacc} on:change={updateChart}>
     <option value="">-- Selecciona una comunidad --</option>
 <option value="__ALL__">Todas</option>
@@ -208,4 +208,4 @@
     </div>
     <div id="container" style="width: 100%; height: 500px;"></div>
 {/if}
-<button class="pink" on:click={() => goto(`/annual-consumptions`)}> Atrás </button>
+<button class="pink" on:click={() => goto(`/annual-consumptions`)}> Atrás </button> -->

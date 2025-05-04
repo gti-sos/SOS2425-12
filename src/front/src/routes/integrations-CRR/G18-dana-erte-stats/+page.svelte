@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from 'svelte';
-    import Plotly from 'plotly.js-dist-min';
+    let Plotly; // Declaramos Plotly sin importarlo aún
   
     let data = [];
     let selectedYear = '';
@@ -9,19 +9,24 @@
     let sectors = [];
   
     async function loadData() {
+      Plotly = await import('plotly.js-dist-min'); // Importación dinámica de Plotly
+  
       const res = await fetch('https://sos2425-18.onrender.com/api/v2/dana-erte-stats');
       data = await res.json();
   
-      years = [...new Set(data.map(d => d.year))];
+      years = [...new Set(data.map(d => d.request_year))];
       sectors = [...new Set(data.map(d => d.sector))];
   
-      selectedYear = years[0];      // Preseleccionamos un año  
+      console.log(years);
+
+      selectedYear = years[1]; // Preseleccionamos un año
       drawCharts();
     }
   
     function drawCharts() {
       // Filtrar por año seleccionado
-      const filteredData = data.filter(d => d.year.toString() === selectedYear);
+      const filteredData = data.filter(d => d.request_year == selectedYear);
+      console.log(filteredData);
   
       // Eliminar gráficos anteriores
       const container = document.getElementById('erteChartContainer');
