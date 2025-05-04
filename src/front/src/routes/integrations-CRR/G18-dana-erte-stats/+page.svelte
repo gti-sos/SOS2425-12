@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from 'svelte';
+    import { tick } from 'svelte';
     let Plotly; // Declaramos Plotly sin importarlo aún
   
     let data = [];
@@ -19,11 +20,11 @@
   
       console.log(years);
 
-      selectedYear = years[1]; // Preseleccionamos un año
+      selectedYear = 2024; // Preseleccionamos un año
       drawCharts();
     }
   
-    function drawCharts() {
+    async function drawCharts() {
       // Filtrar por año seleccionado
       const filteredData = data.filter(d => d.request_year == selectedYear);
       console.log(filteredData);
@@ -31,6 +32,8 @@
       // Eliminar gráficos anteriores
       const container = document.getElementById('erteChartContainer');
       container.innerHTML = '';
+
+      await tick();
   
       // Por cada sector, generar un gráfico tipo "pie"
       sectors.forEach(sector => {
@@ -66,7 +69,7 @@
     onMount(loadData);
   </script>
   
-  <h2>Distribución de Suspensiones por Sector y Comunidad</h2>
+  <h2>Integración G18-dana-erte-stats</h2>
   
   <div style="margin-bottom: 1rem;">
     <!-- svelte-ignore a11y_label_has_associated_control -->
