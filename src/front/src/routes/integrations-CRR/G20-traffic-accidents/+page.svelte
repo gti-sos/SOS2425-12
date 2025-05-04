@@ -63,7 +63,7 @@
           totalFallecidos = aaccs.map(ccaa => grouped[ccaa]?.deceased || 0);
           totalSinITV     = aaccs.map(ccaa => grouped[ccaa]?.vehicles_without_mot || 0);
           totalEnergia    = aaccs.map(ccaa => grouped[ccaa]?.energy_sold || 0);
-          totalPotencia   = aaccs.map(ccaa => grouped[ccaa]?.installed_power || 0);
+          totalPotencia  = aaccs.map(ccaa => grouped[ccaa]?.installed_power || 0);
 
           drawChart();
 
