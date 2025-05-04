@@ -9,5 +9,5 @@
 - **URL**: [sos2425-12.onrender.com](https://sos2425-12.onrender.com/)
 -  **APIs**:
     - [annual-consumptions](https://sos2425-12.onrender.com/api/v1/annual-consumptions/docs) (developed by Gonzalo Osuna Salas)
-    - [annual-retributions](https://sos2425-12.onrender.com/api/v1/annual-retributions/docs) (developed by Fernando Aguirre García)
+    - [annual-retributions](https://sos2425-12.onrender.com/api/v2/annual-retributions/docs) (developed by Fernando Aguirre García)
     - [annual-evolutions](https://sos2425-12.onrender.com/api/v1/annual-evolutions/docs) (developed by Clara Reina Romero)

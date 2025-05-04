@@ -4,10 +4,10 @@
     import { page } from "$app/stores";
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
-    import { Button, Table } from '@sveltestrap/sveltestrap';
+    import { Button, Table, Icon } from '@sveltestrap/sveltestrap';
 
     let DEVEL_HOST = "http://localhost:16078";
-    let API = "/api/v1/annual-retributions/" + $page.params.technology + "/" + $page.params.year;
+    let API = "/api/v2/annual-retributions/" + $page.params.technology + "/" + $page.params.year;
     if(dev) API = DEVEL_HOST + API;
 
     let retribution_data = {};
@@ -51,7 +51,7 @@
             resultStatus = status;
             if(resultStatus === 200){
                 console.log(`Datos actualizados`);
-                getRetribution();
+                goto(`/annual-retributions/`);
             }
             else{
                 console.log(`Error actualizando: status ${status}`);
@@ -107,7 +107,7 @@
             <td><input type="text" bind:value={retribution_data.operation_compensation}></td>
             <td><input type="text" bind:value={retribution_data.specific_compensation}></td>
             <td><input type="text" bind:value={retribution_data.aacc}></td>
-            <td><Button color="success" on:click={editRetribution}>Actualizar</Button></td>
+            <td><Button color="success" on:click={editRetribution}> <Icon name="arrow-clockwise" /> Actualizar</Button></td>
         </tr>
     </tbody>
 </Table>

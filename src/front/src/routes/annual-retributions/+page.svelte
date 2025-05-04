@@ -2,12 +2,12 @@
 <script>
   //  @ts-nocheck
   import { onMount } from "svelte";
-  import { Button, Table, Styles, Icon } from "@sveltestrap/sveltestrap";
+  import { Button, Table, Input, Icon } from "@sveltestrap/sveltestrap";
   import { goto } from "$app/navigation";
   import { dev } from "$app/environment";
 
   let DEVEL_HOST = "http://localhost:16078";
-  let API = "/api/v1/annual-retributions";
+  let API = "/api/v2/annual-retributions";
   if (dev) {
     API = DEVEL_HOST + API;
   }
@@ -28,7 +28,13 @@
   let filtroTec = "";
   let filtroYearFrom = "";
   let filtroYearTo = "";
+  let filtro_subsidized_energy = "";
+  let filtro_total_compensation = "";
+  let filtro_investment_compensation = "";
+  let filtro_operation_compensation = "";
+  let filtro_specific_compensation = "";
   
+  let advancedSearch = false;
 
   async function getAnnualRetributions() {
     result = resultStatus = "";
@@ -54,7 +60,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          year: parseInt(newRetributionYear),
+          year: newRetributionYear,
           technology: newRetributionTechnology,
           subsidized_energy: newRetributionSubsidizedEnergy,
           total_compensation: newRetributionTotalCompensation,
@@ -120,6 +126,11 @@
       if (filtroYearFrom) queryParams.push(`from=${encodeURIComponent(filtroYearFrom)}`);
       if (filtroYearTo) queryParams.push(`to=${encodeURIComponent(filtroYearTo)}`);
       if (filtroTec) queryParams.push(`technology=${encodeURIComponent(filtroTec)}`);
+      if (filtro_subsidized_energy) queryParams.push(`subsidized_energy=${encodeURIComponent(parseFloat(filtro_subsidized_energy))}`);
+      if (filtro_total_compensation) queryParams.push(`total_compensation=${encodeURIComponent(parseFloat(filtro_total_compensation))}`);
+      if (filtro_investment_compensation) queryParams.push(`investment_compensation=${encodeURIComponent(parseFloat(filtro_investment_compensation))}`);
+      if (filtro_operation_compensation) queryParams.push(`operation_compensation=${encodeURIComponent(parseFloat(filtro_operation_compensation))}`);
+      if (filtro_specific_compensation) queryParams.push(`specific_compensation=${encodeURIComponent(parseFloat(filtro_specific_compensation))}`);
 
       let finalUrl = API;
       if (queryParams.length) finalUrl += "?" + queryParams.join("&");
@@ -155,12 +166,23 @@
 
   function clearSearch() {
     filtroAacc = filtroTec = filtroYearFrom = filtroYearTo = "";
-    getAnnualRetributions();
+    clearAdvancedSearch();
+    searchData();
+  }
+
+  function clearAdvancedSearch() {
+    filtro_subsidized_energy = "";
+    filtro_total_compensation = "";
+    filtro_investment_compensation = "";
+    filtro_operation_compensation = "";
+    filtro_specific_compensation = "";
+    searchData();
   }
 
   onMount(async () => {
     getAnnualRetributions();
   });
+
 </script>
 
 <style>
@@ -170,6 +192,22 @@
   th, td {
     border: 0.5px solid #e2e2e2;
   }
+
+  th.search, td.search {
+    border: transparent;
+  }
+
+  td#search_buttons {
+    width: 20%;
+  }
+
+  div#advanced-search {
+    display: grid;
+    place-items: center;
+    justify-self: center;
+    width: 85%;
+  }
+
 </style>
 
 <head>
@@ -197,9 +235,9 @@
   <thead>
     <tr>
 
-      <th style="margin-bottom: 1rem;">
-        <td>
-        <select bind:value={filtroAacc} class="form-select">
+      <th class="search">
+        <td class="search">
+          <select bind:value={filtroAacc} class="form-select">
           <option value="" disabled selected>Comunidad autónoma</option>
           <option value="Andalucía">Andalucía</option>
           <option value="Asturias, Principado de">Principado de Asturias</option>
@@ -209,7 +247,7 @@
           <option value="País Vasco">País Vasco</option>
         </select>         
       </td>
-      <td>
+      <td class="search">
           <select bind:value={filtroYearFrom} class="form-select">
           <option value="" disabled selected>Año (inicio)</option>
           <option value="2017">2017</option>
@@ -222,7 +260,7 @@
           <option value="2024">2024</option>
         </select>          
       </td>
-      <td>
+      <td class="search">
         <select bind:value={filtroYearTo} class="form-select">
           <option value="" disabled selected>Año (fin)</option>
           <option value="2017">2017</option>
@@ -235,7 +273,7 @@
           <option value="2024">2024</option>
         </select> 
        </td>
-      <td>
+      <td class="search">
         <select bind:value={filtroTec} class="form-select">
           <option value="" disabled selected>Tecnología</option>
           <option value="Biomasa">Biomasa</option>
@@ -248,13 +286,44 @@
           <option value="Otras tecn. renovables">Otras tecn. renovables</option>
         </select>        
       </td>
-      <td>
+      <td id="search_buttons" class="search">
         <Button outline color="primary" on:click={searchData}> <Icon name="search" /> Buscar</Button>
         <Button outline color="secondary" on:click={clearSearch}><Icon name="x-circle" /> Limpiar</Button>
+        {#if !advancedSearch}
+          <Button outline color="success" on:click={() => advancedSearch = true}><Icon name="eyeglasses" /> Búsqueda Avanzada </Button>
+        {:else}
+          <Button outline color="success" on:click={() => { advancedSearch = false; clearAdvancedSearch();}}><Icon name="x-lg" /> Cerrar </Button>
+        {/if}
       </td>
     </tr>
   </thead>
 </Table>
+
+{#if advancedSearch}
+  <div id="advanced-search">
+    <Table>
+      <thead>
+        <tr>
+          <td class="search">         
+            <Input bind:value={filtro_subsidized_energy} placeholder="Energía Subvencionada" class="form-control" />
+          </td>
+          <td class="search">
+            <Input bind:value={filtro_total_compensation} placeholder="Compensación total" class="form-control" />
+          </td>
+          <td class="search">
+            <Input bind:value={filtro_investment_compensation} placeholder="Compensación por inversión" class="form-control" />
+          </td>
+          <td class="search">
+            <Input bind:value={filtro_operation_compensation} placeholder="Compensación por operación" class="form-control" />
+          </td>
+          <td class="search">
+            <Input bind:value={filtro_specific_compensation} placeholder="Compensación específica" class="form-control" />
+          </td>
+        </tr>
+      </thead>
+    </Table>
+  </div>
+{/if}
 
 <div id="body">
   <Table id="data-table">
@@ -273,14 +342,14 @@
     </thead>
     <tbody>
         <tr>
-          <td><input bind:value={newRetributionYear}> </td>
-          <td><input bind:value={newRetributionTechnology}> </td>
-          <td><input bind:value={newRetributionSubsidizedEnergy}> </td>
-          <td><input bind:value={newRetributionTotalCompensation}> </td>
-          <td><input bind:value={newRetributionInvestmentCompensation}> </td>
-          <td><input bind:value={newRetributionOperationCompensation}> </td>
-          <td><input bind:value={newRetributionSpecificCompensation}> </td>
-          <td><input bind:value={newRetributionAACC}> </td>
+          <td><Input bind:value={newRetributionYear} /> </td>
+          <td><Input bind:value={newRetributionTechnology} /> </td>
+          <td><Input bind:value={newRetributionSubsidizedEnergy} /> </td>
+          <td><Input bind:value={newRetributionTotalCompensation} /> </td>
+          <td><Input bind:value={newRetributionInvestmentCompensation} /> </td>
+          <td><Input bind:value={newRetributionOperationCompensation} /> </td>
+          <td><Input bind:value={newRetributionSpecificCompensation} /> </td>
+          <td><Input bind:value={newRetributionAACC} /> </td>
           <td>
             <Button outline color="primary" on:click={createAnnualRetribution}><Icon name="plus-circle" />  Crear</Button>
             <Button outline color="secondary" on:click={clearCreation}><Icon name="x-circle" />  Limpiar</Button>

@@ -106,4 +106,4 @@
   </tbody>
 </Table>
 
-<Button color="secondary" on:click={() => goto(`/`)}>Atrás</Button>
+<Button color="secondary" on:click={() => goto(`/annual-consumptions`)}>Atrás</Button>
