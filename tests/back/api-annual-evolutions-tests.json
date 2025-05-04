@@ -619,7 +619,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n        \"year\": 2020,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
+					"raw": " {\r\n        \"year\": 2000,   //id\r\n        \"aacc\": \"Ceuta\",    //id\r\n        \"technology\": \"Residuos\",   //id\r\n        \"energy_sold\": 4.81,\r\n        \"installed_power\": 100,   //dato modificado\r\n        \"load_factor\": 19.6102414\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -627,7 +627,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2020/Residuos",
+					"raw": "{{base_url}}/api/v1/annual-evolutions/Ceuta/2000/Residuos",
 					"host": [
 						"{{base_url}}"
 					],
@@ -636,7 +636,7 @@
 						"v1",
 						"annual-evolutions",
 						"Ceuta",
-						"2020",
+						"2000",
 						"Residuos"
 					]
 				}

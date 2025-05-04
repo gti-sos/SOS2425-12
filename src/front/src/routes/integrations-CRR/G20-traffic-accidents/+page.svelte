@@ -32,7 +32,8 @@
         try{
           const { default: c3 } = await import('c3');
           const res1 = await fetch('https://sos2425-20.onrender.com/api/v1/traffic-accidents');
-          const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
+          // const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
+          const res2 = await fetch('http://localhost:16078/api/v1/annual-evolutions');
           data1 = await res1.json();
           data2 = await res2.json();
           if (data1.length === 0){
@@ -40,8 +41,15 @@
             data1 = await res1.json();
           }
 
+          // Extraer años únicos de ambas APIs
+          const years1 = [...new Set(data1.map(d => d.year))];
+          const years2 = [...new Set(data2.map(d => d.year))];
+          const commonYears = years1.filter(year => years2.includes(year)); // Encontrar los años en común
+          console.log("Años en común:", commonYears);
+
+
           const grouped = {};
-          data1.forEach(d => {
+          data1.filter(d => commonYears.includes(d.year)).forEach(d => {
             const ccaa = d.autonomous_community;
             if (!grouped[ccaa]) grouped[ccaa] = { fatal_accidents: 0, deceased: 0, vehicles_without_mot: 0, energy_sold: 0, installed_power: 0 };
             grouped[ccaa].fatal_accidents += d.fatal_accidents;
@@ -49,7 +57,7 @@
             grouped[ccaa].vehicles_without_mot += d.vehicles_without_mot;
           });
 
-          data2.forEach(d => {
+          data2.filter(d => commonYears.includes(d.year)).forEach(d => {
             const ccaa = d.aacc;
             console.log(ccaa);
             if (!grouped[ccaa]) grouped[ccaa] = { fatal_accidents: 0, deceased: 0, vehicles_without_mot: 0, energy_sold: 0, installed_power: 0 };
@@ -88,9 +96,11 @@
             ],
             type: 'bar',
             colors: {
-              'Accidentes mortales': '#f6616b',  
+              'Accidentes mortales': '#f3f568',  
               'Fallecidos': '#9db4ec', 
-              'Vehículos sin ITV': '#74e4a4'  
+              'Vehículos sin ITV': '#74e4a4',  
+              'Energía Vendida': '#f6616b' ,
+              'Potencia instalada': '#f9a1f5'  
             }
           },
 
@@ -114,7 +124,7 @@
 </script>
 
 <section>
-  <h2>Accidentes de Tráfico por CCAA</h2>
+  <h2>Accidentes de Tráfico y Evolución Energia Renovable</h2>
   <div id="trafficChart"></div>
 </section>
 
