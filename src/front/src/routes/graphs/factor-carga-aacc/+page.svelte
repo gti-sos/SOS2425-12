@@ -139,11 +139,4 @@ onMount(async () => {
     width: 100%;
     height: 400px;
   }
-
-  button {
-    margin-top: 10px;
-    padding: 6px 12px;
-    font-size: 0.9rem;
-    cursor: pointer;
-  }
 </style>

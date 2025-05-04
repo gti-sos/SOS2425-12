@@ -1,0 +1,77 @@
+<script>
+    // @ts-nocheck
+    import { onMount } from 'svelte';
+    import Plotly from 'plotly.js-dist-min';
+  
+    let data = [];
+    let selectedYear = '';
+    let years = [];
+    let sectors = [];
+  
+    async function loadData() {
+      const res = await fetch('https://sos2425-18.onrender.com/api/v2/dana-erte-stats');
+      data = await res.json();
+  
+      years = [...new Set(data.map(d => d.year))];
+      sectors = [...new Set(data.map(d => d.sector))];
+  
+      selectedYear = years[0];      // Preseleccionamos un año  
+      drawCharts();
+    }
+  
+    function drawCharts() {
+      // Filtrar por año seleccionado
+      const filteredData = data.filter(d => d.year.toString() === selectedYear);
+  
+      // Eliminar gráficos anteriores
+      const container = document.getElementById('erteChartContainer');
+      container.innerHTML = '';
+  
+      // Por cada sector, generar un gráfico tipo "pie"
+      sectors.forEach(sector => {
+        const sectorData = filteredData.filter(d => d.sector === sector);
+  
+        const comunidades = [...new Set(sectorData.map(d => d.company_municipality))].sort();
+        const valores = comunidades.map(c =>
+          sectorData
+            .filter(d => d.company_municipality === c)
+            .reduce((acc, curr) => acc + curr.total_work_sus, 0)
+        );
+  
+        const divId = `erteChart-${sector.replace(/\s+/g, '-')}`;
+        const chartDiv = document.createElement('div');
+        chartDiv.id = divId;
+        chartDiv.style.width = '100%';
+        chartDiv.style.height = '400px';
+        chartDiv.style.marginBottom = '2rem';
+        container.appendChild(chartDiv);
+  
+        Plotly.newPlot(divId, [{
+          labels: comunidades,
+          values: valores,
+          type: 'pie',
+          textinfo: 'label+percent',
+          hole: 0.3
+        }], {
+          title: `Distribución de ERTEs en ${sector} - ${selectedYear}`
+        });
+      });
+    }
+  
+    onMount(loadData);
+  </script>
+  
+  <h2>Distribución de Suspensiones por Sector y Comunidad</h2>
+  
+  <div style="margin-bottom: 1rem;">
+    <!-- svelte-ignore a11y_label_has_associated_control -->
+    <label>Año:</label>
+    <select bind:value={selectedYear} on:change={drawCharts}>
+      {#each years as year}
+        <option value={year}>{year}</option>
+      {/each}
+    </select>
+  </div>
+  
+  <div id="erteChartContainer"></div>
+  
