@@ -11,41 +11,60 @@
   // @ts-nocheck
   import { onMount } from "svelte";
 
-    let data = [];
+    let data1 = [];
+    let data2 = [];
     let aaccs = [];
     let fatal_accidents = [];
     let deceased = [];
     let vehicles_without_mot = [];
     let years = [];
+    let energy_sold = [];
+    let installed_power = [];
+
 
     let totalAccidentes = [];
     let totalFallecidos = [];
     let totalSinITV = [];
+    let totalEnergia = [];
+    let totalPotencia = [];
 
       async function loadData() {
         try{
           const { default: c3 } = await import('c3');
-          const res = await fetch('https://sos2425-20.onrender.com/api/v1/traffic-accidents');
-          data = await res.json();
-          if (data.length === 0){
-            const res = await fetch('https://sos2425-20.onrender.com/api/v1/traffic-accidents/loadInitialData');
-            data = await res.json();
+          const res1 = await fetch('https://sos2425-20.onrender.com/api/v1/traffic-accidents');
+          const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
+          data1 = await res1.json();
+          data2 = await res2.json();
+          if (data1.length === 0){
+            const res1 = await fetch('https://sos2425-20.onrender.com/api/v1/traffic-accidents/loadInitialData');
+            data1 = await res1.json();
           }
 
           const grouped = {};
-          data.forEach(d => {
+          data1.forEach(d => {
             const ccaa = d.autonomous_community;
-            if (!grouped[ccaa]) grouped[ccaa] = { fatal_accidents: 0, deceased: 0, vehicles_without_mot: 0 };
+            if (!grouped[ccaa]) grouped[ccaa] = { fatal_accidents: 0, deceased: 0, vehicles_without_mot: 0, energy_sold: 0, installed_power: 0 };
             grouped[ccaa].fatal_accidents += d.fatal_accidents;
             grouped[ccaa].deceased += d.deceased;
-            grouped[ccaa].vehicles_without_mot     += d.vehicles_without_mot;
+            grouped[ccaa].vehicles_without_mot += d.vehicles_without_mot;
+          });
+
+          data2.forEach(d => {
+            const ccaa = d.aacc;
+            console.log(ccaa);
+            if (!grouped[ccaa]) grouped[ccaa] = { fatal_accidents: 0, deceased: 0, vehicles_without_mot: 0, energy_sold: 0, installed_power: 0 };
+            grouped[ccaa].energy_sold += d.energy_sold;
+            grouped[ccaa].installed_power += d.installed_power;
           });
 
           // 4) Extraigo las arrays finales
           aaccs = Object.keys(grouped).sort();
-          totalAccidentes = aaccs.map(ccaa => grouped[ccaa].fatal_accidents);
-          totalFallecidos = aaccs.map(ccaa => grouped[ccaa].deceased);
-          totalSinITV     = aaccs.map(ccaa => grouped[ccaa].vehicles_without_mot);
+          totalAccidentes = aaccs.map(ccaa => grouped[ccaa]?.fatal_accidents || 0);
+          totalFallecidos = aaccs.map(ccaa => grouped[ccaa]?.deceased || 0);
+          totalSinITV     = aaccs.map(ccaa => grouped[ccaa]?.vehicles_without_mot || 0);
+          totalEnergia    = aaccs.map(ccaa => grouped[ccaa]?.energy_sold || 0);
+          totalPotencia   = aaccs.map(ccaa => grouped[ccaa]?.installed_power || 0);
+
           drawChart();
 
         }catch (err) {
@@ -55,8 +74,6 @@
 
       function drawChart(){
 
-        console.log('DATA crudo:', data);
-
         c3.generate({
           bindto: '#trafficChart',
           data: {
@@ -65,7 +82,9 @@
               ['x', ...aaccs],
               ['Accidentes mortales', ...totalAccidentes],
               ['Fallecidos', ...totalFallecidos],
-              ['Vehículos sin ITV', ...totalSinITV]
+              ['Vehículos sin ITV', ...totalSinITV],
+              ['Energía Vendida', ...totalEnergia],
+              ['Potencia instalada', ...totalPotencia],
             ],
             type: 'bar',
             colors: {

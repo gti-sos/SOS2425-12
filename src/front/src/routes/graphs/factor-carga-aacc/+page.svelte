@@ -37,7 +37,10 @@ onMount(async () => {
       "Hidráulica": "#f2eb97",
       "Solar FV": "#97e1f2",
       "Residuos": "#ffb347",
-      "Trat.residuos": "#b0e0e6"
+      "Trat.residuos": "#d39dec",
+      "Solar TE": "#ecc19d",
+      "Otreas tecn. renovables": "#c0c3cc",
+      
     };
 
     aaccs.forEach(aacc => {

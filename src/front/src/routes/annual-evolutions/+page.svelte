@@ -236,21 +236,24 @@
           <option value="" disabled selected>Comunidad autónoma</option>
           <option value="Andalucía">Andalucía</option>
           <option value="Aragón">Aragón</option>
-          <option value="Asturias, Principado de">Asturias, Principado de</option>
-          <option value="Balears, Illes">Balears, Illes</option>
+          <option value="Asturias">Asturias</option>
+          <option value="Baleares">Baleares</option>
           <option value="Canarias">Canarias</option>
           <option value="Cantabria">Cantabria</option>
-          <option value="Castilla - La Mancha">Castilla - La Mancha</option>
+          <option value="Castilla La Mancha">Castilla La Mancha</option>
           <option value="Castilla y León">Castilla y León</option>
           <option value="Cataluña">Cataluña</option>
-          <option value="Ceuta">Ceuta</option>
-          <option value="Comunitat Valenciana">Comunitat Valenciana</option>
+          <option value="Ceuta y Melilla">Ceuta y Melilla</option>
+          <option value="Comunidad Valenciana">Comunidad Valenciana</option>
           <option value="Extremadura">Extremadura</option>
           <option value="Galicia">Galicia</option>
-          <option value="Madrid, Comunidad de">Madrid, Comunidad de</option>
-          <option value="Navarra, Comunidad Foral de">Navarra, Comunidad Foral de</option>
+          <option value="Madrid">Madrid</option>
+          <option value="Murcia">Murcia</option>
+          <option value="Navarra">Navarra</option>
           <option value="País Vasco">País Vasco</option>
+          <option value="La Rioja">La Rioja</option>
         </select>
+        
       </td>
 
       <td>
@@ -314,7 +317,10 @@
           <option value="Cogeneración">Cogeneración</option>
           <option value="Eólica">Eólica</option>
           <option value="Solar FV">Solar FV</option>
+          <option value="Solar TE">Solar TE</option>
           <option value="Trat.residuos">Trat.residuos</option>
+          <option value="Otras tecn. renovables">Otras tecn. renovables</option>
+
         </select>
       </td>
 
