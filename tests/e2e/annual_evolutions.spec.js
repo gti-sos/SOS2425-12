@@ -38,7 +38,7 @@ test('Create and delete data', async ({ page }) => {
   await page.getByRole('button', { name: 'Crear' }).click(); // Hace clic en el botón "Crear".
 
   // Localiza la fila correspondiente al año ingresado.
-  const dataRow = page.locator('tr', { hasText: year.toString() });
+  const dataRow = page.locator('tr', { hasText: `${aacc} ${year} ${technology}` });
 
   // Verifica que esa fila contenga el texto de algun dato añadido.
   await expect(dataRow).toContainText(aacc);

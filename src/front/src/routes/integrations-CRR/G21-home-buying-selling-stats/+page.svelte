@@ -103,6 +103,6 @@
     });
   </script>
   
-  <h2>ntegración G21-home-buying-selling-stats</h2>
+  <h2>Integración G21-home-buying-selling-stats</h2>
   <div bind:this={chartDiv} style="width: 100%; height: 500px;"></div>
   
