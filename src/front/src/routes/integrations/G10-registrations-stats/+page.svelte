@@ -10,7 +10,7 @@
       const res1 = await fetch('https://sos2425-10.onrender.com/api/v1/registrations-stats');
       const data1 = await res1.json();
   
-      const res2 = await fetch('http://localhost:16078/api/v1/annual-evolutions');
+      const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
       const data2 = await res2.json();
   
       const years = [...new Set(data1.map(d => d.year))]

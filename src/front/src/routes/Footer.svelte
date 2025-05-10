@@ -2,7 +2,10 @@
     import { dev } from "$app/environment";
 </script> -->
 
-<p><a href="/about">Información sobre el proyecto</a></p>
+<a href="/about">Información sobre el proyecto</a>
+<a href="/integrations">Integraciones</a>
+<a href="/graphs">Gráficos</a>
+
 <!-- {#if dev}
     <p>DEV</p>
 {/if} -->

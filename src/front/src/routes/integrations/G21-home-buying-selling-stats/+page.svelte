@@ -14,9 +14,7 @@
       // API de viviendas
       const res1 = await fetch('https://sos2425-21.onrender.com/api/v1/home-buying-selling-stats');
       data1 = await res1.json();
-  
-      // API de energía
-      const res2 = await fetch('http://localhost:16078/api/v1/annual-evolutions');
+      const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
       data2 = await res2.json();
   
       drawChart();

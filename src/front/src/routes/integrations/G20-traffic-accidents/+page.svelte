@@ -32,8 +32,7 @@
         try{
           const { default: c3 } = await import('c3');
           const res1 = await fetch('https://sos2425-20.onrender.com/api/v1/traffic-accidents');
-          // const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
-          const res2 = await fetch('http://localhost:16078/api/v1/annual-evolutions');
+          const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
           data1 = await res1.json();
           data2 = await res2.json();
           if (data1.length === 0){
