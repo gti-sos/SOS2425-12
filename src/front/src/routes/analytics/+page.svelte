@@ -65,13 +65,20 @@ function drawChart() {
   const datos = dataPorTecnologia[selectedTech];
   const years = Object.keys(datos);
 
-  const series = [
-    { name: 'Energía vendida', field: 'energy_sold', color: '#fd60e8' },
-    { name: 'Energía subvencionada', field: 'energy_sub', color: '#6099fd' },
-    { name: 'CO₂', field: 'co2', color: '#60fdaf' }
+  const barSeries = [
+    {
+      name: 'Energía vendida',
+      field: 'energy_sold',
+      color: '#fd60c9'
+    },
+    {
+      name: 'Energía subvencionada',
+      field: 'energy_sub',
+      color: '#6090fd'
+    }
   ];
 
-  const plotData = series.map(s => ({
+  const plotData = barSeries.map(s => ({
     x: years,
     y: years.map(y => datos[y][s.field]),
     name: s.name,
@@ -79,10 +86,22 @@ function drawChart() {
     marker: { color: s.color }
   }));
 
+  plotData.push({
+    x: years,
+    y: years.map(y => datos[y].co2),
+    name: 'CO₂',
+    type: 'scatter',
+    mode: 'lines',
+    fill: 'tozeroy',
+    line: { color: '#bafdd1' }
+  });
+
   const layout = {
     title: `Indicadores energéticos para ${selectedTech}`,
     barmode: 'group',
-    xaxis: { title: 'Año' },
+    xaxis: { title: 'Año', 
+         type: 'category'
+    },
     yaxis: { title: 'Valor' }
   };
 
@@ -98,9 +117,10 @@ onMount(loadData);
 </script>
 
 <h2>Integración grupo 12 (Plotly + bar)</h2>
-<select on:change={onTechChange}>
+<label for="techSelect"><strong>Tecnología:</strong></label>
+<select id="techSelect" on:change={onTechChange}>
   {#each techs as tech}
     <option value={tech} selected={tech === selectedTech}>{tech}</option>
   {/each}
 </select>
-<div bind:this={chartDiv} style="width: 100%; height: 500px;"></div>
+<div bind:this={chartDiv} style="width: 60%; height: 500px; margin: auto;"></div>
