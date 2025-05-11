@@ -94,7 +94,7 @@ onMount(loadData);
 <h2>Potencia Instalada por Tecnología - Chart.js</h2>
 
 {#if !githubUser}
-  <button on:click={() => window.location.href = 'https://github.com/login/oauth/authorize?client_id=Ov23linopbdyVmeNezLw&redirect_uri=http://localhost:16078/api/github/callback'}>
+  <button on:click={() => window.location.href = 'https://github.com/login/oauth/authorize?client_id=Ov23linopbdyVmeNezLw&redirect_uri=http://sos2425-12.onrender.com/api/github/callback'}>
     Iniciar sesión con GitHub
   </button>
 {/if}
