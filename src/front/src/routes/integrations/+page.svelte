@@ -15,6 +15,7 @@
   <li><strong>Integraciones externas:</strong>
     <ul>
       <li><a href="/integrations/solar-eolica-temperatura-viento">solar-eolica-temperatura-viento</a> — Highcharts + areaspline</li>
+      <li><a href="/integrations/solar-nubosidad-andalucia">solar-nubosidad-andalucia</a> — ECharts + scatter </li>
     </ul>
   </li>
 </ul>
