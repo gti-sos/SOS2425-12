@@ -99,4 +99,4 @@ function updateChart() {
   <div class="ct-chart ct-major-twelfth"></div>
 {/if}
 
-<button class="pink" on:click={() => goto(`/integrations-GOS`)}>Atrás</button>
+<button class="pink" on:click={() => goto(`/integrations`)}>Atrás</button>
