@@ -117,5 +117,5 @@
   onMount(loadData);
 </script>
 
-<h2>Solar FV vs Eólica por Comunidad Autónoma (2023)</h2>
+<h2>Solar vs Eólica según temperatura y viento por ccaa</h2>
 <div bind:this={chartDiv} style="width: 100%; height: 450px;"></div>

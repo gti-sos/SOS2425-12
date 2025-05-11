@@ -27,7 +27,6 @@
     async function drawCharts() {
       // Filtrar por año seleccionado
       const filteredData = data.filter(d => d.request_year == selectedYear);
-      console.log(filteredData);
   
       // Eliminar gráficos anteriores
       const container = document.getElementById('erteChartContainer');

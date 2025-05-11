@@ -125,5 +125,5 @@ onMount(() => {
 });
 </script>
 
-<h2>Integración: Clima actual (Sevilla) vs Producción Solar en Andalucía</h2>
+<h2>Integración: Nubosidad actual vs Producción Energía Solar en Andalucía</h2>
 <div bind:this={chartDiv} style="width: 100%; height: 500px;"></div>

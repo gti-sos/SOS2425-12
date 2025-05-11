@@ -42,6 +42,7 @@
     "express": "^4.21.2",
     "highcharts": "^12.2.0",
     "nedb": "^1.8.0",
+    "plotly.js-dist": "^3.0.1",
     "plotly.js-dist-min": "^3.0.1",
     "request": "^2.88.2",
     "sv": "^0.8.1"
