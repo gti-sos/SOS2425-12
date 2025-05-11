@@ -43,6 +43,7 @@
     "highcharts": "^12.2.0",
     "nedb": "^1.8.0",
     "plotly.js-dist-min": "^3.0.1",
+    "request": "^2.88.2",
     "sv": "^0.8.1"
   },
   "devDependencies": {
