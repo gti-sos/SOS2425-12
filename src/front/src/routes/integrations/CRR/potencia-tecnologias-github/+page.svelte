@@ -8,17 +8,34 @@ let chartDiv;
 let githubUser = null;
 let energiaAgrupada = [];
 
-async function fetchGithubUser(code) {
-  const res = await fetch(`http://localhost:3000/callback?code=${code}`);
-  const data = await res.json();
-  githubUser = data;
-}
+async function loadData() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const login = params.get('login');
 
-async function fetchEnergias() {
-  const res = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
-  const data = await res.json();
+  // Si no hay login ni code, no mostramos nada aún
+  if (!code && !login) return;
 
-  const filtered = data.filter(d => d.year === 2024);
+  // Si tenemos login por la URL
+  if (login) {
+    githubUser = { login };
+  }
+
+  // Si venimos de GitHub con un code, pedimos el usuario
+  if (code) {
+    const res1 = await fetch(`/api/github/callback?code=${code}`);
+    const data1 = await res1.json();
+    githubUser = data1;
+    // Redirigimos con el login para evitar que el code quede en la URL
+    window.location.href = `/integrations/CRR/potencia-tecnologias-github?login=${githubUser.login}`;
+    return;
+  }
+
+  // Cargamos datos solo si el usuario ha iniciado sesión
+  const res2 = await fetch('https://sos2425-12.onrender.com/api/v1/annual-evolutions');
+  const data2 = await res2.json();
+
+  const filtered = data2.filter(d => d.year === 2024);
   const grouped = {};
 
   filtered.forEach(d => {
@@ -32,10 +49,11 @@ async function fetchEnergias() {
     technology: tech,
     power: parseFloat(power.toFixed(2))
   }));
+
+  drawChart();
 }
 
 function drawChart() {
-    console.log(chartDiv); // ← esto debe mostrar <canvas>...
   const ctx = chartDiv.getContext('2d');
   chart = new Chart(ctx, {
     type: 'polarArea',
@@ -51,7 +69,7 @@ function drawChart() {
       }]
     },
     options: {
-      responsive: false, // evita que ignore el width/height
+      responsive: false,
       plugins: {
         title: {
           display: true,
@@ -70,20 +88,17 @@ function drawChart() {
   });
 }
 
-  onMount(async () => {
-    const params = new URLSearchParams(window.location.search);
-    const login = params.get('login');
-    if (login) githubUser = { login };
-    await fetchEnergias();
-    drawChart();
-  });
+onMount(loadData);
 </script>
 
 <h2>Potencia Instalada por Tecnología - Chart.js</h2>
+
 {#if !githubUser}
-    <button on:click={() => window.location.href = 'http://localhost:3000/auth/github'}>
+  <button on:click={() => window.location.href = 'https://github.com/login/oauth/authorize?client_id=Ov23linopbdyVmeNezLw&redirect_uri=http://localhost:16078/api/github/callback'}>
     Iniciar sesión con GitHub
-    </button>
+  </button>
 {/if}
 
-<canvas bind:this={chartDiv} width="400" height="400"></canvas>
+{#if githubUser}
+  <canvas bind:this={chartDiv} width="400" height="400"></canvas>
+{/if}
