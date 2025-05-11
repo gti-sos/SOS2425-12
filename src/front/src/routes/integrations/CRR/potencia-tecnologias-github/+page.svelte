@@ -23,7 +23,7 @@ async function loadData() {
 
   // Si venimos de GitHub con un code, pedimos el usuario
   if (code) {
-    const res1 = await fetch(`/api/github/callback?code=${code}`);
+    const res1 = await fetch(`https://sos2425-12.onrender.com/api/github/callback?code=${code}`);
     const data1 = await res1.json();
     githubUser = data1;
     // Redirigimos con el login para evitar que el code quede en la URL
