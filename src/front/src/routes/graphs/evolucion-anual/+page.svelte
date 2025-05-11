@@ -10,6 +10,8 @@
 <script>
   // @ts-nocheck
   import { onMount } from "svelte";
+  import Highcharts from 'highcharts';
+
 
   let data = [];
   let aaccs = [];
@@ -43,9 +45,9 @@
       if (!grouped[year]) {
         grouped[year] = { energy: 0, power: 0 , loadFactor: 0};
       }
-      grouped[year].energy += d.energy_sold;
-      grouped[year].power += d.installed_power;
-      grouped[year].loadFactor += d.load_factor;
+      grouped[year].energy += Number(d.energy_sold) || 0;
+      grouped[year].power += Number(d.installed_power) || 0;
+      grouped[year].loadFactor += Number(d.load_factor) || 0;
       // grouped[year].count += 1;
     });
 
