@@ -16,6 +16,7 @@
     <ul>
       <li><a href="/integrations/CRR/solar-eolica-temperatura-viento">solar-eolica-temperatura-viento</a> — Highcharts + areaspline</li>
       <li><a href="/integrations/CRR/solar-nubosidad-andalucia">solar-nubosidad-andalucia</a> — ECharts + scatter </li>
+      <li><a href="/integrations/CRR/potencia-tecnologias-github">potencia-tecnologias-github</a> — Chart.js + polarArea </li>
     </ul>
   </li>
 </ul>
