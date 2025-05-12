@@ -21,7 +21,7 @@
   </li>
 </ul>
 
-<h3>Gonzalo Osuna Salas</h3>
+<h3>Gonzalo Osuna Salas - API: annual-consumptions</h3>
 <li><strong>INTEGRACIONES SOS</strong>
   <ul>
     <li><a href="/integrations/GOS/g11-social-pension-payrolls">G11-social-pension-payrolls</a> — Chartist + bar</li>
