@@ -18,8 +18,6 @@ test('Create and delete data', async ({ page }) => {
 
   await page.goto('http://localhost:16078/annual-evolutions'); // Abre la página de evoluciones anuales.
 
-  // Rellena los campos del formulario con los datos definidos.
-  // Selecciona todos los elementos con rol campos de texto, elige el campo de texto según el indice e introduce el valor 
   
   // await page.getByRole('textbox').nth(0).fill(aacc);                       
   // await page.getByRole('textbox').nth(1).fill(year.toString());           
@@ -36,12 +34,20 @@ test('Create and delete data', async ({ page }) => {
   await page.getByPlaceholder('Ej: 40').fill(load_factor.toString());
 
   await page.getByRole('button', { name: 'Crear' }).click(); // Hace clic en el botón "Crear".
+  await page.waitForTimeout(500); // espera medio segundo
+
 
   // Localiza la fila correspondiente al año ingresado.
-  const dataRow = page.locator('tr', { hasText: year.toString() });
-
-  // Verifica que esa fila contenga el texto de algun dato añadido.
-  await expect(dataRow).toContainText(aacc);
+  const dataRow = page.locator('tr').filter({
+    hasText: aacc
+  }).filter({
+    hasText: year.toString()
+  }).filter({
+    hasText: technology
+  });
+  
+  await expect(dataRow).toHaveCount(1); // Asegúrate de que la fila apareció antes de comprobar su texto
+  await expect(dataRow).toContainText(aacc);   // Verifica que esa fila contenga el texto de algun dato añadido.
 
   // Encuentra el botón "Borrar" dentro de esa fila.
   const deleteButton = dataRow.locator('button', { hasText: 'Borrar' });

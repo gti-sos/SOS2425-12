@@ -40,7 +40,7 @@
     <h2> Integrantes del equipo </h2>
     <ul>
         <li><a href="https://github.com/Fer-28">Fernando Aguirre García </a> – Fuente de datos: annual_retributions</li>
-        <li><a href="https://github.com/clarareina">Clara Reina Romero</a> – Fuente de datos: annual_evolutoins</li>
+        <li><a href="https://github.com/clarareina">Clara Reina Romero</a> – Fuente de datos: annual_evolutions</li>
         <li><a href="https://github.com/gxnzalx55">Gonzalo Osuna Salas</a> – Fuente de datos: annual_consumptions</li>
     </ul>
 </div>
