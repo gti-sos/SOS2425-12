@@ -1,5 +1,6 @@
 # SOS2425-12
 
+
 - **Team**
   - [Fernando Aguirre García](https://github.com/Fer-28)
   - [Clara Reina Romero](https://github.com/clarareina)
