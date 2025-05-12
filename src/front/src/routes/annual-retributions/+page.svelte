@@ -216,6 +216,9 @@
 
 <h2 style="padding: 1.5%;">Retribución Anual</h2>
 
+<Button outline color="danger" href='/graphs/comparacion-radar'> Radar de comparación</Button>
+<Button outline color="warning" href='/graphs/compensacion-total'> Compensación total</Button>
+
 <div class="text-center mb-2">
   {#if resultStatus === 201}
       <i class="bi bi-check-circle-fill text-success"></i> DATO CREADO CORRECTAMENTE.
