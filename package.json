@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/gti-sos/SOS2425-12#readme",
   "dependencies": {
+    "@nivo/bar": "^0.94.0",
     "@nivo/sankey": "^0.94.0",
     "apexcharts": "^4.7.0",
     "billboard.js": "^3.15.1",
@@ -46,6 +47,7 @@
     "nedb": "^1.8.0",
     "plotly.js-dist": "^3.0.1",
     "plotly.js-dist-min": "^3.0.1",
+    "recharts": "^2.15.3",
     "request": "^2.88.2",
     "sv": "^0.8.1"
   },

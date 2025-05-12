@@ -36,5 +36,10 @@
 
 <h3>Fernando Aguirre García</h3>
 <ul>
-  <!-- <li><em>No hay integraciones registradas aún.</em></li> -->
+  <li><strong>Integraciones SOS:</strong>
+    <ul>
+      <li><a href="/integrations/FAG/g13-water-supply-improvements">G13-water-supply-improvements</a> — ApexCharts + bar (horizontal stacked)</li>
+      <li><a href="/integrations/FAG/g16-taxes">G16-taxes</a> — Chart.js + doughnut</li>
+      <li><a href="/integrations/FAG/g20-accidents-with-animals">G20-accidents-with-animals</a> — Plotly + pie</li>
+    </ul>
 </ul>
