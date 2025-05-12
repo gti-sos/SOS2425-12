@@ -28,6 +28,8 @@
         <ul>
             <li>Clara Reina Romero: <a href="https://youtu.be/sJH73gQE0Wc">https://youtu.be/sJH73gQE0Wc</a></li>
             <li>Gonzalo Osuna Salas: <a href="https://youtu.be/UVL0E6g_rvM">https://youtu.be/UVL0E6g_rvM</a></li>
+            <li>Fernando Aguirre García: <a href="https://youtu.be/RSX-e91cVKg">https://youtu.be/RSX-e91cVKg</a></li>
+            
         </ul>
     </li>
 </ul>
