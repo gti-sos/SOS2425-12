@@ -22,14 +22,17 @@
 </ul>
 
 <h3>Gonzalo Osuna Salas</h3>
-<ul>
-  <li><strong>INTEGRACIONES SOS</strong>
-    <ul>
-      <li><a href="/integrations/GOS/g11-social-pension-payrolls">G11-social-pension-payrolls</a> — Chartist + bar</li>
-      <li><a href="/integrations/GOS/g14-education-data">G14-education-data</a> — QuickChart + radar</li>
-      <li><a href="/integrations/GOS/energias">energias</a> — Chart.js + scatter</li>
-    </ul>
-</ul>
+<li><strong>INTEGRACIONES SOS</strong>
+  <ul>
+    <li><a href="/integrations/GOS/g11-social-pension-payrolls">G11-social-pension-payrolls</a> — Chartist + bar</li>
+    <li><a href="/integrations/GOS/g14-education-data">G14-education-data</a> — QuickChart + radar</li>
+  </ul>
+</li>
+<li><strong>Integraciones externas:</strong>
+  <ul>
+    <li><a href="/integrations/GOS/energias">energias</a> — Chart.js + scatter</li>
+  </ul>
+</li>
 
 <h3>Fernando Aguirre García</h3>
 <ul>
