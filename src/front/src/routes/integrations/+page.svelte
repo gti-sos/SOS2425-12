@@ -26,11 +26,14 @@
   <ul>
     <li><a href="/integrations/GOS/g11-social-pension-payrolls">G11-social-pension-payrolls</a> — Chartist + bar</li>
     <li><a href="/integrations/GOS/g14-education-data">G14-education-data</a> — QuickChart + radar</li>
+    <li><a href="/integrations/GOS/g13-national-parks">G13-national-parks</a> — C3.js + bar</li>
   </ul>
 </li>
 <li><strong>Integraciones externas:</strong>
   <ul>
-    <li><a href="/integrations/GOS/energias">energias</a> — Chart.js + scatter</li>
+    <li><a href="/integrations/GOS/energias">energias</a> — ApexCharts + polarArea</li>
+    <li><a href="/integrations/GOS/demanda-electrica">demanda-electrica</a> — ApexCharts + bubble</li>
+    <li><a href="/integrations/GOS/pokemon">pokemon</a> — C3.js + donut</li>
   </ul>
 </li>
 
