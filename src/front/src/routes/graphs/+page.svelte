@@ -14,5 +14,6 @@
 
 <h3>Fernando Aguirre García</h3>
 <ul>
-  <!--  -->
+  <li><a href="/graphs/compensacion-total">compensacion-total</a> Chart.js + bar </li>
+  <li><a href="/graphs/comparacion-radar">comparacion-radar</a> Echarts + radar </li>
 </ul>
