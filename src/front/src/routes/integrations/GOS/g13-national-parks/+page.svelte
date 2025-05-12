@@ -60,9 +60,22 @@ function drawChart() {
     }
   });
 }
+async function loadInitialData() {
+        try {
+            const res = await fetch('https://sos2425-13.onrender.com/api/v2/national-parks/loadInitialData');
+            if (!res.ok) {
+                console.error('Error loading initial data:', res.statusText);
+                return;
+            }
+            alert('Datos iniciales cargados correctamente');
+        } catch (error) {
+            console.error('Error:', error);
+        }
+}
 </script>
 
 <h2>Parques Nacionales de España - Área actual</h2>
 <div bind:this={chartContainer}></div>
 
 <button class="pink" on:click={() => goto(`/integrations`)}>Atrás</button>
+<button class="blue" on:click={loadInitialData}>Cargar Datos Iniciales</button>

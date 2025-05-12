@@ -27,6 +27,7 @@
     <li><strong>Vídeos D03</strong>:
         <ul>
             <li>Clara Reina Romero: <a href="https://youtu.be/sJH73gQE0Wc">https://youtu.be/sJH73gQE0Wc</a></li>
+            <li>Gonzalo Osuna Salas: <a href="https://youtu.be/UVL0E6g_rvM">https://youtu.be/UVL0E6g_rvM</a></li>
         </ul>
     </li>
 </ul>
