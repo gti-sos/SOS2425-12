@@ -88,6 +88,7 @@
           if (resultStatus === 201) {
               console.log(`Consumption created`);
               await getAnnualConsumptions();
+                resultStatus = 201;
           }
           else {
               console.error(`Error creating Retribution; Status received: ${resultStatus}`);
@@ -125,6 +126,7 @@
           if (resultStatus === 200) {
               console.log(`All consumptions deleted`);
               getAnnualConsumptions();
+              resultStatus = 200;
           }
           else {
               console.error(`Error deleting all consumptions; Status received: ${resultStatus}`);
@@ -159,6 +161,7 @@
           if (resultStatus === 200) {
               console.log(`Consumption updated`);
               getAnnualConsumptions();
+              resultStatus = 200;
           }
           else {
               console.error(`Error updating Consumption; Status received: ${resultStatus}`);
